@@ -100,7 +100,7 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
  });
 
 
- // @desc   Delete product
+// @desc    Delete product
 // @route   DELETE /api/v1.0/vendors/:vendorId/products
 // @access  Private
 exports.deleteProduct = asyncHandler(async (req, res, next) => {
