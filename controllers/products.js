@@ -73,7 +73,8 @@ exports.addProduct = asyncHandler(async (req, res, next) => {
         data: product
     })
 
-}
+});
+
 // @desc    Update product
 // @route   PUT /api/v1.0/products/:id
 // @access  Private
