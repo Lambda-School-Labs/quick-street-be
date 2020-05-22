@@ -1,3 +1,4 @@
+# .codeclimate.yml
 version: "2"
 checks:
   # Disable checks for similar code.
@@ -17,4 +18,5 @@ exclude_patterns:
   - "**/*.spec.ts"
   - "**/*.spec.tsx"
   - "**/vendor/"
+  - "**/node_modules/"
   - "**/node_modules/"
