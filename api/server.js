@@ -44,4 +44,4 @@ server.use((err, req, res, next) => {
 	})
 })
 
-module.export = server;
+module.exports = server;
