@@ -50,7 +50,6 @@ exports.register = asyncHandler(async (req, res, next) => {
         password
       });
 
-
       sendTokenResponse(customer, 200, res, false);
     }
   }
@@ -62,9 +61,11 @@ exports.register = asyncHandler(async (req, res, next) => {
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
   const checkVendor = await Vendor.findOne({ email });
+  console.log(checkVendor);
 
   // Validate email & password
   if (!email || !password) {
+    console.log("hello there error");
     return next(new ErrorResponse("Please provide an email and password", 400));
   }
 
