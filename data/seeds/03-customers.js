@@ -7,30 +7,30 @@ exports.seed = function(knex) {
       return knex("customers").insert([
         {
           id: 1,
-          customer_name: "the dog store",
-          email: "fix the shelving on the stoarge shed",
-          password: false,
-          phone_number: "555-555-1234",
+          customer_name: "Gunner",
+          email: "gunner@dog.com",
+          password: "feedme",
+          phone_number: "555-558-1234",
           address: "1234 Stanley Ave, Glendale, CA",
-          zip_code: 91206
+          zip_code: 91208
         },
         {
           id: 2,
-          customer_name: "patch walls",
-          email: "",
-          password: false,
-          phone_number: "555-555-1234",
+          customer_name: "speedy",
+          email: "speedy@cat.com",
+          password: "run",
+          phone_number: "555-559-1234",
           address: "1234 Stanley Ave, Glendale, CA",
-          zip_code: 91206
+          zip_code: 94109
         },
         {
           id: 3,
-          customer_name: "eat sandwich",
-          email: "nom nom into your tummy",
-          password: true,
-          phone_number: "555-555-1234",
-          address: "1234 Stanley Ave, Glendale, CA",
-          zip_code: 91206
+          customer_name: "slimy",
+          email: "slimy@snake.com",
+          password: "snake",
+          phone_number: "555-552-1234",
+          address: "1234 Stanle Ave, Glendale, CA",
+          zip_code: 97224
         }
       ]);
     });

@@ -8,38 +8,38 @@ exports.seed = function(knex) {
         {
           id: 1,
           business_name: "the dog store",
-          email: "fix the shelving on the stoarge shed",
-          password: false,
+          email: "dog@dog.com",
+          password: "puppy",
           phone_number: "555-555-1234",
           address: "1234 Stanley Ave, Glendale, CA",
           zip_code: 91206,
-          description: "a store for goodies",
+          description: "a store for dog goodies",
           vendor_category: "pets",
-          bullbulletin: "here is the bulleting post"
+          bulletin: "here is dog stuff to know"
         },
         {
           id: 2,
-          business_name: "patch walls",
-          email: "",
-          password: false,
-          phone_number: "555-555-1234",
+          business_name: "cat store",
+          email: "cat@cat.com",
+          password: "kitty",
+          phone_number: "555-556-1234",
           address: "1234 Stanley Ave, Glendale, CA",
-          zip_code: 91206,
-          description: "a store for goodies",
+          zip_code: 94107,
+          description: "a store for cat stuffs",
           vendor_category: "pets",
-          bullbulletin: "here is the bulleting post"
+          bulletin: "here is the bulletin about cat stuff"
         },
         {
           id: 3,
-          business_name: "eat sandwich",
-          email: "nom nom into your tummy",
-          password: true,
-          phone_number: "555-555-1234",
+          business_name: "snake store",
+          email: "snake@snake.com",
+          password: "slither",
+          phone_number: "555-557-1234",
           address: "1234 Stanley Ave, Glendale, CA",
-          zip_code: 91206,
-          description: "a store for goodies",
+          zip_code: 97225,
+          description: "a store for slimy stuff",
           vendor_category: "pets",
-          bullbulletin: "here is the bulleting post"
+          bulletin: "just snake away"
         }
       ]);
     });
