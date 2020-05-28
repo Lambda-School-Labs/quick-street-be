@@ -9,7 +9,6 @@ module.exports = (req, res, next) => {
         res.status(401).json(authError, err);
       } else {
         req.token = decodedPayload;
-        console.log("decodedToken", decodedPayload);
         next();
       }
     });
