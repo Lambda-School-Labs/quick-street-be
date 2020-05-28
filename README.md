@@ -2,6 +2,9 @@
 
 ![](images/quickstlogo.png)
 
+[![](https://api.codeclimate.com/v1/badges/f11df194872666d04804/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/quick-street-be)
+
+
 ##### Backend delpoyed at https://quickstlabs.herokuapp.com/
 
 ### Contents:

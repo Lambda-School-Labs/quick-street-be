@@ -34,14 +34,19 @@ module.exports = {
   },
 
   production: {
-    client: "pg",
-    connection: process.env.DB_URL,
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    pool: {
+      min: 2,
+      max: 10
+    },
     migrations: {
-      directory: "./data/migrations"
+      talename: 'knex_migrations',
+      directory: './data/migrations',
     },
-    seeds: {
-      directory: "./data/seeds"
+    seeds: { 
+      directory: './data/seeds' 
     },
-    useNullAsDefault: true
-  }
+    // useNullAsDefault: true
+  },
 };
