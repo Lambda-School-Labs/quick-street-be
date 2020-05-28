@@ -16,7 +16,6 @@ exports.up = function(knex) {
       tbl.integer("zip_code").notNullable();
       tbl.text("description", 1000).notNullable();
       tbl.text("vendor_category", 255);
-
       tbl.text("bulletin", 1000);
     })
 
