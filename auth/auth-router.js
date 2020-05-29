@@ -2,11 +2,11 @@ const express = require("express")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const Customers = require("../api/customers/customers-model")
-const Vendors = require("../api/vendors/vendorss-model")
+const Vendors = require("../api/vendors/vendors-model")
 const router = express.Router()
 
 //Customers
-router.post('/register', (req, res) => {
+router.post('/customerregister', (req, res) => {
   // implement registration
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 8);
@@ -21,7 +21,7 @@ router.post('/register', (req, res) => {
     })
 });
 
-router.post('/login', (req, res) => {
+router.post('/customerlogin', (req, res) => {
   // implement login
   let { username, password } = req.body;
 
