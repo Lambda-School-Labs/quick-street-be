@@ -1,17 +1,11 @@
-exports.up = function(knex) {
+exports.up = function (knex) {
   return knex.schema
-    .createTable("vendors", tbl => {
+    .createTable("vendors", (tbl) => {
       tbl.increments();
       tbl.text("business_name", 255).notNullable();
-      tbl
-        .text("email", 255)
-        .unique()
-        .notNullable();
+      tbl.text("email", 255).unique().notNullable();
       tbl.text("password", 255).notNullable();
-      tbl
-        .text("phone_number", 255)
-        .unique()
-        .notNullable();
+      tbl.text("phone_number", 255).unique().notNullable();
       tbl.text("address", 1000).notNullable();
       tbl.integer("zip_code").notNullable();
       tbl.text("description", 1000).notNullable();
@@ -19,7 +13,7 @@ exports.up = function(knex) {
       tbl.text("bulletin", 1000);
     })
 
-    .createTable("products", tbl => {
+    .createTable("products", (tbl) => {
       tbl.increments();
       tbl
         .integer("vendor_id")
@@ -35,23 +29,17 @@ exports.up = function(knex) {
       tbl.float("price").notNullable();
     })
 
-    .createTable("customers", tbl => {
+    .createTable("customers", (tbl) => {
       tbl.increments();
       tbl.text("customer_name", 255).notNullable();
-      tbl
-        .text("email", 255)
-        .unique()
-        .notNullable();
+      tbl.text("email", 255).unique().notNullable();
       tbl.text("password", 255).notNullable();
-      tbl
-        .text("phone_number", 255)
-        .unique()
-        .notNullable();
+      tbl.text("phone_number", 255).unique().notNullable();
       tbl.text("address", 1000).notNullable();
       tbl.integer("zip_code").notNullable();
     })
 
-    .createTable("vendor_customer_map", tbl => {
+    .createTable("vendor_customer_map", (tbl) => {
       tbl
         .integer("vendors_id")
         .unsigned()
@@ -69,7 +57,7 @@ exports.up = function(knex) {
         .onDelete("CASCADE");
     })
 
-    .createTable("orders", tbl => {
+    .createTable("orders", (tbl) => {
       tbl.increments();
       tbl
         .integer("customer_id")
@@ -91,7 +79,7 @@ exports.up = function(knex) {
       tbl.float("total_price");
     })
 
-    .createTable("posts", tbl => {
+    .createTable("posts", (tbl) => {
       tbl.increments();
       tbl
         .integer("vendors_id")
@@ -106,12 +94,12 @@ exports.up = function(knex) {
     });
 };
 
-exports.down = function(knex) {
+exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists("vendors")
-    .dropTableIfExists("products")
-    .dropTableIfExists("customers")
-    .dropTableIfExists("vendor_customer_map")
+    .dropTableIfExists("posts")
     .dropTableIfExists("orders")
-    .dropTableIfExists("posts");
+    .dropTableIfExists("vendor_customer_map")
+    .dropTableIfExists("customers")
+    .dropTableIfExists("products")
+    .dropTableIfExists("vendors");
 };
