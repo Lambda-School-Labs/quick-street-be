@@ -23,16 +23,16 @@ router.post("/customerregister", (req, res) => {
 
 router.post("/customerlogin", (req, res) => {
   // implement login
-  let { username, password } = req.body;
+  let { email, password } = req.body;
 
-  Customers.findBy({ username })
+  Customers.findBy({ email })
     .first()
     .then((user) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
 
         res.status(200).json({
-          message: `Welcome ${user.username}`,
+          message: `Welcome ${user.email}`,
           token,
         });
       } else {
@@ -62,14 +62,14 @@ router.post("/vendorregister", (req, res) => {
 
 router.post("/vendorlogin", (req, res) => {
   // implement login
-  let { username, password } = req.body;
-  Vendors.findBy({ username })
+  let { email, password } = req.body;
+  Vendors.findBy({ email })
     .first()
     .then((user) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
         res.status(200).json({
-          message: `Welcome ${user.username}`,
+          message: `Welcome ${user.email}`,
           token,
         });
       } else {
@@ -85,7 +85,7 @@ router.post("/vendorlogin", (req, res) => {
 function generateToken(user) {
   const payload = {
     subject: user.id,
-    username: user.username,
+    email: user.email,
   };
   const secret = "mysecret";
   const options = {
@@ -102,6 +102,43 @@ router.get("/cust", (req, res) => {
     })
     .catch((err) => {
       res.send(err);
+    });
+});
+//practice login
+router.post("/logintest", async (req, res) => {
+  let { email, password } = req.body;
+
+  Vendors.findBy({ email })
+    .first()
+    .then((user) => {
+      if (user && bcrypt.compareSync(password, user.password)) {
+        const token = generateToken(user);
+        res.status(200).json({
+          message: `Welcome ${user.email}`,
+          token,
+        });
+      } else {
+        Customers.findBy({ email })
+          .first()
+          .then((user) => {
+            if (user && bcrypt.compareSync(password, user.password)) {
+              const token = generateToken(user);
+
+              res.status(200).json({
+                message: `Welcome ${user.email}`,
+                token,
+              });
+            } else {
+              res.status(401).json({ message: "bad credentials" });
+            }
+          })
+          .catch((err) => {
+            res.status(500).json({ message: "error logging in", err });
+          });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "error logging in", err });
     });
 });
 
