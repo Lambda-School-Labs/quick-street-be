@@ -1,37 +1,34 @@
-exports.seed = function(knex) {
+exports.seed = function (knex) {
   // Deletes ALL existing entries
   return knex("customers")
     .del()
-    .then(function() {
+    .then(function () {
       // Inserts seed entries
       return knex("customers").insert([
         {
-          id: 1,
           customer_name: "Gunner",
           email: "gunner@dog.com",
           password: "feedme",
           phone_number: "555-558-1234",
           address: "1234 Stanley Ave, Glendale, CA",
-          zip_code: 91208
+          zip_code: 91208,
         },
         {
-          id: 2,
           customer_name: "speedy",
           email: "speedy@cat.com",
           password: "run",
           phone_number: "555-559-1234",
           address: "1234 Stanley Ave, Glendale, CA",
-          zip_code: 94109
+          zip_code: 94109,
         },
         {
-          id: 3,
           customer_name: "slimy",
           email: "slimy@snake.com",
           password: "snake",
           phone_number: "555-552-1234",
           address: "1234 Stanle Ave, Glendale, CA",
-          zip_code: 97224
-        }
+          zip_code: 97224,
+        },
       ]);
     });
 };
