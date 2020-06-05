@@ -3,7 +3,8 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
-const authRouter = require("../auth/auth-router");
+const authRouter = require("../routes/auth-router");
+const vendorRouter = require("../routes/vendor-router");
 
 // const authRouter = require(../auth/auth-router)
 // const auth = require('./routes/auth');
@@ -24,6 +25,7 @@ server.use(express.json());
 server.use(cookieParser());
 
 server.use("/api/auth", authRouter);
+server.use("/api/vendors", vendorRouter);
 
 // app.use('/api/auth', auth);
 // app.use('/api/vendors', vendors);
