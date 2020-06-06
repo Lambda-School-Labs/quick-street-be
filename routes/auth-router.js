@@ -83,11 +83,12 @@ router.post("/vendor-register", (req, res) => {
 /// END Vendor
 
 function generateToken(user) {
+  const secret = process.env.JWT_secret;
   const payload = {
     subject: user.id,
     email: user.email,
   };
-  const secret = "mysecret";
+
   const options = {
     expiresIn: "1h",
   };
@@ -114,7 +115,8 @@ router.post("/login", async (req, res) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
         res.status(200).json({
-          message: `Welcome ${user.email}`,
+          message: `Welcome vendor ${user.email}`,
+          role: "vendor",
           token,
         });
       } else {
@@ -125,7 +127,8 @@ router.post("/login", async (req, res) => {
               const token = generateToken(user);
 
               res.status(200).json({
-                message: `Welcome ${user.email}`,
+                message: `Welcome Customer ${user.email}`,
+
                 token,
               });
             } else {
@@ -139,16 +142,6 @@ router.post("/login", async (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({ message: "error logging as vendor", err });
-    });
-});
-
-router.get("/vendor", (req, res) => {
-  Vendors.find()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.send(err);
     });
 });
 

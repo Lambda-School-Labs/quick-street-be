@@ -1,12 +1,11 @@
-exports.seed = function(knex) {
+exports.seed = function (knex) {
   // Deletes ALL existing entries
   return knex("vendors")
     .del()
-    .then(function() {
+    .then(function () {
       // Inserts seed entries
       return knex("vendors").insert([
         {
-          id: 1,
           business_name: "the dog store",
           email: "dog@dog.com",
           password: "puppy",
@@ -15,10 +14,9 @@ exports.seed = function(knex) {
           zip_code: 91206,
           description: "a store for dog goodies",
           vendor_category: "pets",
-          bulletin: "here is dog stuff to know"
+          bulletin: "here is dog stuff to know",
         },
         {
-          id: 2,
           business_name: "cat store",
           email: "cat@cat.com",
           password: "kitty",
@@ -27,10 +25,9 @@ exports.seed = function(knex) {
           zip_code: 94107,
           description: "a store for cat stuffs",
           vendor_category: "pets",
-          bulletin: "here is the bulletin about cat stuff"
+          bulletin: "here is the bulletin about cat stuff",
         },
         {
-          id: 3,
           business_name: "snake store",
           email: "snake@snake.com",
           password: "slither",
@@ -39,8 +36,8 @@ exports.seed = function(knex) {
           zip_code: 97225,
           description: "a store for slimy stuff",
           vendor_category: "pets",
-          bulletin: "just snake away"
-        }
+          bulletin: "just snake away",
+        },
       ]);
     });
 };
