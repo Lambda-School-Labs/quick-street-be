@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const authRouter = require("../routes/auth-router");
 const vendorRouter = require("../routes/vendor-router");
+const customerRouter = require("../routes/customer-router");
 
 // const authRouter = require(../auth/auth-router)
 // const auth = require('./routes/auth');
@@ -26,6 +27,7 @@ server.use(cookieParser());
 
 server.use("/api/auth", authRouter);
 server.use("/api/vendors", vendorRouter);
+server.use("/api/customers", customerRouter);
 
 // app.use('/api/auth', auth);
 // app.use('/api/vendors', vendors);
