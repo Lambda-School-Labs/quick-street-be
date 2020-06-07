@@ -13,10 +13,10 @@ router.post("/customer-register", (req, res) => {
   user.password = hash;
 
   Customers.add(user)
-    .then((saved) => {
+    .then(saved => {
       res.status(201).json(saved);
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).json({ message: "error adding user", err });
     });
 });
@@ -52,10 +52,11 @@ router.post("/vendor-register", (req, res) => {
   user.password = hash;
 
   Vendors.add(user)
-    .then((saved) => {
+    .then(saved => {
       res.status(201).json(saved);
     })
-    .catch((err) => {
+    .catch(err => {
+      console.log("user", user);
       res.status(500).json({ message: "error adding user", err });
     });
 });
@@ -86,11 +87,11 @@ function generateToken(user) {
   const secret = process.env.JWT_secret;
   const payload = {
     subject: user.id,
-    email: user.email,
+    email: user.email
   };
 
   const options = {
-    expiresIn: "1h",
+    expiresIn: "1h"
   };
 
   return jwt.sign(payload, secret, options);
@@ -98,49 +99,53 @@ function generateToken(user) {
 
 router.get("/customer", (req, res) => {
   Customers.find()
-    .then((data) => {
+    .then(data => {
       res.json(data);
     })
-    .catch((err) => {
+    .catch(err => {
       res.send(err);
     });
 });
 //practice login
 router.post("/login", async (req, res) => {
   let { email, password } = req.body;
-
+  console.log("req", req.body);
   Vendors.findBy({ email })
-    .first()
-    .then((user) => {
-      if (user && bcrypt.compareSync(password, user.password)) {
+    // .first()
+    .then(user => {
+      // console.log();
+      if (
+        user &&
+        bcrypt.compareSync(password, bcrypt.hashSync(user.password, 8))
+      ) {
         const token = generateToken(user);
         res.status(200).json({
           message: `Welcome vendor ${user.email}`,
           role: "vendor",
-          token,
+          token
         });
       } else {
         Customers.findBy({ email })
           .first()
-          .then((user) => {
+          .then(user => {
             if (user && bcrypt.compareSync(password, user.password)) {
               const token = generateToken(user);
 
               res.status(200).json({
                 message: `Welcome Customer ${user.email}`,
 
-                token,
+                token
               });
             } else {
               res.status(401).json({ message: "bad credentials" });
             }
           })
-          .catch((err) => {
+          .catch(err => {
             res.status(500).json({ message: "error logging as customer", err });
           });
       }
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(500).json({ message: "error logging as vendor", err });
     });
 });

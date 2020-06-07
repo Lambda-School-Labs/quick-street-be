@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const authRouter = require("../routes/auth-router");
 const vendorRouter = require("../routes/vendor-router");
 const customerRouter = require("../routes/customer-router");
+const postsRouter = require("../routes/posts-router");
 
 // const authRouter = require(../auth/auth-router)
 // const auth = require('./routes/auth');
@@ -28,6 +29,7 @@ server.use(cookieParser());
 server.use("/api/auth", authRouter);
 server.use("/api/vendors", vendorRouter);
 server.use("/api/customers", customerRouter);
+server.use("/api/posts", postsRouter);
 
 // app.use('/api/auth', auth);
 // app.use('/api/vendors', vendors);
@@ -47,7 +49,7 @@ server.get("/test", (req, res) => {
 server.use((err, req, res, next) => {
   console.log(err);
   res.status(500).json({
-    message: "Something went wrong",
+    message: "Something went wrong"
   });
 });
 
