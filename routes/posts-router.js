@@ -31,7 +31,34 @@ router.get("/:id", restrict, (req, res) => {
     });
 });
 
+// ADD post
+router.post("/:id", restrict, (req, res) => {
+  Posts.add(post)
+    .then(post => {
+      res.status(201).json(post);
+    })
+    .catch(err => {
+      res.status().json(err);
+    });
+});
+
+// UPDATE post
+
+// DELETE post
+
+router.delete("/:id", restrict, (req, res) => {
+  const id = req.params.id;
+
+  Posts.deletePost(id)
+    .then(post => {
+      res.json(post); // add delete confirmation message
+    })
+    .catch(err => {
+      res.send(err);
+    });
+});
 // OLD
+
 // const express = require("express");
 // const {
 //   getAllPosts,
