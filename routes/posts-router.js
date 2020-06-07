@@ -32,7 +32,8 @@ router.get("/:id", restrict, (req, res) => {
 });
 
 // ADD post
-router.post("/:id", restrict, (req, res) => {
+router.post("/", restrict, (req, res) => {
+  const post = req.body;
   Posts.add(post)
     .then(post => {
       res.status(201).json(post);
