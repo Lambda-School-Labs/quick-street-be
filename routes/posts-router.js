@@ -17,6 +17,20 @@ router.get("/", restrict, (req, res) => {
     });
 });
 
+// by post ID
+router.get("/:id", restrict, (req, res) => {
+  const id = req.params.id;
+  console.log("is this the payload", req.token.subject);
+  Posts.findBy({ id })
+    .first()
+    .then(post => {
+      res.json(post);
+    })
+    .catch(err => {
+      res.send(err);
+    });
+});
+
 // OLD
 // const express = require("express");
 // const {
