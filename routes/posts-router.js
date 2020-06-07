@@ -44,6 +44,18 @@ router.post("/", restrict, (req, res) => {
 });
 
 // UPDATE post
+router.post("/:id", restrict, (req, res) => {
+  const id = req.params.id;
+  const updatedPost = req.body;
+  console.log(id, updatedPost);
+  Posts.updatePost(id, updatedPost)
+    .then(updatedPost => {
+      res.json(updatedPost);
+    })
+    .catch(err => {
+      res.send(err);
+    });
+});
 
 // DELETE post
 
