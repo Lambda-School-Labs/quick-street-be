@@ -11,7 +11,7 @@ function getOrderById(filter) {
 }
 
 function addOrder(newOrder) {
-  return db("orders").insert(newPost);
+  return db("orders").insert(newOrder);
 }
 
 function getOrders() {

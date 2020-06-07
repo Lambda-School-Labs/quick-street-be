@@ -35,8 +35,8 @@ router.get("/:id", restrict, (req, res) => {
 // ADD order
 
 router.post("/", restrict, (req, res) => {
-  const post = req.body;
-  Orders.add(order)
+  const order = req.body;
+  Orders.addOrder(order)
     .then(order => {
       res.status(201).json(order);
     })
@@ -44,5 +44,16 @@ router.post("/", restrict, (req, res) => {
       res.status().json(err);
     });
 });
+
+// router.post("/", restrict, (req, res) => {
+//     const post = req.body;
+//     Posts.add(post)
+//       .then(post => {
+//         res.status(201).json(post);
+//       })
+//       .catch(err => {
+//         res.status().json(err);
+//       });
+//   });
 
 module.exports = router;
