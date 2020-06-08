@@ -8,6 +8,7 @@ const vendorRouter = require("../routes/vendor-router");
 const customerRouter = require("../routes/customer-router");
 const postsRouter = require("../routes/posts-router");
 const ordersRouter = require("../routes/orders-router");
+const productsRouter = require("../routes/products-router");
 
 // const authRouter = require(../auth/auth-router)
 // const auth = require('./routes/auth');
@@ -32,6 +33,7 @@ server.use("/api/vendors", vendorRouter);
 server.use("/api/customers", customerRouter);
 server.use("/api/posts", postsRouter);
 server.use("/api/orders", ordersRouter);
+server.use("/api/products", productsRouter);
 
 // app.use('/api/auth', auth);
 // app.use('/api/vendors', vendors);
