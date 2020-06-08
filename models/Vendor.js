@@ -7,11 +7,13 @@ module.exports = {
   findVendorProducts,
   findVendorPosts,
   updateVendor,
-  deleteVendor,
+  deleteVendor
 };
 
 function findBy(filter) {
-  return db("vendors").where(filter);
+  return db("vendors")
+    .where(filter)
+    .first();
 }
 
 function findVendorPosts(vendors_id) {
@@ -19,7 +21,10 @@ function findVendorPosts(vendors_id) {
 }
 
 function updateVendor(id, data) {
-  return db("vendors").where({ id }).update(data).returning("*");
+  return db("vendors")
+    .where({ id })
+    .update(data)
+    .returning("*");
 }
 
 function findVendorProducts(vendor_id) {
@@ -27,7 +32,9 @@ function findVendorProducts(vendor_id) {
 }
 
 function deleteVendor(id) {
-  return db("vendors").where({ id }).del();
+  return db("vendors")
+    .where({ id })
+    .del();
 }
 
 function add(newVendor) {
