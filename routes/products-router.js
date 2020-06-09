@@ -1,6 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
-const Orders = require("../models/orders-models");
+const Products = require("../models/products-models");
 
 const restrict = require("../middleware/restrict");
 const router = express.Router();
@@ -8,7 +8,7 @@ const router = express.Router();
 // ALL orders
 
 router.get("/", restrict, (req, res) => {
-  Orders.getOrders()
+  Products.getProduts()
     .then(orders => {
       res.json(orders);
     })
@@ -22,7 +22,7 @@ router.get("/", restrict, (req, res) => {
 router.get("/:id", restrict, (req, res) => {
   const id = req.params.id;
 
-  Orders.getOrderById({ id })
+  Products.getProductById({ id })
     .first()
     .then(order => {
       res.json(order);
@@ -36,7 +36,7 @@ router.get("/:id", restrict, (req, res) => {
 
 router.post("/", restrict, (req, res) => {
   const order = req.body;
-  Orders.addOrder(order)
+  Products.addProduct(order)
     .then(order => {
       res.status(201).json(order);
     })
@@ -46,3 +46,5 @@ router.post("/", restrict, (req, res) => {
 });
 
 module.exports = router;
+
+// OLD
