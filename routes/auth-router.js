@@ -7,27 +7,86 @@ const Users = require("../models/users-models.js");
 const router = express.Router();
 
 // User registration
+// router.get("/:id/recipes", async (req, res) => {
+//   const recipes = await db.getRecipes(req.params.id);
+//   if (recipes.length === 0) {
+//     throw new Error("No recipes for ingredients with that id.");
+//   }
+//   res.json(recipes);
+// });
 
-router.post("/registration", (req, res) => {
+// router.get('/', async (req, res) => {
+//   const carArray = await db.getCars()
+//   res.status(200).json(carArray)
+// })
+
+router.get("/", async (req, res) => {
+  const users = await Users.find().catch(e => res.json(e));
+  res.status(200).json(users);
+});
+
+router.get("/user", async (req, res) => {
   let user = req.body;
-  console.log("pass", user.password);
-  console.log("email", user.email);
-  console.log("vendor", user.is_vendor);
   const hash = bcrypt.hashSync(user.password, 8);
   user.password = hash;
 
-  if (Users.findBy(user.email)) {
-    console.log("that user email already exists");
+  const thisUser = await Users.findBy(user.email);
+  // console.log("this user", thisUser);
+  if (thisUser) {
+    console.log("this user already exists");
   } else {
-    Users.addUser(user)
-      .then(saved => {
-        res.status(201).json(saved);
-      })
-      .catch(err => {
-        res.status(500).json(err);
-      });
+    console.log("go on, make a new user");
   }
+  res.status(200).json(thisUser);
 });
+
+// router.use((err, req, res, next) =>
+//   res.status(500).json({ message: "An error has occured", error: err.message })
+// );
+
+router.post("/registration", async (req, res) => {
+  let user = req.body;
+  const hash = bcrypt.hashSync(user.password, 8);
+  user.password = hash;
+
+  const checkUser = await Users.findBy(user.email);
+  if (checkUser) {
+    console.log("this user already exists");
+    res.status(200).json(checkUser);
+  } else {
+    await Users.addUser(user);
+    console.log(user);
+    res.status(200).json(user);
+  }
+  // .then(info => res.json(info))
+  // .catch(err => res.json(err));
+
+  // async
+  // if (Users.findBy(user.email)) {
+  //   console.log("that user email already exists");
+  // } else {
+  //   Users.addUser(user)
+  //     .then(saved => {
+  //       res.status(201).json(saved);
+  //     })
+  //     .catch(err => {
+  //       res.status(500).json(err);
+  //     });
+  // }
+});
+
+// router.get("/:customerId", restrict, (req, res) => {
+//   const id = req.params.customerId;
+
+//   Customer.findBy({ id })
+//     .first()
+//     .then(data => {
+//       res.json(data);
+//     })
+//     .catch(err => {
+//       res.send(err);
+//     });
+// });
 
 //Customers
 router.post("/customer-register", (req, res) => {
