@@ -1,40 +1,19 @@
 const db = require("../data/db-config");
 
 module.exports = {
-  getProduts,
+  getProducts,
   getProductById,
-  addProduct,
-  editProduct,
-  deleteProduct,
-  increaseProductCount,
-  decreaseProductCount
+  addProduct
 };
 
-function addProduct(newProduct) {
-  return db("products").insert(newProduct);
+function getProducts() {
+  return db("products").select("*");
 }
 
 function getProductById(filter) {
   return db("products").where(filter);
 }
 
-function getProduts() {
-  return db("products").select("*");
+function addProduct(newProduct) {
+  return db("products".insert(newProduct));
 }
-
-function editProduct(id, date) {
-  return db("products")
-    .where({ id })
-    .update(data)
-    .returning("*");
-}
-
-function deleteProduct(id) {
-  return db("products")
-    .where({ id })
-    .del();
-}
-
-function increaseProductCount() {}
-
-function decreaseProductCount() {}
