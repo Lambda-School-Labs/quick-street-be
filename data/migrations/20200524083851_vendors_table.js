@@ -1,17 +1,14 @@
-exports.up = function(knex) {
+exports.up = function (knex) {
   return knex.schema
 
-    .createTable("users", tbl => {
+    .createTable("users", (tbl) => {
       tbl.increments();
-      tbl
-        .text("email", 255)
-        .unique()
-        .notNullable();
+      tbl.text("email", 255).unique().notNullable();
       tbl.text("password", 255).notNullable();
-      tbl.boolean("is_vendor");
+      tbl.boolean("isVendor");
     })
 
-    .createTable("vendors", tbl => {
+    .createTable("vendors", (tbl) => {
       tbl.increments();
       tbl
         .integer("users_id")
@@ -21,10 +18,7 @@ exports.up = function(knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       tbl.text("business_name", 255).notNullable();
-      tbl
-        .text("phone_number", 255)
-        .unique()
-        .notNullable();
+      tbl.text("phone_number", 255).unique().notNullable();
       tbl.text("address", 1000).notNullable();
       tbl.integer("zip_code").notNullable();
       tbl.text("description", 1000).notNullable();
@@ -32,7 +26,7 @@ exports.up = function(knex) {
       tbl.text("bulletin", 1000);
     })
 
-    .createTable("customers", tbl => {
+    .createTable("customers", (tbl) => {
       tbl.increments();
       tbl
         .integer("users_id")
@@ -42,15 +36,12 @@ exports.up = function(knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       tbl.text("customer_name", 255).notNullable();
-      tbl
-        .text("phone_number", 255)
-        .unique()
-        .notNullable();
+      tbl.text("phone_number", 255).unique().notNullable();
       tbl.text("address", 1000).notNullable();
       tbl.integer("zip_code").notNullable();
     })
 
-    .createTable("products", tbl => {
+    .createTable("products", (tbl) => {
       tbl.increments();
       tbl
         .integer("vendor_id")
@@ -66,7 +57,7 @@ exports.up = function(knex) {
       tbl.float("price").notNullable();
     })
 
-    .createTable("vendor_customer_map", tbl => {
+    .createTable("vendor_customer_map", (tbl) => {
       tbl
         .integer("vendors_id")
         .unsigned()
@@ -84,7 +75,7 @@ exports.up = function(knex) {
         .onDelete("CASCADE");
     })
 
-    .createTable("orders", tbl => {
+    .createTable("orders", (tbl) => {
       tbl.increments();
       tbl
         .integer("customer_id")
@@ -106,7 +97,7 @@ exports.up = function(knex) {
       tbl.float("total_price");
     })
 
-    .createTable("posts", tbl => {
+    .createTable("posts", (tbl) => {
       tbl.increments();
       tbl
         .integer("vendors_id")
@@ -121,7 +112,7 @@ exports.up = function(knex) {
     });
 };
 
-exports.down = function(knex) {
+exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists("posts")
     .dropTableIfExists("orders")
