@@ -4,13 +4,13 @@ const Customer = require("../models/Customer");
 const restrict = require("../middleware/restrict");
 const router = express.Router();
 
-//All vendors data
+//All customer data
 router.get("/", restrict, (req, res) => {
   Customer.find()
-    .then((data) => {
+    .then(data => {
       res.json(data);
     })
-    .catch((err) => {
+    .catch(err => {
       res.send(err);
     });
 });
@@ -21,10 +21,10 @@ router.get("/:customerId", restrict, (req, res) => {
   console.log("is this the payload", req.token.subject);
   Customer.findBy({ id })
     .first()
-    .then((data) => {
+    .then(data => {
       res.json(data);
     })
-    .catch((err) => {
+    .catch(err => {
       res.send(err);
     });
 });
@@ -33,10 +33,10 @@ router.put("/:customerId", restrict, (req, res) => {
   const id = req.params.customerId;
   const data = req.body;
   Customer.updateCustomer(id, data)
-    .then((data) => {
+    .then(data => {
       res.json(data);
     })
-    .catch((err) => {
+    .catch(err => {
       res.send(err);
     });
 });
@@ -44,10 +44,10 @@ router.put("/:customerId", restrict, (req, res) => {
 router.delete("/:customerId", restrict, (req, res) => {
   const id = req.params.customerId;
   Customer.deleteCustomer(id)
-    .then((data) => {
+    .then(data => {
       res.json(data);
     })
-    .catch((err) => {
+    .catch(err => {
       res.send(err);
     });
 });

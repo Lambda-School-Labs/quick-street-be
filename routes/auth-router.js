@@ -16,6 +16,7 @@ router.post("/registration", async (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 8);
   user.password = hash;
+  console.log(user.password);
 
   const checkUser = await Users.findBy(user.email);
 
@@ -44,7 +45,7 @@ router.post("/login", async (req, res) => {
         const token = generateToken(user);
         res.status(200).json({
           message: `Welcome vendor ${user.email}`,
-          isVendor: false,
+          isVendor: true,
           token
         });
       } else {
@@ -100,81 +101,3 @@ router.get("/customer", (req, res) => {
 });
 
 module.exports = router;
-
-//Customers
-// router.post("/customer-register", (req, res) => {
-//   // implement registration
-//   let user = req.body;
-//   const hash = bcrypt.hashSync(user.password, 8);
-//   user.password = hash;
-
-//   Customers.add(user)
-//     .then(saved => {
-//       res.status(201).json(saved);
-//     })
-//     .catch(err => {
-//       res.status(500).json({ message: "error adding user", err });
-//     });
-// });
-
-// router.post("/customer/login", (req, res) => {
-//   // implement login
-//   let { email, password } = req.body;
-
-//   Customers.findBy({ email })
-//     .first()
-//     .then((user) => {
-//       if (user && bcrypt.compareSync(password, user.password)) {
-//         const token = generateToken(user);
-
-//         res.status(200).json({
-//           message: `Welcome ${user.email}`,
-//           token,
-//         });
-//       } else {
-//         res.status(401).json({ message: "bad credentials" });
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ message: "error logging in", err });
-//     });
-// });
-
-//Vendors
-// router.post("/vendor-register", (req, res) => {
-//   // implement registration
-//   let user = req.body;
-//   const hash = bcrypt.hashSync(user.password, 8);
-//   user.password = hash;
-
-//   Vendors.add(user)
-//     .then(saved => {
-//       res.status(201).json(saved);
-//     })
-//     .catch(err => {
-//       console.log("user", user);
-//       res.status(500).json({ message: "error adding user", err });
-//     });
-// });
-
-// router.post("/vendorlogin", (req, res) => {
-//   // implement login
-//   let { email, password } = req.body;
-//   Vendors.findBy({ email })
-//     .first()
-//     .then((user) => {
-//       if (user && bcrypt.compareSync(password, user.password)) {
-//         const token = generateToken(user);
-//         res.status(200).json({
-//           message: `Welcome ${user.email}`,
-//           token,
-//         });
-//       } else {
-//         res.status(401).json({ message: "bad credentials" });
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(500).json({ message: "error logging in", err });
-//     });
-// });
-/// END Vendor
