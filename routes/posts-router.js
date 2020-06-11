@@ -9,10 +9,10 @@ const router = express.Router();
 
 router.get("/", restrict, (req, res) => {
   Posts.find()
-    .then(posts => {
+    .then((posts) => {
       res.json(posts);
     })
-    .catch(err => {
+    .catch((err) => {
       res.json(err);
     });
 });
@@ -23,10 +23,10 @@ router.get("/:id", restrict, (req, res) => {
   console.log("is this the payload", req.token.subject);
   Posts.findBy({ id })
     .first()
-    .then(post => {
+    .then((post) => {
       res.json(post);
     })
-    .catch(err => {
+    .catch((err) => {
       res.send(err);
     });
 });
@@ -35,10 +35,10 @@ router.get("/:id", restrict, (req, res) => {
 router.post("/", restrict, (req, res) => {
   const post = req.body;
   Posts.add(post)
-    .then(post => {
+    .then((post) => {
       res.status(201).json(post);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status().json(err);
     });
 });
@@ -49,10 +49,10 @@ router.post("/:id", restrict, (req, res) => {
   const updatedPost = req.body;
   console.log(id, updatedPost);
   Posts.updatePost(id, updatedPost)
-    .then(updatedPost => {
+    .then((updatedPost) => {
       res.json(updatedPost);
     })
-    .catch(err => {
+    .catch((err) => {
       res.send(err);
     });
 });
@@ -63,10 +63,10 @@ router.delete("/:id", restrict, (req, res) => {
   const id = req.params.id;
 
   Posts.deletePost(id)
-    .then(post => {
+    .then((post) => {
       res.json(post); // add delete confirmation message
     })
-    .catch(err => {
+    .catch((err) => {
       res.send(err);
     });
 });

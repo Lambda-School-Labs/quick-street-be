@@ -1,9 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const db = require("../data/db-config");
 const Customers = require("../models/Customer");
-const Vendors = require("../models/Vendor");
 const Users = require("../models/users-models.js");
 const router = express.Router();
 
@@ -17,7 +15,6 @@ router.post("/registration", async (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 8);
   user.password = hash;
-  console.log(user.password);
 
   const checkUser = await Users.findBy(user.email);
 
@@ -27,13 +24,19 @@ router.post("/registration", async (req, res) => {
   } else {
     if (user.role === "vendor") {
       user.isVendor = true;
-    } else {
+    } else if (user.role === "customer") {
       user.isVendor = false;
     }
     let { isVendor, email, password } = user;
-    await Users.addUser({ isVendor, email, password });
-    console.log(user);
-    res.status(200).json({ message: "Created a new user.", user });
+    let registerUser = await Users.addUser({ isVendor, email, password });
+    if (registerUser[0].isVendor === true) {
+      const token = generateToken(registerUser[0]);
+      console.log("this is a token", token);
+      res.status(200).json({ message: "Created a new vendor.", user, token });
+    } else {
+      const token = generateToken(registerUser[0]);
+      res.status(200).json({ message: "Created a new customer.", user, token });
+    }
   }
 });
 
