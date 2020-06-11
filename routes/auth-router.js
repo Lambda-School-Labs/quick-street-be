@@ -1,13 +1,14 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const db = require("../data/db-config");
 const Customers = require("../models/Customer");
 const Vendors = require("../models/Vendor");
 const Users = require("../models/users-models.js");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const users = await Users.find().catch(e => res.json(e));
+  const users = await Users.find().catch((e) => res.json(e));
   res.status(200).json(users);
 });
 
@@ -22,56 +23,61 @@ router.post("/registration", async (req, res) => {
 
   if (checkUser) {
     console.log("this user already exists");
-    res.status(200).json(checkUser);
+    res.status(200).json({ message: "user already exists.", checkUser });
   } else {
-    await Users.addUser(user);
+    if (user.role === "vendor") {
+      user.isVendor = true;
+    } else {
+      user.isVendor = false;
+    }
+    let { isVendor, email, password } = user;
+    await Users.addUser({ isVendor, email, password });
     console.log(user);
-    res.status(200).json(user);
+    res.status(200).json({ message: "Created a new user.", user });
   }
 });
 
 //LOGIN
-router.post("/login", async (req, res) => {
+router.post("/login", (req, res) => {
   let { email, password } = req.body;
   console.log("req", req.body);
-  Vendors.findBy({ email })
-    // .first()
-    .then(user => {
-      // console.log();
-      if (
-        user &&
-        bcrypt.compareSync(password, bcrypt.hashSync(user.password, 8))
-      ) {
+
+  Users.findBy(email)
+    .then((user) => {
+      if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
+        const id = user.id;
+        const isVendor = user.isVendor;
         res.status(200).json({
-          message: `Welcome vendor ${user.email}`,
-          isVendor: true,
-          token
+          message: `Welcome ${user.email}`,
+          token,
+          id,
+          isVendor,
         });
       } else {
-        Customers.findBy({ email })
-          .first()
-          .then(user => {
-            if (user && bcrypt.compareSync(password, user.password)) {
-              const token = generateToken(user);
-
-              res.status(200).json({
-                message: `Welcome Customer ${user.email}`,
-                isVendor: false,
-                token
-              });
-            } else {
-              res.status(401).json({ message: "bad credentials" });
-            }
-          })
-          .catch(err => {
-            res.status(500).json({ message: "error logging as customer", err });
-          });
+        res.status(401).json({ message: "Password fail." });
       }
     })
-    .catch(err => {
-      res.status(500).json({ message: "error logging as vendor", err });
+    .catch((err) => {
+      res.status(500).json({ message: "Error finding the user.", err });
     });
+
+  // Users.findBy(user.email)
+  //   .then((user) => {
+  //     if (user) {
+  //       user && bcrypt.compareSync(password, bcrypt.hashSync(user.password, 8));
+  //       const token = generateToken(user);
+  //       res.status(200).json({
+  //         message: `Welcome ${user.email}`,
+  //         token,
+  //       });
+  //     } else {
+  //       res.status(401).json({ message: "User wasn't found." });
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).json({ message: "error logging in", err });
+  //   });
 });
 
 //TOKEN
@@ -80,11 +86,11 @@ function generateToken(user) {
   const secret = process.env.JWT_secret;
   const payload = {
     subject: user.id,
-    email: user.email
+    email: user.email,
   };
 
   const options = {
-    expiresIn: "1h"
+    expiresIn: "1h",
   };
 
   return jwt.sign(payload, secret, options);
@@ -92,10 +98,10 @@ function generateToken(user) {
 
 router.get("/customer", (req, res) => {
   Customers.find()
-    .then(data => {
+    .then((data) => {
       res.json(data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.send(err);
     });
 });

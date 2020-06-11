@@ -5,11 +5,11 @@ module.exports = {
   find,
   findBy,
   updateUser,
-  deleteUser
+  deleteUser,
 };
 
 function addUser(newUser) {
-  return db("users").insert(newUser);
+  return db("users").insert(newUser).returning("*");
 }
 
 function find() {
@@ -17,20 +17,13 @@ function find() {
 }
 
 function findBy(filter) {
-  return db("users")
-    .where({ email: filter })
-    .first();
+  return db("users").where({ email: filter }).first();
 }
 
 function updateUser(id, data) {
-  return db("users")
-    .where({ id })
-    .update(data)
-    .returning("*");
+  return db("users").where({ id }).update(data).returning("*");
 }
 
 function deleteUser(id) {
-  return db("users")
-    .where({ id })
-    .del();
+  return db("users").where({ id }).del();
 }
