@@ -20,7 +20,7 @@ router.get("/", restrict, (req, res) => {
 router.get("/me", restrict, (req, res) => {
   const id = req.token.subject;
   console.log("is this the payload", req.token.subject);
-  Vendors.findBy({ id })
+  Vendors.findBy(id)
     .first()
     .then((data) => {
       res.json(data);
