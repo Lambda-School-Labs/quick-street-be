@@ -1,5 +1,4 @@
 const db = require("../data/db-config");
-const { where } = require("../data/db-config");
 
 module.exports = {
   findBy,

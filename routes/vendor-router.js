@@ -1,6 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcryptjs");
-const Vendors = require("../models/Vendor");
+const Vendors = require("../models/vendor-models");
 
 const restrict = require("../middleware/restrict");
 const router = express.Router();
@@ -85,6 +84,14 @@ router.get("/:vendorId/products", restrict, (req, res) => {
     .catch((err) => {
       res.send(err);
     });
+});
+router.post("/add", restrict, (req, res) => {
+  const id = req.token.subject;
+  const data = req.body;
+  data.users_id = id;
+  Vendors.add(data)
+    .then((v) => res.status(200).json(v))
+    .catch((err) => res.status(500).json(err));
 });
 
 router.put("/:vendorId", restrict, (req, res) => {

@@ -18,10 +18,11 @@ exports.up = function (knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       tbl.text("business_name", 255).notNullable();
-      tbl.text("phone_number", 255).unique().notNullable();
-      tbl.text("address", 1000).notNullable();
-      tbl.integer("zip_code").notNullable();
-      tbl.text("description", 1000).notNullable();
+      tbl.text("phone", 255).unique().notNullable();
+      tbl.text("address", 1000);
+      tbl.integer("zipcode").notNullable();
+      tbl.text("city", 64);
+      tbl.text("description", 1000);
       tbl.text("vendor_category", 255);
       tbl.text("bulletin", 1000);
     })
