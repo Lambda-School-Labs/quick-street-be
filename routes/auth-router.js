@@ -5,10 +5,11 @@ const Customers = require("../models/Customer");
 const Users = require("../models/users-models.js");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  const users = await Users.find().catch((e) => res.json(e));
-  res.status(200).json(users);
-});
+// NEEDS RESTRICT
+// router.get("/", async (req, res) => {
+//   const users = await Users.find().catch((e) => res.json(e));
+//   res.status(200).json(users);
+// });
 
 // REGISTRATION
 router.post("/registration", async (req, res) => {
@@ -99,14 +100,15 @@ function generateToken(user) {
   return jwt.sign(payload, secret, options);
 }
 
-router.get("/customer", (req, res) => {
-  Customers.find()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
+//NEEDS RESTRICT OR DELETE IT
+// router.get("/customer", (req, res) => {
+//   Customers.find()
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// });
 
 module.exports = router;

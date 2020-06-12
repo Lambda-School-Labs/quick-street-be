@@ -1,9 +1,10 @@
 const express = require("express");
-const Vendors = require("../models/vendor-models");
 
+const Vendors = require("../models/vendor-models");
 const restrict = require("../middleware/restrict");
 const router = express.Router();
 
+// NEEDS ADMIN RIGHTS RESTRICITON
 //All vendors data
 router.get("/", restrict, (req, res) => {
   Vendors.find()
@@ -29,11 +30,11 @@ router.get("/me", restrict, (req, res) => {
     });
 });
 
+// THIS SHOULD REPLACE THE ONE ABOVE
 //Return vendor data by id.
-router.get("/:vendorId", restrict, (req, res) => {
-  const id = req.params.vendorId;
-  console.log("is this the payload", req.token.subject);
-  Vendors.findBy({ id })
+router.get("/:id", restrict, (req, res) => {
+  const id = req.token.subject;
+  Vendors.findBy( id )
     .first()
     .then((data) => {
       res.json(data);
@@ -44,8 +45,8 @@ router.get("/:vendorId", restrict, (req, res) => {
 });
 
 //return vendors posts by vendorid
-router.get("/:vendorId/posts", restrict, (req, res) => {
-  const vendors_id = req.params.vendorId;
+router.get("/me/posts", restrict, (req, res) => {
+  const vendors_id = req.token.subject;
   console.log("is this the payload", req.token.subject);
   Vendors.findVendorPosts(vendors_id)
     .first()
@@ -73,9 +74,8 @@ router.delete("/:vendorId", restrict, (req, res) => {
 
 // })
 
-router.get("/:vendorId/products", restrict, (req, res) => {
-  const vendor_id = req.params.vendorId;
-  console.log("is this the payload", req.token.subject);
+router.get("/me/products", restrict, (req, res) => {
+  const vendor_id = req.token.subject;
   Vendors.findVendorProducts(vendor_id)
     .first()
     .then((data) => {
@@ -93,6 +93,8 @@ router.post("/add", restrict, (req, res) => {
     .then((v) => res.status(200).json(v))
     .catch((err) => res.status(500).json(err));
 });
+
+
 
 router.put("/:vendorId", restrict, (req, res) => {
   const id = req.params.vendorId;
