@@ -1,5 +1,5 @@
 const express = require("express");
-const Customer = require("../models/Customer");
+const Customer = require("../models/customer-models");
 
 const restrict = require("../middleware/restrict");
 const router = express.Router();
