@@ -4,6 +4,7 @@ module.exports = {
   findBy,
   add,
   find,
+  addVendorProduct,
   findVendorProducts,
   findVendorPosts,
   updateVendor,
@@ -22,7 +23,7 @@ function findVendorPosts(vendors_id) {
 }
 
 function updateVendor(id, data) {
-  return db("vendors").where({ id }).update(data).returning("*");
+  return db("vendors").where({ users_id: id }).update(data).returning("*");
 }
 
 function findVendorProducts(filter) {
@@ -31,7 +32,10 @@ function findVendorProducts(filter) {
     .join("products as p", "v.id", "p.vendor_id")
     .select("p.*")
     .where({ "u.id": filter });
-  // return db("products").where({ vendor_id });
+}
+//product update
+function addVendorProduct(data) {
+  return db("products").insert(data).returning("*");
 }
 
 function deleteVendor(id) {

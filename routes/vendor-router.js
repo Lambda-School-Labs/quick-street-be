@@ -117,4 +117,27 @@ router.put("/:vendorId", restrict, (req, res) => {
     });
 });
 
+//adding a vendor product
+router.post("/:vendorId/products", restrict, async (req, res) => {
+  const id = req.params.vendorId;
+  let data = req.body;
+  // const checkVendor = await Vendors.findBy(id);
+  // if (checkVendor) {
+  //   data.vendor_id = checkVendor[0].id;
+  //   console.log("check vendor", checkVendor);
+  //   console.log("data", data);
+  data.vendor_id = id;
+  Vendors.addVendorProduct(data)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+  // } else {
+  //   res.status(500).json({ message: "No vendor by that id" });
+  //   console.log("error finding that user");
+  // }
+});
+
 module.exports = router;
