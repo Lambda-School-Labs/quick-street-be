@@ -16,6 +16,17 @@ router.get("/", restrict, (req, res) => {
     });
 });
 
+router.get("/:vendorId/products", restrict, (req, res) => {
+  const vendor_id = req.params.vendorId;
+  Vendors.findVendorProducts(vendor_id)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 //the user signed in gets their data
 router.get("/me", restrict, (req, res) => {
   const id = req.token.subject;
@@ -34,7 +45,7 @@ router.get("/me", restrict, (req, res) => {
 //Return vendor data by id.
 router.get("/:id", restrict, (req, res) => {
   const id = req.token.subject;
-  Vendors.findBy( id )
+  Vendors.findBy(id)
     .first()
     .then((data) => {
       res.json(data);
@@ -93,8 +104,6 @@ router.post("/add", restrict, (req, res) => {
     .then((v) => res.status(200).json(v))
     .catch((err) => res.status(500).json(err));
 });
-
-
 
 router.put("/:vendorId", restrict, (req, res) => {
   const id = req.params.vendorId;

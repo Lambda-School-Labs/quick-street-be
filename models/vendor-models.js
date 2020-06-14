@@ -25,8 +25,13 @@ function updateVendor(id, data) {
   return db("vendors").where({ id }).update(data).returning("*");
 }
 
-function findVendorProducts(vendor_id) {
-  return db("products").where({ vendor_id });
+function findVendorProducts(filter) {
+  return db("users as u")
+    .join("vendors as v", "u.id", "v.users_id")
+    .join("products as p", "v.id", "p.vendor_id")
+    .select("p.*")
+    .where({ "u.id": filter });
+  // return db("products").where({ vendor_id });
 }
 
 function deleteVendor(id) {

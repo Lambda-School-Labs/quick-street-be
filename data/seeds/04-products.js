@@ -29,6 +29,14 @@ exports.seed = function (knex) {
           diet_cateogry: "food",
           price: 2.2,
         },
+        {
+          vendor_id: 1,
+          name: "test",
+          description: "test please",
+          product_category: "pets",
+          diet_cateogry: "food",
+          price: 2.5,
+        },
       ]);
     });
 };
