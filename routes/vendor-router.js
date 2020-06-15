@@ -1,19 +1,26 @@
 const express = require("express");
 
 const Vendors = require("../models/vendor-models");
+const Users = require("../models/users-models");
 const restrict = require("../middleware/restrict");
 const router = express.Router();
 
 // NEEDS ADMIN RIGHTS RESTRICITON
 //All vendors data
 router.get("/", restrict, (req, res) => {
-  Vendors.find()
+  const admin = req.token.admin;
+  console.log('admin', req.token)
+  if(admin) {
+    Vendors.find()
     .then((data) => {
       res.json(data);
     })
     .catch((err) => {
       res.send(err);
     });
+  } else {
+    res.status(401).json({message: "Sorry, you're not allowed to see this info."})
+  }
 });
 
 router.get("/:vendorId/products", restrict, (req, res) => {
@@ -59,6 +66,7 @@ router.get("/me", restrict, (req, res) => {
 router.get("/me/posts", restrict, (req, res) => {
   const user_id = req.token.subject;
   console.log("is this the payload", req.token.subject);
+  console.log("is admin", req.token.admin)
   Vendors.findVendorPosts(user_id)
     .first()
     .then((data) => {
@@ -69,7 +77,8 @@ router.get("/me/posts", restrict, (req, res) => {
     });
 });
 
-// NEEDS ADMIN RIGHTS
+// NEEDS ADMIN RIGHTS or we need two options, one for the admin to delete a vendor account, 
+// another for a vendor to delete themself
 router.delete("/:vendorId", restrict, (req, res) => {
   const id = req.params.vendorId;
   Vendors.deleteVendor(id)
@@ -111,12 +120,9 @@ router.post("/add", restrict, (req, res) => {
 router.put("/me/update", restrict, (req, res) => {
   const id = req.token.subject;
   const data = req.body;
-  console.log('before fucntion', id, data)
-  console.log('toke', req.token)
 
   Vendors.updateVendor(id, data)
   .then((updated) => {
-    console.log('after', id, updated)
     res.json(updated);
   })
   .catch((err) => {
@@ -132,9 +138,6 @@ router.post("/me/products", restrict, async (req, res) => {
   const checkVendor = await Vendors.findBy(id);
   if (checkVendor) {
     data.vendor_id = checkVendor[0].id;
-    console.log("check vendor", checkVendor);
-  // data.vendor_id = id;
-  console.log("data after id", data)
   Vendors.addVendorProduct(data)
     .then((data) => {
       res.json(data);

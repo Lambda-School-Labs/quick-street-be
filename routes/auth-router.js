@@ -6,10 +6,10 @@ const Users = require("../models/users-models.js");
 const router = express.Router();
 
 // NEEDS RESTRICT
-// router.get("/", async (req, res) => {
-//   const users = await Users.find().catch((e) => res.json(e));
-//   res.status(200).json(users);
-// });
+router.get("/", async (req, res) => {
+  const users = await Users.find().catch((e) => res.json(e));
+  res.status(200).json(users);
+});
 
 // REGISTRATION
 router.post("/registration", async (req, res) => {
@@ -93,6 +93,7 @@ function generateToken(user) {
   const payload = {
     subject: user.id,
     email: user.email,
+    admin: user.isAdmin
   };
 
   const options = {

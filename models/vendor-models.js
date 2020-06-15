@@ -42,10 +42,6 @@ function findVendorProducts(filter) {
 }
 //product update
 function addVendorProduct(data) {
-// return db("products as p")
-// .join("vendors as v", "v.id", "p.vendors_id")
-// .where({"u.id": })
-
   return db("products").insert(data).returning("*");
 }
 
