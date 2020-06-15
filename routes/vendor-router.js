@@ -41,7 +41,7 @@ router.get("/me", restrict, (req, res) => {
     });
 });
 
-// THIS SHOULD REPLACE THE ONE ABOVE
+// SAME or SIMILAR TO ABOVE
 //Return vendor data by id.
 router.get("/:id", restrict, (req, res) => {
   const id = req.token.subject;
@@ -96,6 +96,7 @@ router.get("/me/products", restrict, (req, res) => {
       res.send(err);
     });
 });
+
 router.post("/add", restrict, (req, res) => {
   const id = req.token.subject;
   const data = req.body;
@@ -105,16 +106,21 @@ router.post("/add", restrict, (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
-router.put("/:vendorId", restrict, (req, res) => {
-  const id = req.params.vendorId;
+// UPDATE vendor information (not username or email)
+router.put("/me/update", restrict, (req, res) => {
+  const id = req.token.subject;
   const data = req.body;
+  console.log('before fucntion', id, data)
+  console.log('toke', req.token)
+
   Vendors.updateVendor(id, data)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
+  .then((updated) => {
+    console.log('after', id, updated)
+    res.json(updated[0]);
+  })
+  .catch((err) => {
+    res.send(err);
+  });
 });
 
 //adding a vendor product
@@ -141,3 +147,40 @@ router.post("/:vendorId/products", restrict, async (req, res) => {
 });
 
 module.exports = router;
+
+//   Vendors.findBy(id)
+//   .first()
+//   .then(vendor => {
+//     if(vendor){
+//       Vendors.updateVendor(id, data)
+//       .then(updated => {
+//         res.json(updated)
+//       })
+//     } else {
+//       res.status(404).json({message: 'could not find your vendor data'})
+//     }
+//   })
+//   .catch(err => {
+//     res.status(500).json({message: 'failed to update vendor'})
+//   })
+// })
+
+// router.put('/:id', (req, res) => {
+//   const { id } = req.params;
+//   const changes = req.body;
+
+//   Projects.findById(id)
+//       .then(project => {
+//           if (project) {
+//               Projects.updateProject(changes, id)
+//                   .then(updatedProject => {
+//                       res.json(updatedProject);
+//                   });
+//           } else {
+//               res.status(404).json({ message: 'Could not find project with given id' });
+//           }
+//       })
+//       .catch(err => {
+//           res.status(500).json({ message: 'Failed to update project' });
+//       });
+// });

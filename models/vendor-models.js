@@ -22,8 +22,11 @@ function findVendorPosts(vendors_id) {
   return db("posts").where({ vendors_id });
 }
 
-function updateVendor(id, data) {
-  return db("vendors").where({ users_id: id }).update(data).returning("*");
+function updateVendor(users_id, data) {
+   return db("vendors as v")
+   .where({ "v.users_id": users_id })
+   .update(data, ["v.*"])
+   .returning("v.*")
 }
 
 function findVendorProducts(filter) {
@@ -49,3 +52,4 @@ function add(newVendor) {
 function find() {
   return db("vendors").select("*");
 }
+
