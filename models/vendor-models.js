@@ -18,8 +18,12 @@ function findBy(filter) {
     .where({ "u.id": filter });
 }
 
-function findVendorPosts(vendors_id) {
-  return db("posts").where({ vendors_id });
+function findVendorPosts(user_id) {
+  return db("posts as p")
+  .join("vendors as v", "v.id", "p.vendors_id")
+  .join("users as u", "u.id", "v.users_id")
+  .where({ "u.id" : user_id })
+  .select("p.*");
 }
 
 function updateVendor(users_id, data) {

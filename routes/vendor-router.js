@@ -27,7 +27,7 @@ router.get("/:vendorId/products", restrict, (req, res) => {
     });
 });
 
-//the user signed in gets their data
+//the vendor signed in gets their data
 router.get("/me", restrict, (req, res) => {
   const id = req.token.subject;
   console.log("is this the payload", req.token.subject);
@@ -43,23 +43,23 @@ router.get("/me", restrict, (req, res) => {
 
 // SAME or SIMILAR TO ABOVE
 //Return vendor data by id.
-router.get("/:id", restrict, (req, res) => {
-  const id = req.token.subject;
-  Vendors.findBy(id)
-    .first()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
+// router.get("/:id", restrict, (req, res) => {
+//   const id = req.token.subject;
+//   Vendors.findBy(id)
+//     .first()
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// });
 
-//return vendors posts by vendorid
+//return vendor POSTS based on logged in vendor
 router.get("/me/posts", restrict, (req, res) => {
-  const vendors_id = req.token.subject;
+  const user_id = req.token.subject;
   console.log("is this the payload", req.token.subject);
-  Vendors.findVendorPosts(vendors_id)
+  Vendors.findVendorPosts(user_id)
     .first()
     .then((data) => {
       res.json(data);
@@ -116,7 +116,7 @@ router.put("/me/update", restrict, (req, res) => {
   Vendors.updateVendor(id, data)
   .then((updated) => {
     console.log('after', id, updated)
-    res.json(updated[0]);
+    res.json(updated);
   })
   .catch((err) => {
     res.send(err);
