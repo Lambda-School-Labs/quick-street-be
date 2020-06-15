@@ -8,11 +8,11 @@ const router = express.Router();
 // ALL orders
 
 router.get("/", restrict, (req, res) => {
-  Products.getProduts()
-    .then(orders => {
+  Products.getProducts()
+    .then((orders) => {
       res.json(orders);
     })
-    .catch(err => {
+    .catch((err) => {
       res.json(err);
     });
 });
@@ -24,10 +24,10 @@ router.get("/:id", restrict, (req, res) => {
 
   Products.getProductById({ id })
     .first()
-    .then(order => {
+    .then((order) => {
       res.json(order);
     })
-    .catch(err => {
+    .catch((err) => {
       res.send(err);
     });
 });
@@ -37,10 +37,10 @@ router.get("/:id", restrict, (req, res) => {
 router.post("/", restrict, (req, res) => {
   const order = req.body;
   Products.addProduct(order)
-    .then(order => {
+    .then((order) => {
       res.status(201).json(order);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status().json(err);
     });
 });
