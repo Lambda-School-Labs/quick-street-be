@@ -69,6 +69,7 @@ router.get("/me/posts", restrict, (req, res) => {
     });
 });
 
+// NEEDS ADMIN RIGHTS
 router.delete("/:vendorId", restrict, (req, res) => {
   const id = req.params.vendorId;
   Vendors.deleteVendor(id)
@@ -124,15 +125,16 @@ router.put("/me/update", restrict, (req, res) => {
 });
 
 //adding a vendor product
-router.post("/:vendorId/products", restrict, async (req, res) => {
-  const id = req.params.vendorId;
-  let data = req.body;
-  // const checkVendor = await Vendors.findBy(id);
-  // if (checkVendor) {
-  //   data.vendor_id = checkVendor[0].id;
-  //   console.log("check vendor", checkVendor);
-  //   console.log("data", data);
-  data.vendor_id = id;
+router.post("/me/products", restrict, async (req, res) => {
+  const id = req.token.subject;
+  const data = req.body;
+  console.log("data before id", data);
+  const checkVendor = await Vendors.findBy(id);
+  if (checkVendor) {
+    data.vendor_id = checkVendor[0].id;
+    console.log("check vendor", checkVendor);
+  // data.vendor_id = id;
+  console.log("data after id", data)
   Vendors.addVendorProduct(data)
     .then((data) => {
       res.json(data);
@@ -140,47 +142,10 @@ router.post("/:vendorId/products", restrict, async (req, res) => {
     .catch((err) => {
       res.send(err);
     });
-  // } else {
-  //   res.status(500).json({ message: "No vendor by that id" });
-  //   console.log("error finding that user");
-  // }
+  } else {
+    res.status(500).json({ message: "No vendor by that id" });
+    console.log("error finding that user");
+  }
 });
 
 module.exports = router;
-
-//   Vendors.findBy(id)
-//   .first()
-//   .then(vendor => {
-//     if(vendor){
-//       Vendors.updateVendor(id, data)
-//       .then(updated => {
-//         res.json(updated)
-//       })
-//     } else {
-//       res.status(404).json({message: 'could not find your vendor data'})
-//     }
-//   })
-//   .catch(err => {
-//     res.status(500).json({message: 'failed to update vendor'})
-//   })
-// })
-
-// router.put('/:id', (req, res) => {
-//   const { id } = req.params;
-//   const changes = req.body;
-
-//   Projects.findById(id)
-//       .then(project => {
-//           if (project) {
-//               Projects.updateProject(changes, id)
-//                   .then(updatedProject => {
-//                       res.json(updatedProject);
-//                   });
-//           } else {
-//               res.status(404).json({ message: 'Could not find project with given id' });
-//           }
-//       })
-//       .catch(err => {
-//           res.status(500).json({ message: 'Failed to update project' });
-//       });
-// });
