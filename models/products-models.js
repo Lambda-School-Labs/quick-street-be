@@ -3,7 +3,8 @@ const db = require("../data/db-config");
 module.exports = {
   getProducts,
   getProductById,
-  addProduct
+  addProduct,
+  updateProduct,
 };
 
 function getProducts() {
@@ -16,4 +17,12 @@ function getProductById(filter) {
 
 function addProduct(newProduct) {
   return db("products".insert(newProduct));
+}
+
+function addProduct(newProduct) {
+  return db("products".insert(newProduct));
+}
+
+function updateProduct(id, data) {
+  return db("products").where({ id }).update(data).returning("*");
 }

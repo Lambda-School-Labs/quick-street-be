@@ -56,7 +56,8 @@ exports.up = function (knex) {
       tbl.text("name", 255).notNullable();
       tbl.text("description", 1000);
       tbl.text("product_category", 255);
-      tbl.text("diet_cateogry", 255);
+      tbl.text("diet_category", 255);
+      tbl.text("unit", 255);
       tbl.float("price").notNullable();
     })
 
