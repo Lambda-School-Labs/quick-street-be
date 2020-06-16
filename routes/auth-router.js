@@ -6,10 +6,10 @@ const Users = require("../models/users-models.js");
 const router = express.Router();
 
 // NEEDS RESTRICT
-// router.get("/", async (req, res) => {
-//   const users = await Users.find().catch((e) => res.json(e));
-//   res.status(200).json(users);
-// });
+router.get("/", async (req, res) => {
+  const users = await Users.find().catch((e) => res.json(e));
+  res.status(200).json(users);
+});
 
 // REGISTRATION
 router.post("/registration", async (req, res) => {
@@ -44,11 +44,13 @@ router.post("/registration", async (req, res) => {
 //LOGIN
 router.post("/login", (req, res) => {
   let { email, password } = req.body;
-  console.log("req", req.body);
+  // console.log("req", req.body);
 
   Users.findBy(email)
-    .then((user) => {
-      if (user && bcrypt.compareSync(password, user.password)) {
+  .then(user => {
+    console.log('user', user)
+    if (user && bcrypt.compareSync(password, user.password)) {
+      console.log('user', email)
         const token = generateToken(user);
         const id = user.id;
         const isVendor = user.isVendor;
@@ -91,6 +93,7 @@ function generateToken(user) {
   const payload = {
     subject: user.id,
     email: user.email,
+    admin: user.isAdmin
   };
 
   const options = {

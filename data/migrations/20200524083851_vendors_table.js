@@ -6,6 +6,7 @@ exports.up = function (knex) {
       tbl.text("email", 255).unique().notNullable();
       tbl.text("password", 255).notNullable();
       tbl.boolean("isVendor");
+      tbl.boolean("isAdmin");
     })
 
     .createTable("vendors", (tbl) => {
