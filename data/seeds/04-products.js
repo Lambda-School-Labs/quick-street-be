@@ -10,7 +10,7 @@ exports.seed = function (knex) {
           name: "bone",
           description: "dog bone treat",
           product_category: "food",
-          diet_cateogry: "carnivore",
+          diet_category: "carnivore",
           price: 6.3,
         },
         {
@@ -18,7 +18,7 @@ exports.seed = function (knex) {
           name: "canip",
           description: "time to get high kitty",
           product_category: "pets",
-          diet_cateogry: "treat",
+          diet_category: "treat",
           price: 3.5,
         },
         {
@@ -26,7 +26,7 @@ exports.seed = function (knex) {
           name: "mouse",
           description: "dinner",
           product_category: "pets",
-          diet_cateogry: "food",
+          diet_category: "food",
           price: 2.2,
         },
         {
@@ -34,7 +34,7 @@ exports.seed = function (knex) {
           name: "test",
           description: "test please",
           product_category: "pets",
-          diet_cateogry: "food",
+          diet_category: "food",
           price: 2.5,
         },
       ]);

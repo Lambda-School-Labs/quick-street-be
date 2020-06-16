@@ -1,5 +1,4 @@
 const express = require("express");
-const bcrypt = require("bcryptjs");
 const Products = require("../models/products-models");
 
 const restrict = require("../middleware/restrict");
@@ -37,6 +36,19 @@ router.get("/:id", restrict, (req, res) => {
 router.post("/", restrict, (req, res) => {
   const order = req.body;
   Products.addProduct(order)
+    .then((order) => {
+      res.status(201).json(order);
+    })
+    .catch((err) => {
+      res.status().json(err);
+    });
+});
+
+//Edit a post
+router.put("/:id", restrict, (req, res) => {
+  let id = req.params.id;
+  const updates = req.body;
+  Products.updateProduct(id, updates)
     .then((order) => {
       res.status(201).json(order);
     })

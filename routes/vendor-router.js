@@ -9,17 +9,19 @@ const router = express.Router();
 //All vendors data
 router.get("/", restrict, (req, res) => {
   const admin = req.token.admin;
-  console.log('admin', req.token)
-  if(admin) {
+  console.log("admin", req.token);
+  if (admin) {
     Vendors.find()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
   } else {
-    res.status(401).json({message: "Sorry, you're not allowed to see this info."})
+    res
+      .status(401)
+      .json({ message: "Sorry, you're not allowed to see this info." });
   }
 });
 
@@ -50,23 +52,23 @@ router.get("/me", restrict, (req, res) => {
 
 // SAME or SIMILAR TO ABOVE
 //Return vendor data by id.
-// router.get("/:id", restrict, (req, res) => {
-//   const id = req.token.subject;
-//   Vendors.findBy(id)
-//     .first()
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// });
+router.get("/:id", restrict, (req, res) => {
+  const id = req.token.subject;
+  Vendors.findBy(id)
+    .first()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
 //return vendor POSTS based on logged in vendor
 router.get("/me/posts", restrict, (req, res) => {
   const user_id = req.token.subject;
   console.log("is this the payload", req.token.subject);
-  console.log("is admin", req.token.admin)
+  console.log("is admin", req.token.admin);
   Vendors.findVendorPosts(user_id)
     .first()
     .then((data) => {
@@ -77,7 +79,7 @@ router.get("/me/posts", restrict, (req, res) => {
     });
 });
 
-// NEEDS ADMIN RIGHTS or we need two options, one for the admin to delete a vendor account, 
+// NEEDS ADMIN RIGHTS or we need two options, one for the admin to delete a vendor account,
 // another for a vendor to delete themself
 router.delete("/:vendorId", restrict, (req, res) => {
   const id = req.params.vendorId;
@@ -122,15 +124,15 @@ router.put("/me/update", restrict, (req, res) => {
   const data = req.body;
 
   Vendors.updateVendor(id, data)
-  .then((updated) => {
-    res.json(updated);
-  })
-  .catch((err) => {
-    res.send(err);
-  });
+    .then((updated) => {
+      res.json(updated);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 });
 
-//adding a vendor product
+//adding a vendor product by logged in user.
 router.post("/me/products", restrict, async (req, res) => {
   const id = req.token.subject;
   const data = req.body;
@@ -138,6 +140,24 @@ router.post("/me/products", restrict, async (req, res) => {
   const checkVendor = await Vendors.findBy(id);
   if (checkVendor) {
     data.vendor_id = checkVendor[0].id;
+    Vendors.addVendorProduct(data)
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  } else {
+    res.status(500).json({ message: "No vendor by that id" });
+    console.log("error finding that user");
+  }
+});
+
+// vendor dashboard
+router.post("/:vendorId/products", restrict, async (req, res) => {
+  const id = req.params.vendorId;
+  let data = req.body;
+  data.vendor_id = id;
   Vendors.addVendorProduct(data)
     .then((data) => {
       res.json(data);
@@ -145,10 +165,5 @@ router.post("/me/products", restrict, async (req, res) => {
     .catch((err) => {
       res.send(err);
     });
-  } else {
-    res.status(500).json({ message: "No vendor by that id" });
-    console.log("error finding that user");
-  }
 });
-
 module.exports = router;
