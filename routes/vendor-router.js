@@ -159,11 +159,11 @@ router.post("/:vendorId/products", restrict, async (req, res) => {
   let data = req.body;
   data.vendor_id = id;
   Vendors.addVendorProduct(data)
-    .then((data) => {
-      res.json(data);
+    .then((created) => {
+      res.status(200).json(created);
     })
     .catch((err) => {
-      res.send(err);
+      res.status(500).send(err);
     });
 });
 module.exports = router;

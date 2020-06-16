@@ -36,8 +36,8 @@ router.get("/:id", restrict, (req, res) => {
 router.post("/", restrict, (req, res) => {
   const order = req.body;
   Products.addProduct(order)
-    .then((order) => {
-      res.status(201).json(order);
+    .then((data) => {
+      res.status(201).json(data);
     })
     .catch((err) => {
       res.status().json(err);
@@ -53,7 +53,19 @@ router.put("/:id", restrict, (req, res) => {
       res.status(201).json(order);
     })
     .catch((err) => {
-      res.status().json(err);
+      res.status(500).json(err);
+    });
+});
+
+router.delete("/:id", restrict, (req, res) => {
+  let { id } = req.params;
+
+  Products.deleteProduct(id)
+    .then((data) => {
+      res.status(200).json({ message: "successful deletion", data });
+    })
+    .catch((err) => {
+      res.status(500).json(err);
     });
 });
 
