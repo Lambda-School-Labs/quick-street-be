@@ -5,6 +5,7 @@ module.exports = {
   getProductById,
   addProduct,
   updateProduct,
+  deleteProduct,
 };
 
 function getProducts() {
@@ -21,4 +22,8 @@ function addProduct(newProduct) {
 
 function updateProduct(id, data) {
   return db("products").where({ id }).update(data).returning("*");
+}
+
+function deleteProduct(id) {
+  return db("products").where({ id }).del().returning("*");
 }

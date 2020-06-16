@@ -112,7 +112,7 @@ exports.up = function (knex) {
         .onDelete("CASCADE");
       tbl.text("title", 255).notNullable();
       tbl.text("description", 1000).notNullable();
-      tbl.datetime("time_of_post");
+      tbl.datetime("date");
     });
 };
 
