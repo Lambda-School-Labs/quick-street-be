@@ -58,7 +58,7 @@ exports.up = function (knex) {
       tbl.text("product_category", 255);
       tbl.text("diet_category", 255);
       tbl.text("unit", 255);
-      tbl.float("price").notNullable();
+      tbl.decimal("price").notNullable();
     })
 
     .createTable("vendor_customer_map", (tbl) => {
