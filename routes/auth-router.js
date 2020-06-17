@@ -47,10 +47,10 @@ router.post("/login", (req, res) => {
   // console.log("req", req.body);
 
   Users.findBy(email)
-  .then(user => {
-    console.log('user', user)
-    if (user && bcrypt.compareSync(password, user.password)) {
-      console.log('user', email)
+    .then((user) => {
+      console.log("user", user);
+      if (user && bcrypt.compareSync(password, user.password)) {
+        console.log("user", email);
         const token = generateToken(user);
         const id = user.id;
         const isVendor = user.isVendor;
@@ -93,7 +93,7 @@ function generateToken(user) {
   const payload = {
     subject: user.id,
     email: user.email,
-    admin: user.isAdmin
+    admin: user.isAdmin,
   };
 
   const options = {
