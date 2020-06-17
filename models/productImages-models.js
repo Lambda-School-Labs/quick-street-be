@@ -6,8 +6,10 @@ module.exports = {
   addProductImages
 };
 
-function getProductImages() {
-  return db("productsImages").select("*");
+function getProductImages(vendor_id) {
+  return db("products as p")
+  .select("p.public_id")
+  .where({"p.vendor_id" : vendor_id});
 }
 
 function getProductImagesById(filter) {
