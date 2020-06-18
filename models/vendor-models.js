@@ -55,7 +55,11 @@ function add(newVendor) {
 }
 
 function find() {
-  return db("vendors").select("*");
+  return db("vendors").select(
+    "vendors.zipcode",
+    "vendors.address",
+    "vendors.city"
+  );
 }
 
 //Posts

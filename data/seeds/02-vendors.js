@@ -15,6 +15,8 @@ exports.seed = function (knex) {
           description: "a store for dog goodies",
           vendor_category: "pets",
           bulletin: "here is dog stuff to know",
+          hours: "10am to 11pm",
+          email: "dog@123.com",
         },
         {
           users_id: 2,
@@ -26,6 +28,8 @@ exports.seed = function (knex) {
           description: "a store for cat stuffs",
           vendor_category: "pets",
           bulletin: "here is the bulletin about cat stuff",
+          hours: "10am to 11pm",
+          email: "cat@123.com",
         },
         {
           users_id: 3,
@@ -37,6 +41,8 @@ exports.seed = function (knex) {
           description: "a store for slimy stuff",
           vendor_category: "pets",
           bulletin: "just snake away",
+          hours: "10am to 11pm",
+          email: "snake@123.com",
         },
       ]);
     });
