@@ -4,6 +4,8 @@ const Products = require("../models/products-models");
 const restrict = require("../middleware/restrict");
 const router = express.Router();
 
+let productImages = [];
+
 // ALL orders
 
 router.get("/", restrict, (req, res) => {
@@ -68,6 +70,21 @@ router.delete("/:id", restrict, (req, res) => {
       res.status(500).json(err);
     });
 });
+
+
+router.get("/:id/product-images", restrict, (req, res) => {
+  const id = req.params.id;
+  console.log('router id:', id)
+  
+  Products.getProductImages(id)
+  .then(data => {
+    console.log('router data:', data)
+    res.json(data)
+  })
+  .catch(err => {
+    res.json(err)
+  })
+  });
 
 module.exports = router;
 
