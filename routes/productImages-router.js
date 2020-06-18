@@ -3,6 +3,7 @@ const restrict = require("../middleware/restrict");
 const router = express.Router();
 
 const Images = require("../models/productImages-models");
+const Products = require("../models/products-models")
 
 let productImages = [];
 
@@ -12,10 +13,11 @@ router.get("/", restrict, (req, res) => {
 
 router.get("/:id/product-images", restrict, (req, res) => {
 const id = req.params.id;
-console.log('router id', id)
+console.log('router id:', id)
 
-Images.getProductImages(id)
+Products.getProductImages(id)
 .then(data => {
+  console.log('router data:', data)
   res.json(data)
 })
 .catch(err => {

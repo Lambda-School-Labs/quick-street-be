@@ -1,11 +1,14 @@
 const db = require("../data/db-config");
 
+// let productImages = [];
+
 module.exports = {
   getProducts,
   getProductById,
   addProduct,
   updateProduct,
   deleteProduct,
+  getProductImages
 };
 
 function getProducts() {
@@ -26,4 +29,10 @@ function updateProduct(id, data) {
 
 function deleteProduct(id) {
   return db("products").where({ id }).del().returning("*");
+}
+
+function getProductImages(product_id) {
+  return db("products as p")
+  .select("p.public_id")
+  .where({"p.id" : product_id});
 }
