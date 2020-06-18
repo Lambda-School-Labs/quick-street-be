@@ -23,6 +23,16 @@ router.get("/", restrict, (req, res) => {
   }
 });
 
+router.get("/all", restrict, (req, res) => {
+  Vendors.find()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 router.get("/:vendorId/products", restrict, (req, res) => {
   const vendor_id = req.params.vendorId;
   Vendors.findVendorProducts(vendor_id)
