@@ -54,10 +54,10 @@ exports.up = function (knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       tbl.text("name", 255).notNullable();
-      tbl.text("public_id")
+      tbl.text("public_id");
       tbl.text("description", 1000);
       tbl.text("product_category", 255);
-      tbl.text("diet_category", 255);
+      tbl.specificType("diet_category", "text ARRAY");
       tbl.text("unit", 255);
       tbl.decimal("price").notNullable();
     })

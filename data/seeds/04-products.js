@@ -11,7 +11,7 @@ exports.seed = function (knex) {
           public_id: "j4jtgeyfuaxvsnm1ejwj",
           description: "dog bone treat",
           product_category: "food",
-          diet_category: "carnivore",
+          diet_category: ["Keto"],
           price: 6.3,
         },
         {
@@ -20,7 +20,7 @@ exports.seed = function (knex) {
           public_id: "catnip",
           description: "time to get high kitty",
           product_category: "pets",
-          diet_category: "treat",
+          diet_category: ["Gluten Free"],
           price: 3.5,
         },
         {
@@ -29,7 +29,7 @@ exports.seed = function (knex) {
           public_id: "mouse",
           description: "dinner",
           product_category: "pets",
-          diet_category: "food",
+          diet_category: ["Keto"],
           price: 2.2,
         },
         {
@@ -38,7 +38,7 @@ exports.seed = function (knex) {
           public_id: "Homemade-Dog-Treats-IG_zrl8pl",
           description: "test please",
           product_category: "pets",
-          diet_category: "food",
+          diet_category: ["Vegetarian", "Vegan"],
           price: 2.5,
         },
       ]);
