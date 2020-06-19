@@ -33,6 +33,17 @@ router.get("/all", restrict, (req, res) => {
     });
 });
 
+router.post("/all/places", (req, res) => {
+  const info = req.body;
+  Vendors.findZip(info)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 router.get("/:vendorId/products", restrict, (req, res) => {
   const vendor_id = req.params.vendorId;
   Vendors.findVendorProducts(vendor_id)
@@ -60,17 +71,17 @@ router.get("/me", restrict, (req, res) => {
 
 // SAME or SIMILAR TO ABOVE
 //Return vendor data by id.
-router.get("/:id", restrict, (req, res) => {
-  const id = req.token.subject;
-  Vendors.findBy(id)
-    .first()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
+// router.get("/:id", restrict, (req, res) => {
+//   const id = req.token.subject;
+//   Vendors.findBy(id)
+//     .first()
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// });
 
 //return vendor POSTS based on logged in vendor
 router.get("/me/posts", restrict, (req, res) => {
