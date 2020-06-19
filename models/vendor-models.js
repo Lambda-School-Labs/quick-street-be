@@ -10,6 +10,7 @@ module.exports = {
   findVendorPosts,
   updateVendor,
   deleteVendor,
+  findZip,
 };
 
 function findBy(filter) {
@@ -17,6 +18,20 @@ function findBy(filter) {
     .join("vendors as v", "u.id", "v.users_id")
     .select("v.*")
     .where({ "u.id": filter });
+}
+
+function findZip(filter) {
+  let input = filter.data;
+  console.log("input", input);
+  if (isNaN(input)) {
+    let lowerCase = input.toLowerCase();
+    console.log("lowercase", lowerCase);
+    return db("vendors as v").select("*").where({ "v.city": lowerCase });
+  } else {
+    let num = Number(input);
+    console.log("this is num", num);
+    return db("vendors as v").select("*").where({ "v.zipcode": input });
+  }
 }
 
 function findVendorPosts(user_id) {
