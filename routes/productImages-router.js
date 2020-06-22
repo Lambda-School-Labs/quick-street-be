@@ -26,6 +26,7 @@ Products.getProductImages(id)
 });
 
 
+
 // router.get("/:vendorId/products", restrict, (req, res) => {
 //   const vendor_id = req.params.vendorId;
 //   Vendors.findVendorProducts(vendor_id)
