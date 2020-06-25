@@ -46,7 +46,7 @@ function updateVendor(users_id, data) {
   return db("vendors as v")
     .where({ "v.users_id": users_id })
     .update(data, ["v.*"])
-    .returning("v.*");
+    .returning("*");
 }
 
 function findVendorProducts(filter) {
