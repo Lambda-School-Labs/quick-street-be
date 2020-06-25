@@ -6,7 +6,7 @@ const router = express.Router();
 
 let productImages = [];
 
-// ALL orders
+// ALL products
 
 router.get("/", restrict, (req, res) => {
   Products.getProducts()
@@ -18,7 +18,7 @@ router.get("/", restrict, (req, res) => {
     });
 });
 
-// get order by ID
+// get product by ID
 
 router.get("/:id", restrict, (req, res) => {
   const id = req.params.id;
@@ -33,7 +33,7 @@ router.get("/:id", restrict, (req, res) => {
     });
 });
 
-// ADD order
+// ADD product
 
 router.post("/", restrict, (req, res) => {
   const order = req.body;
@@ -46,7 +46,7 @@ router.post("/", restrict, (req, res) => {
     });
 });
 
-//Edit a post
+//EDIT a product
 router.put("/:id", restrict, (req, res) => {
   let id = req.params.id;
   const updates = req.body;
@@ -59,6 +59,7 @@ router.put("/:id", restrict, (req, res) => {
     });
 });
 
+// DELETE a product
 router.delete("/:id", restrict, (req, res) => {
   let { id } = req.params;
 
@@ -71,20 +72,42 @@ router.delete("/:id", restrict, (req, res) => {
     });
 });
 
+// IMAGE SPECIFIC ROUTES
 
+// GET product image
 router.get("/:id/product-images", restrict, (req, res) => {
   const id = req.params.id;
-  console.log('router id:', id)
+  console.log("router id:", id);
   
   Products.getProductImages(id)
   .then(data => {
-    console.log('router data:', data)
+    console.log("router data:", data)
     res.json(data)
   })
   .catch(err => {
     res.json(err)
   })
   });
+
+  // ADD product image
+  router.put("/:id/product-images", restrict, (req, res) => {
+    const product_id = req.params.id;
+    const image_data = req.body;
+    // const vendor_id = 
+    console.log("req body", req.body)
+    console.log('id from image uploader:', product_id)
+    console.log("image data", image_data)
+
+    Products.addProductImage(product_id, image_data.public_id)
+    .then(response => {
+      console.log('response data', response)
+      res.json(response)
+    })
+    .catch(err => {
+      console.log("catch data", err)
+      res.json(err)
+    })
+  })
 
 module.exports = router;
 
