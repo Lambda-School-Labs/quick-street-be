@@ -33,7 +33,7 @@ router.get("/all", restrict, (req, res) => {
     });
 });
 
-router.post("/all/places", (req, res) => {
+router.post("/all/places", restrict, (req, res) => {
   const info = req.body;
   Vendors.findZip(info)
     .then((data) => {
@@ -43,17 +43,17 @@ router.post("/all/places", (req, res) => {
       res.send(err);
     });
 });
-
-router.get("/:vendorId/products", restrict, (req, res) => {
-  const vendor_id = req.params.vendorId;
-  Vendors.findVendorProducts(vendor_id)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
+//don't think we need this
+// router.get("/:vendorId/products", restrict, (req, res) => {
+//   const vendor_id = req.params.vendorId;
+//   Vendors.findVendorProducts(vendor_id)
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// });
 
 //the vendor signed in gets their data
 router.get("/me", restrict, (req, res) => {
@@ -149,17 +149,17 @@ router.delete("/:vendorId", restrict, (req, res) => {
 
 // })
 
-// router.get("/me/products", restrict, (req, res) => {
-//   const vendor_id = req.token.subject;
-//   Vendors.findVendorProducts(vendor_id)
-//     .first()
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// });
+router.get("/me/products", restrict, (req, res) => {
+  const id = req.token.subject;
+  console.log("token id", id);
+  Vendors.findVendorProducts(id)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
 router.post("/add", restrict, (req, res) => {
   const id = req.token.subject;
