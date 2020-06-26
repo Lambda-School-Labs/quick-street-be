@@ -1,9 +1,8 @@
-# Market avenue App v1.0
+# Market avenue App v2.0
 
 ![](images/quickstlogo.png)
 
 [![](https://api.codeclimate.com/v1/badges/f11df194872666d04804/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/quick-street-be)
-
 
 ##### Backend delpoyed at https://quickstlabs.herokuapp.com/
 
@@ -63,10 +62,9 @@ To get the server running locally:
 
 Using Express...
 
-- made it fast and easy to set up
-- allowed us to create Restful API
-- made it easy to connect to mongooseDB
-- made it easy to incorporate middleware
+- we created a Restful API
+- connected to PostgreSQL
+- used custom middleware
 
 ## Endpoints
 
@@ -76,42 +74,35 @@ Using Express...
 
 #### Base URL for all endpoints:
 
-`https://quickstlabs.herokuapp.com/api/v1.0`
-
-#### Token usage:
-
-- If tokens are sent in headers, concatenate the word 'Bearer ' to the front
-  -> example:
-
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTc3MWRmNzY1YTZiNmU1YTU4Mzc"
-
-- If tokens are sent in a url parameter **_don't_** concatentate 'Bearer '
+`https://market-avenue-be.herokuapp.com/test`
 
 #### Authentication Routes
 
 | Method | Endpoint                                    | Access Control       | Description                                      |
 | ------ | ------------------------------------------- | -------------------- | ------------------------------------------------ |
-| POST   | `/auth/register`                            | public               | Registering a vendor returns a token             |
+| POST   | `/auth/registration`                        | public               | Registering a vendor returns a token             |
 | POST   | `/auth/login`                               | public               | Logging in a vendor returns a token              |
-| GET    | `/auth/me`                                  | token                | Returns private info for a single vendor         |
+| <!--   | GET                                         | `/auth/me`           | token                                            | Returns private info for a single vendor |
 | POST   | `/auth/forgotpassword`                      | registered email     | Sends password-reset token to a registered email |
 | PUT    | `/auth/resetpassword/:password-reset-token` | password-reset token | Allows a vendor to reset passoword               |
 | PUT    | `/auth/updatedetails`                       | token                | Allows a vendor to update details                |
-| PUT    | `/auth/updatepassword`                      | token                | Allows a vendor to update password               |
+| PUT    | `/auth/updatepassword`                      | token                | Allows a vendor to update password               | --> |
 
 [top](#contents)
 
 #### Vendor Routes
 
-| Method | Endpoint                             | Access Control | Description                                                                                 |
-| ------ | ------------------------------------ | -------------- | ------------------------------------------------------------------------------------------- |
-| GET    | `/vendors`                           | public         | Returns the public information for a vendor                                                 |
-| GET    | `/vendors/:vendorId`                 | public         | Returns public info. of a single vendor                                                     |
-| GET    | `/vendors/radius/:zipcode/:distance` | public         | Returns public info. of vendors within a specified radius (in miles) of a specified zipcode |
-| GET    | `/vendors/:vendorId/products`        | public         | Returns product info of all of a single vendor's products                                   |
-| GET    | `/vendors/:userId/posts`             | public         | Returns all posts of a single vendor                                                        |
-| PUT    | `/vendors/:vendorId`                 | token          | Update vendor's info                                                                        |
-| DELETE | `/vendors/:vendorId`                 | token          | Delete a vendor. Cascades to all of a vendor's products and images                          |
+| Method | Endpoint               | Access Control                       | Description                                                        |
+| ------ | ---------------------- | ------------------------------------ | ------------------------------------------------------------------ |
+| GET    | `/vendors/`            | private                              | Returns the public information for all vendors                     |
+| GET    | `/vendors/me`          | private                              | Returns public info. of a logged in vendor                         |
+| <!--   | GET                    | `/vendors/radius/:zipcode/:distance` | public                                                             | Returns public info. of vendors within a specified radius (in miles) of a specified zipcode | --> |
+| GET    | `/vendors/me/products` | private                              | Returns product info of all of a single vendor's products          |
+| GET    | `/vendors/me/posts`    | private                              | Returns all posts of a the logged in vendor                        |
+| POST   | `/vendors/me/posts`    | private                              | Adds a post to a vendors list of posts                             |
+| PUT    | `/vendors/me/update`   | private                              | Update vendor's info                                               |
+| POST   | `/vendors/me/products` | private                              | Add a product to a vendor's product table                          |
+| DELETE | `/vendors/:vendorId`   | private                              | Delete a vendor. Cascades to all of a vendor's products and images |
 
 [top](#contents)
 
