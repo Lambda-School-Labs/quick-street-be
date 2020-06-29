@@ -46,6 +46,10 @@ server.use("/api/images", imagesRouter);
 // app.use('/api/posts', posts);
 // app.use('/api/orders', orders);
 
+server.get("/", (req, res) => {
+  res.send("<h1>Welcome</h1>");
+});
+
 server.get("/test", (req, res) => {
   res.send(
     "<h1>Server Status</h1><h2>Server running succesfully.</h2><p>Deployment is all good, continue working.. nothing to see here.</p>"
