@@ -43,17 +43,6 @@ router.post("/all/places", restrict, (req, res) => {
       res.send(err);
     });
 });
-//don't think we need this
-// router.get("/:vendorId/products", restrict, (req, res) => {
-//   const vendor_id = req.params.vendorId;
-//   Vendors.findVendorProducts(vendor_id)
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// });
 
 //the vendor signed in gets their data
 router.get("/me", restrict, (req, res) => {
@@ -68,20 +57,6 @@ router.get("/me", restrict, (req, res) => {
       res.send(err);
     });
 });
-
-// SAME or SIMILAR TO ABOVE
-//Return vendor data by id.
-// router.get("/:id", restrict, (req, res) => {
-//   const id = req.token.subject;
-//   Vendors.findBy(id)
-//     .first()
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// });
 
 //return vendor POSTS based on logged in vendor
 router.get("/me/posts", restrict, (req, res) => {
@@ -117,21 +92,6 @@ router.post("/me/posts", restrict, async (req, res) => {
   }
 });
 
-// router.get("/:id/posts", restrict, (req, res) => {
-//   const { id } = req.params;
-//   console.log("is this the payload", req.token.subject);
-//   console.log("is admin", req.token.admin);
-//   Vendors.findVendorPosts(id)
-//     .first()
-//     .then((data) => {
-//       res.status(200).json(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send(err);
-//     });
-// });
-
-// NEEDS ADMIN RIGHTS or we need two options, one for the admin to delete a vendor account,
 // another for a vendor to delete themself
 router.delete("/:vendorId", restrict, (req, res) => {
   const id = req.params.vendorId;
@@ -143,11 +103,6 @@ router.delete("/:vendorId", restrict, (req, res) => {
       res.send(err);
     });
 });
-
-//google maps endpoint
-// router.get('/vendors/radius/:zipcode/:distance', restrict, (req,res)=> {
-
-// })
 
 router.get("/me/products", restrict, (req, res) => {
   const id = req.token.subject;
@@ -218,4 +173,47 @@ router.post("/:vendorId/products", restrict, async (req, res) => {
       res.status(500).send(err);
     });
 });
+
+// SAME or SIMILAR TO ABOVE
+//Return vendor data by id.
+// router.get("/:id", restrict, (req, res) => {
+//   const id = req.token.subject;
+//   Vendors.findBy(id)
+//     .first()
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// });
+
+//don't think we need this
+// router.get("/:vendorId/products", restrict, (req, res) => {
+//   const vendor_id = req.params.vendorId;
+//   Vendors.findVendorProducts(vendor_id)
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// });
+
+// router.get("/:id/posts", restrict, (req, res) => {
+//   const { id } = req.params;
+//   console.log("is this the payload", req.token.subject);
+//   console.log("is admin", req.token.admin);
+//   Vendors.findVendorPosts(id)
+//     .first()
+//     .then((data) => {
+//       res.status(200).json(data);
+//     })
+//     .catch((err) => {
+//       res.status(500).send(err);
+//     });
+// });
+
+// NEEDS ADMIN RIGHTS or we need two options, one for the admin to delete a vendor account,
+
 module.exports = router;
