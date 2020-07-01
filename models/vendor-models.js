@@ -3,11 +3,14 @@ const db = require("../data/db-config");
 module.exports = {
   findBy,
   add,
+  findAll,
   find,
+  findByVendorId,
   addVendorProduct,
   addVendorPosts,
   findVendorProducts,
   findVendorPosts,
+  findVendorPostsByVendorId,
   updateVendor,
   deleteVendor,
   findZip,
@@ -18,6 +21,10 @@ function findBy(filter) {
     .join("vendors as v", "u.id", "v.users_id")
     .select("v.*")
     .where({ "u.id": filter });
+}
+
+function findByVendorId(filter) {
+  return db("vendors").select("*").where({ id: filter });
 }
 
 function findZip(filter) {
@@ -40,6 +47,10 @@ function findVendorPosts(user_id) {
     .join("users as u", "u.id", "v.users_id")
     .where({ "u.id": user_id })
     .select("p.*");
+}
+
+function findVendorPostsByVendorId(user_id) {
+  return db("posts as p").where({ "p.vendors_id": user_id }).select("p.*");
 }
 
 function updateVendor(users_id, data) {
@@ -69,7 +80,7 @@ function add(newVendor) {
   return db("vendors").insert(newVendor);
 }
 
-function find() {
+function findAll() {
   return db("vendors").select(
     "vendors.zipcode",
     "vendors.address",
@@ -77,10 +88,10 @@ function find() {
   );
 }
 
-//Posts
-// function findVendorPosts(filter) {
-//   return db("posts").select("*").where({ vendors_id: filter });
-// }
+function find() {
+  return db("vendors").select("*");
+}
+
 function addVendorPosts(data) {
   return db("posts").insert(data).returning("*");
 }
