@@ -47,7 +47,7 @@ server.use("/api/images", imagesRouter);
 // app.use('/api/orders', orders);
 
 server.get("/", (req, res) => {
-  res.send("<h1>Welcome</h1>");
+  res.status(200).json({ api: "up" });
 });
 
 server.get("/test", (req, res) => {
