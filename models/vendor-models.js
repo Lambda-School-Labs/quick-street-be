@@ -14,6 +14,7 @@ module.exports = {
   updateVendor,
   deleteVendor,
   findZip,
+  addVendorBanner
 };
 
 function findBy(filter) {
@@ -94,4 +95,10 @@ function find() {
 
 function addVendorPosts(data) {
   return db("posts").insert(data).returning("*");
+}
+
+function addVendorBanner(vendor_id, image_data) {
+  return db("vendors")
+  .where({"id" : vendor_id})
+  .update({"public_id": image_data})
 }
