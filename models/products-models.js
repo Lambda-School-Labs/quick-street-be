@@ -7,7 +7,8 @@ module.exports = {
   updateProduct,
   deleteProduct,
   getProductImages,
-  addProductImage
+  addProductImage,
+  findProductById
 };
 
 function getProducts() {
@@ -16,6 +17,13 @@ function getProducts() {
 
 function getProductById(filter) {
   return db("products").where(filter);
+}
+
+function findProductById(id) {
+  return db("products")
+  .where({ id})
+  .select("name", "description")
+  .first();
 }
 
 function addProduct(newProduct) {
