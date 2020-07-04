@@ -43,6 +43,19 @@ describe("GET /", () => {
     it("gets user by id", async () => {
       const res = await Users.findBy("dog@dog.com");
       expect(res.id).toBe(1);
+      // expect(res).toBeDefined();
+      // expect(res).toBeTruthy();
+    });
+
+    it("Defined id", async () => {
+      const res = await Users.findBy("dog@dog.com");
+      expect(res).toBeDefined();
+      // expect(res).toBeTruthy();
+    });
+
+    it("Truthiness", async () => {
+      const res = await Users.findBy("dog@dog.com");
+      expect(res).toBeTruthy();
     });
   });
 
