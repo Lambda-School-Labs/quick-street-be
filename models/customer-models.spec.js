@@ -23,6 +23,5 @@ describe("GET /", () => {
       expect(res.customer_name).toBe("Gunner");
       expect(res.phone_number).toBe("555-558-1234");
       expect(res.address).toBe("1234 Stanley Ave, Glendale, CA");
-
     });
   });
