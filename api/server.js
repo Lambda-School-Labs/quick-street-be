@@ -9,7 +9,7 @@ const customerRouter = require("../routes/customer-router");
 const postsRouter = require("../routes/posts-router");
 const ordersRouter = require("../routes/orders-router");
 const productsRouter = require("../routes/products-router");
-const imagesRouter = require("../routes/productImages-router")
+const imagesRouter = require("../routes/productImages-router");
 
 // const authRouter = require(../auth/auth-router)
 // const auth = require('./routes/auth');
@@ -46,9 +46,9 @@ server.use("/api/images", imagesRouter);
 // app.use('/api/posts', posts);
 // app.use('/api/orders', orders);
 
-server.get("/", (req, res) => {
-  res.status(200).json({ api: "up" });
-});
+// server.get("/", (req, res) => {
+//   res.status(200).json({ api: "up" });
+// });
 
 server.get("/test", (req, res) => {
   res.send(
@@ -59,7 +59,7 @@ server.get("/test", (req, res) => {
 server.use((err, req, res, next) => {
   console.log(err);
   res.status(500).json({
-    message: "Something went wrong"
+    message: "Something went wrong",
   });
 });
 

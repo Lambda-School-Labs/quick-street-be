@@ -14,8 +14,7 @@ module.exports = {
   updateVendor,
   deleteVendor,
   findZip,
-  addVendorBanner
-
+  addVendorBanner,
 };
 
 function findBy(filter) {
@@ -100,11 +99,6 @@ function addVendorPosts(data) {
 
 function addVendorBanner(vendor_id, image_data) {
   return db("vendors")
-<<<<<<< Updated upstream
-  .where({"id" : vendor_id})
-  .update({"public_id": image_data})
-=======
     .where({ id: vendor_id })
     .update({ public_id: image_data });
->>>>>>> Stashed changes
 }
