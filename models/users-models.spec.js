@@ -39,25 +39,25 @@ describe("GET /", () => {
 //     });
 //   });
 
-  describe("GET /api/users", () => {
-    it("gets user by id", async () => {
-      const res = await Users.findBy("dog@dog.com");
-      expect(res.id).toBe(1);
-      // expect(res).toBeDefined();
-      // expect(res).toBeTruthy();
-    });
+  // describe("GET /api/users", () => {
+  //   it("gets user by id", async () => {
+  //     const res = await Users.findBy("dog@dog.com");
+  //     expect(res.id).toBe(1);
+  //     // expect(res).toBeDefined();
+  //     // expect(res).toBeTruthy();
+  //   });
 
-    it("Defined id", async () => {
-      const res = await Users.findBy("dog@dog.com");
-      expect(res).toBeDefined();
-      // expect(res).toBeTruthy();
-    });
+  //   it("Defined id", async () => {
+  //     const res = await Users.findBy("dog@dog.com");
+  //     expect(res).toBeDefined();
+  //     // expect(res).toBeTruthy();
+  //   });
 
-    it("Truthiness", async () => {
-      const res = await Users.findBy("dog@dog.com");
-      expect(res).toBeTruthy();
-    });
-  });
+  //   it("Truthiness", async () => {
+  //     const res = await Users.findBy("dog@dog.com");
+  //     expect(res).toBeTruthy();
+  //   });
+  // });
 
 //   beforeEach(async () => {
 //     await db('users').truncate(); //Reset DB
