@@ -1,7 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Customers = require("../models/customer-models");
 const Users = require("../models/users-models.js");
 const router = express.Router();
 
@@ -23,11 +22,6 @@ router.post("/registration", async (req, res) => {
     console.log("this user already exists");
     res.status(200).json({ message: "user already exists.", checkUser });
   } else {
-    if (user.role === "vendor") {
-      user.isVendor = true;
-    } else if (user.role === "customer") {
-      user.isVendor = false;
-    }
     let { isVendor, email, password } = user;
     let registerUser = await Users.addUser({ isVendor, email, password });
     if (registerUser[0].isVendor === true) {
