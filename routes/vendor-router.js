@@ -6,25 +6,25 @@ const router = express.Router();
 // NEEDS ADMIN RIGHTS RESTRICITON
 //All vendors data
 router.get("/", restrict, (req, res) => {
-  const admin = req.token.admin;
-  console.log("admin", req.token);
-  if (admin) {
-    Vendors.find()
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((err) => {
-        res.send(err);
-      });
-  } else {
-    res
-      .status(401)
-      .json({ message: "Sorry, you're not allowed to see this info." });
-  }
+  // const admin = req.token.admin;
+  // console.log("admin", req.token);
+  // if (admin) {
+  Vendors.find()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+  // } else {
+  //   res
+  //     .status(401)
+  //     .json({ message: "Sorry, you're not allowed to see this info." });
+  // }
 });
 
 router.get("/all", restrict, (req, res) => {
-  Vendors.find()
+  Vendors.findAll()
     .then((data) => {
       res.json(data);
     })
@@ -176,43 +176,63 @@ router.post("/:vendorId/products", restrict, async (req, res) => {
 
 // SAME or SIMILAR TO ABOVE
 //Return vendor data by id.
-// router.get("/:id", restrict, (req, res) => {
-//   const id = req.token.subject;
-//   Vendors.findBy(id)
-//     .first()
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// });
+router.get("/:id", restrict, (req, res) => {
+  const id = req.params.id;
+  Vendors.findByVendorId(id)
+    .first()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
 //don't think we need this
-// router.get("/:vendorId/products", restrict, (req, res) => {
-//   const vendor_id = req.params.vendorId;
-//   Vendors.findVendorProducts(vendor_id)
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// });
+router.get("/:vendorId/products", restrict, (req, res) => {
+  const vendor_id = req.params.vendorId;
+  Vendors.findVendorProducts(vendor_id)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
-// router.get("/:id/posts", restrict, (req, res) => {
-//   const { id } = req.params;
-//   console.log("is this the payload", req.token.subject);
-//   console.log("is admin", req.token.admin);
-//   Vendors.findVendorPosts(id)
-//     .first()
-//     .then((data) => {
-//       res.status(200).json(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send(err);
-//     });
-// });
+router.get("/:id/posts", restrict, (req, res) => {
+  const { id } = req.params;
+  Vendors.findVendorPostsByVendorId(id)
+    .first()
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
+
+  // ADD vendor banner 
+  router.put("/:id/vendor-banner", restrict, (req, res) => {
+    const vendor_id = req.params.id;
+    const image_data = req.body;
+    // const vendor_id = 
+    console.log("banner req body", req.body)
+    console.log('id from image uploader:', product_id)
+    console.log("image data", image_data)
+
+    Vendors.addVendorBanner(vendor_id, image_data.public_id)
+    .then(response => {
+      console.log('banner response data', response)
+      res.json(response)
+    })
+    .catch(err => {
+      console.log("catch data", err)
+      res.json(err)
+    })
+  })
+
 
 // NEEDS ADMIN RIGHTS or we need two options, one for the admin to delete a vendor account,
 

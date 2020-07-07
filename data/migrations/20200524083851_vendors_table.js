@@ -29,6 +29,7 @@ exports.up = function (knex) {
       tbl.text("vendor_banner", 1000);
       tbl.text("hours", 1000);
       tbl.text("email", 1000);
+      tbl.text("public_id");
     })
 
     .createTable("customers", (tbl) => {

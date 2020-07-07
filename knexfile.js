@@ -6,7 +6,7 @@ module.exports = {
     connection: {
       host: "localhost",
       user: "postgres",
-      password: "42424242",
+      password: "gunner",
       database: "quick_street_be",
     },
     // connection:'postgres://localhost/<examples>',

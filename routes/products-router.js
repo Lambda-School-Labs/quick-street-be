@@ -46,13 +46,15 @@ router.post("/", restrict, (req, res) => {
     });
 });
 
+
 //EDIT a product
 router.put("/:id", restrict, (req, res) => {
   let id = req.params.id;
   const updates = req.body;
+
   Products.updateProduct(id, updates)
-    .then((order) => {
-      res.status(201).json(order);
+    .then((product) => {
+      res.status(201).json(product);
     })
     .catch((err) => {
       res.status(500).json(err);
