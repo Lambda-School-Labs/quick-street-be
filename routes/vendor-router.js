@@ -212,27 +212,25 @@ router.get("/:id/posts", restrict, (req, res) => {
     });
 });
 
+// ADD vendor banner
+router.put("/:id/vendor-banner", restrict, (req, res) => {
+  const vendor_id = req.params.id;
+  const image_data = req.body;
+  // const vendor_id =
+  console.log("banner req body", req.body);
+  // console.log("id from image uploader:", product_id);
+  console.log("image data", image_data);
 
-  // ADD vendor banner 
-  router.put("/:id/vendor-banner", restrict, (req, res) => {
-    const vendor_id = req.params.id;
-    const image_data = req.body;
-    // const vendor_id = 
-    console.log("banner req body", req.body)
-    console.log('id from image uploader:', product_id)
-    console.log("image data", image_data)
-
-    Vendors.addVendorBanner(vendor_id, image_data.public_id)
-    .then(response => {
-      console.log('banner response data', response)
-      res.json(response)
+  Vendors.addVendorBanner(vendor_id, image_data.public_id)
+    .then((response) => {
+      console.log("banner response data", response);
+      res.json(response);
     })
-    .catch(err => {
-      console.log("catch data", err)
-      res.json(err)
-    })
-  })
-
+    .catch((err) => {
+      console.log("catch data", err);
+      res.json(err);
+    });
+});
 
 // NEEDS ADMIN RIGHTS or we need two options, one for the admin to delete a vendor account,
 
