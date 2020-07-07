@@ -46,9 +46,9 @@ server.use("/api/images", imagesRouter);
 // app.use('/api/posts', posts);
 // app.use('/api/orders', orders);
 
-server.get("/", (req, res) => {
-  res.status(200).json({ api: "up" });
-});
+// server.get("/", (req, res) => {
+//   res.status(200).json({ api: "up" });
+// });
 
 server.get("/test", (req, res) => {
   res.send(

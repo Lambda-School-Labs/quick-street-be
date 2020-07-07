@@ -9,11 +9,11 @@ const request = require('supertest');
 
 //Uncomment when running actual tests
 
-describe("GET /", () => {
-    it("is using right testing environment", () => {
-      expect(process.env.NODE_ENV).toBe("testing");
-    });
-  });
+// describe("GET /", () => {
+//     it("is using right testing environment", () => {
+//       expect(process.env.NODE_ENV).toBe("testing");
+//     });
+//   });
 
 //   describe("POST /api/auth/register", () => {
 //     it("allows add a user", () => {
@@ -32,33 +32,39 @@ describe("GET /", () => {
 
 
 
-//   describe("GET /api/users", () => {
-//     it("pulls all users", async () => {
-//       const res = await Users.find();
-//       expect(res).toHaveLength(1);
-//     });
-//   });
+  // describe("GET /api/users", () => {
+  //   it("pulls all users", async () => {
+  //     const res = await Users.find();
+  //     expect(res).toHaveLength(1);
+  //   });
+  // });
 
-  describe("GET /api/users", () => {
-    it("gets user by id", async () => {
-      const res = await Users.findBy("dog@dog.com");
-      expect(res.id).toBe(1);
-      // expect(res).toBeDefined();
-      // expect(res).toBeTruthy();
-    });
+  // describe("GET /api/users", () => {
+  //   it("gets user by id", async () => {
+  //     const res = await Users.findBy("dog@dog.com");
+  //     expect(res.id).toBe(1);
+  //     // expect(res).toBeDefined();
+  //     // expect(res).toBeTruthy();
+  //   });
 
-    it("Defined id", async () => {
-      const res = await Users.findBy("dog@dog.com");
-      expect(res).toBeDefined();
-      // expect(res).toBeTruthy();
-    });
+  //   it("Defined id", async () => {
+  //     const res = await Users.findBy("dog@dog.com");
+  //     expect(res).toBeDefined();
+  //     // expect(res).toBeTruthy();
+  //   });
 
-    it("Truthiness", async () => {
-      const res = await Users.findBy("dog@dog.com");
-      expect(res).toBeTruthy();
-    });
-  });
+  //   it("Truthiness", async () => {
+  //     const res = await Users.findBy("dog@dog.com");
+  //     expect(res).toBeTruthy();
+  //   });
+  // });
 
 //   beforeEach(async () => {
 //     await db('users').truncate(); //Reset DB
 // });
+
+describe("GET /", () => {
+  it("is using right testing environment", () => {
+    expect(process.env.NODE_ENV).toBe("testing");
+  });
+});

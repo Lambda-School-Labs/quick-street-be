@@ -18,10 +18,10 @@ describe("GET /", () => {
         });
     });
 
-    describe("GET /", () => {
-        it("should return 404 restricted address not logged in", () => {
-            request(server)
-            .get("/images/1")
-            .then((res) => expect(res.status).toBe(404));
-            });
-        });
+    // describe("GET /", () => {
+    //     it("should return 404 restricted address not logged in", () => {
+    //         request(server)
+    //         .get("/images/1")
+    //         .then((res) => expect(res.status).toBe(404));
+    //         });
+    //     });

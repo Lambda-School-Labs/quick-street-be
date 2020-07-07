@@ -18,10 +18,10 @@ it("should return 404 restricted address not logged in", () => {
     });
 });
 
-describe("GET /", () => {
-    it("should return 404 restricted address not logged in", () => {
-        request(server)
-        .get("/orders/1")
-        .then((res) => expect(res.status).toBe(404));
-        });
-    });
+// describe("GET /", () => {
+//     it("should return 404 restricted address not logged in", () => {
+//         request(server)
+//         .get("/orders/1")
+//         .then((res) => expect(res.status).toBe(404));
+//         });
+//     });

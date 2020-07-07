@@ -14,7 +14,6 @@ module.exports = {
   updateVendor,
   deleteVendor,
   findZip,
-  findVendorById,
   addVendorBanner
 };
 
@@ -25,13 +24,7 @@ function findBy(filter) {
     .where({ "u.id": filter });
 }
 
-function findVendorById(id) {
-  return db("vendors")
-  .where({ id})
-  .select("business_name", "email", "address", "zip_code" )
-  .first();
-
-function findByVendor(filter) {
+function findByVendorId(filter) {
   return db("vendors").select("*").where({ id: filter });
 }
 

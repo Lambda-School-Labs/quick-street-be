@@ -2,6 +2,12 @@ const db = require('../data/db-config.js');
 const Vendors = require('./vendor-models.js');
 const request = require('supertest');
 
+// describe("GET /", () => {
+//     it("is using right testing environment", () => {
+//       expect(process.env.NODE_ENV).toBe("testing");
+//     });
+// });
+
 describe('vendors model', () => {
     describe('add(newVendor)', () => {
         it('should insert the added vendor into the DB', async() => {
@@ -23,25 +29,27 @@ describe('vendors model', () => {
             expect(vendors).toHaveLength(1);
         });
 
-        it('should return what was inserted', async () => {
-            let hobbit = await Vendors.add({
-                users_id: 12,
-                business_name: "1jesting",
-                phone: "5255",
-                address: "12234 ",
-                zipcode: 97113,
-                city: "jes1t",
-                description: "jes1t",
-                vendor_category: "j2esting",
-                bulletin: "ju1st",
-                hours: "10am to 11pm",
-                email: "jes22t@123.com",
-            });
-            expect(hobbit.business_name).toBe();
-        });
+        // it('should return what was inserted', async () => {
+        //     let hobbit = await Vendors.add({
+        //         users_id: 12,
+        //         business_name: "1jesting",
+        //         phone: "5255",
+        //         address: "12234 ",
+        //         zipcode: 97113,
+        //         city: "jes1t",
+        //         description: "jes1t",
+        //         vendor_category: "j2esting",
+        //         bulletin: "ju1st",
+        //         hours: "10am to 11pm",
+        //         email: "jes22t@123.com",
+        //     });
+        //     expect(hobbit.business_name).toBe();
+        // });
 
         beforeEach(async () => {
             await db('vendors').truncate(); //Reset DB
         });
+
     });
+
 });
