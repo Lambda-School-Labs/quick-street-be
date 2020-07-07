@@ -51,6 +51,7 @@ server.use("/api/images", imagesRouter);
 // });
 
 server.get("/test", (req, res) => {
+  res.status(200)
   res.send(
     "<h1>Server Status</h1><h2>Server running succesfully.</h2><p>Deployment is all good, continue working.. nothing to see here.</p>"
   );

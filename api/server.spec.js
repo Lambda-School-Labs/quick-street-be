@@ -49,7 +49,7 @@ describe('server.js', () => {
     //body share / structure
     //Without ASYNC METHOD 1
     it('should return 200 OK', () => {
-        return request(server).get('/')
+        return request(server).get('/test')
           .then(res => {
               expect(res.status).toBe(200);
           });
@@ -57,13 +57,8 @@ describe('server.js', () => {
 
     //ASYNC
     it('should return 200 ok using async / await ', async () => {
-        const res = await request(server).get('/');
+        const res = await request(server).get('/test');
         expect(res.status).toBe(200);
-    });
-
-    it('should return {api:"up"}', async () => {
-        const res = await request(server).get('/');
-        expect(res.body).toEqual(({api: 'up'}));
     });
 
   });
