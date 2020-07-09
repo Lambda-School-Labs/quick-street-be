@@ -3,3 +3,4 @@ config/config.env
 /z-old-code-snippets
 yarn.lock
 secrets.js
+.env

@@ -43,6 +43,7 @@ describe('server.js', () => {
       expect(process.env.NODE_ENV).toBe('testing');
   });
 
+<<<<<<< Updated upstream
   describe('Get /', () => {
     //return code
     //return type
@@ -62,5 +63,31 @@ describe('server.js', () => {
     });
 
   });
+=======
+//   describe('Get /', () => {
+//     //return code
+//     //return type
+//     //body share / structure
+//     //Without ASYNC METHOD 1
+//     it('should return 200 OK', () => {
+//         return request(server).get('/')
+//           .then(res => {
+//               expect(res.status).toBe(200);
+//           });
+//     });
 
-});
+//     //ASYNC
+//     it('should return 200 ok using async / await ', async () => {
+//         const res = await request(server).get('/');
+//         expect(res.status).toBe(200);
+//     });
+
+//     it('should return {api:"up"}', async () => {
+//         const res = await request(server).get('/');
+//         expect(res.body).toEqual(({api: 'up'}));
+//     });
+
+//   });
+>>>>>>> Stashed changes
+
+// });
