@@ -45,6 +45,8 @@ exports.up = function (knex) {
       tbl.text("phone_number", 255).unique().notNullable();
       tbl.text("address", 1000).notNullable();
       tbl.integer("zip_code").notNullable();
+      tbl.text("public_id");
+      tbl.text("payment_info")
     })
 
     .createTable("products", (tbl) => {
@@ -101,27 +103,54 @@ exports.up = function (knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
 
-      tbl.integer("count");
+      // tbl.integer("count");
       tbl.float("total_price");
+      tbl.datetime("date_of_order");
+
     })
 
+    
     .createTable("posts", (tbl) => {
       tbl.increments();
       tbl
-        .integer("vendors_id")
-        .unsigned()
-        .notNullable()
-        .references("vendors.id")
-        .onUpdate("CASCADE")
-        .onDelete("CASCADE");
+      .integer("vendors_id")
+      .unsigned()
+      .notNullable()
+      .references("vendors.id")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
       tbl.text("title", 255).notNullable();
       tbl.text("description", 1000).notNullable();
       tbl.datetime("date");
-    });
-};
+    })
+
+    .createTable("order_product_map", (tbl) => {
+      // tbl.increments();
+
+      tbl
+      .integer("order_id")
+      .unsigned()
+      .notNullable()
+      .references("products.id")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
+      
+      tbl
+      .integer("product_id")
+      .unsigned()
+      .notNullable()
+      .references("products.id")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
+
+      tbl.integer("product_count")
+      tbl.integer("product_cost")
+    })
+  };
 
 exports.down = function (knex) {
   return knex.schema
+  .dropTableIfExists("order_product_map")
     .dropTableIfExists("posts")
     .dropTableIfExists("orders")
     .dropTableIfExists("vendor_customer_map")
