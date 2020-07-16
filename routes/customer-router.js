@@ -29,6 +29,20 @@ router.get("/:customerId", restrict, (req, res) => {
     });
 });
 
+router.post("/profile", restrict, (req, res) => {
+  const id = req.token.subject;
+  const newUser = req.body;
+  newUser.users_id = id;
+  console.log("user token", req.token.subject);
+  Customer.add(newUser)
+    .then((data) => {
+      res.status(200).json({ message: "Successful customer upload", data });
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
 router.put("/:customerId", restrict, (req, res) => {
   const id = req.params.customerId;
   const data = req.body;

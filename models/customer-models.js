@@ -6,7 +6,7 @@ module.exports = {
   find,
   updateCustomer,
   deleteCustomer,
-  findCustomerById
+  findCustomerById,
 };
 
 function findBy(filter) {
@@ -15,13 +15,13 @@ function findBy(filter) {
 
 function findCustomerById(id) {
   return db("customers")
-  .where({ id})
-  .select("customer_name", "phone_number", "address", "zip_code" )
-  .first();
+    .where({ id })
+    .select("customer_name", "phone_number", "address", "zip_code")
+    .first();
 }
 
 function add(customer) {
-  return db("customers").insert(customer);
+  return db("customers").insert(customer).returning("*");
 }
 
 function find() {
