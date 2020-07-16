@@ -10,7 +10,7 @@ module.exports = {
 };
 
 function findBy(filter) {
-  return db("customers").where(filter);
+  return db("customers").where({ users_id: filter }).select("*").first();
 }
 
 function findCustomerById(id) {
@@ -29,7 +29,7 @@ function find() {
 }
 
 function updateCustomer(id, data) {
-  return db("customers").where({ id }).update(data).returning("*");
+  return db("customers").where({ users_id: id }).update(data).returning("*");
 }
 
 function deleteCustomer(id) {
