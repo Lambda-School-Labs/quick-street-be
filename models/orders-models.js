@@ -18,13 +18,6 @@ function getOrders() {
   return db("orders").select("*");
 }
 
-// function updatePost(id, data) {
-//   return db("orders")
-//     .where({ id })
-//     .update(data)
-//     .returning("*");
-// }
-
 // function deletePost(id) {
 //   return db("orders")
 //     .where({ id })
