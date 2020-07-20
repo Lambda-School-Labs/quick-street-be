@@ -18,7 +18,7 @@ router.get("/", restrict, (req, res) => {
     });
 });
 
-// get product by ID
+// get products by ID
 
 router.get("/:id", restrict, (req, res) => {
   const id = req.params.id;
