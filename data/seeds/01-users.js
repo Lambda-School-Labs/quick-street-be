@@ -33,6 +33,12 @@ exports.seed = function (knex) {
           isVendor: 1,
           isAdmin: 1,
         },
+        {
+          email: "cust@test.com",
+          password: "$2a$08$oTRsP0F81p6knRBppbYN4exhZr.2CnJ3suQjJ7EAY/S/ZvGJ1G23q",
+          isVendor: 0,
+          isAdmin: 1
+        }
       ]);
     });
 };

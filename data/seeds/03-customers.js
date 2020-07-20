@@ -28,6 +28,14 @@ exports.seed = function(knex) {
           address: "1234 Stanle Ave, Glendale, CA",
           zip_code: 97224,
           public_id: "mouse"
+        },
+        {
+          users_id: 8,
+          customer_name: "customer",
+          phone_number: "555-552-9876",
+          address: "1234 Stanle Ave, Glendale, CA",
+          zip_code: 97211,
+          public_id: "mouse"
         }
       ]);
     });

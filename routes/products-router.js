@@ -10,23 +10,23 @@ let productImages = [];
 
 router.get("/", restrict, (req, res) => {
   Products.getProducts()
-    .then((orders) => {
-      res.json(orders);
+    .then((products) => {
+      res.json(products);
     })
     .catch((err) => {
       res.json(err);
     });
 });
 
-// get product by ID
+// get products by ID
 
 router.get("/:id", restrict, (req, res) => {
   const id = req.params.id;
 
   Products.getProductById({ id })
     .first()
-    .then((order) => {
-      res.json(order);
+    .then((product) => {
+      res.json(product);
     })
     .catch((err) => {
       res.send(err);
@@ -37,7 +37,7 @@ router.get("/:id", restrict, (req, res) => {
 
 router.post("/", restrict, (req, res) => {
   const order = req.body;
-  Products.addProduct(order)
+  Products.addProduct(product)
     .then((data) => {
       res.status(201).json(data);
     })
