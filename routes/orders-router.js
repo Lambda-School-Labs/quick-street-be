@@ -19,18 +19,18 @@ router.get("/", restrict, (req, res) => {
 
 // get orders by ID
 
-router.get("/:id", restrict, (req, res) => {
-  const id = req.params.id;
+// router.get("/:id", restrict, (req, res) => {
+//   const id = req.params.id;
 
-  Orders.getOrderById({ id })
-    .first()
-    .then(order => {
-      res.json(order);
-    })
-    .catch(err => {
-      res.send(err);
-    });
-});
+//   Orders.getOrderById({ id })
+//     .first()
+//     .then(order => {
+//       res.json(order);
+//     })
+//     .catch(err => {
+//       res.send(err);
+//     });
+// });
 
 
 router.get("/me", restrict, (req, res) => {

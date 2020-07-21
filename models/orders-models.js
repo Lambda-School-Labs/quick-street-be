@@ -11,7 +11,8 @@ module.exports = {
 function findBy(filter) {
   return db("users as u")
     .join("customers as c", "u.id", "c.users_id")
-    .select("c.*")
+    .join("orders as o", "o.customer_id", "c.id")
+    .select("o.*")
     .where({ "u.id": filter });
 }
 
