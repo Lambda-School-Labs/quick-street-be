@@ -109,7 +109,7 @@ exports.up = function (knex) {
 
     })
 
-    
+
     .createTable("posts", (tbl) => {
       tbl.increments();
       tbl
@@ -134,7 +134,7 @@ exports.up = function (knex) {
       .references("products.id")
       .onUpdate("CASCADE")
       .onDelete("CASCADE");
-      
+
       tbl
       .integer("product_id")
       .unsigned()
@@ -146,11 +146,32 @@ exports.up = function (knex) {
       tbl.integer("product_count")
       tbl.integer("product_cost")
     })
+
+    .createTable("customer_favorites_map", (tbl) => {
+
+      tbl
+      .integer("customer_id")
+      .unsigned()
+      .notNullable()
+      .references("customers.id")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
+
+      tbl
+      .integer("vendor_id")
+      .unsigned()
+      .notNullable()
+      .references("vendors.id")
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
+    })
+
   };
 
 exports.down = function (knex) {
   return knex.schema
-  .dropTableIfExists("order_product_map")
+    .dropTableIfExists("customer_favorites_map")
+    .dropTableIfExists("order_product_map")
     .dropTableIfExists("posts")
     .dropTableIfExists("orders")
     .dropTableIfExists("vendor_customer_map")

@@ -45,7 +45,7 @@
       "!**/vendor/**",
       "!**/__tests__/**"
     ]
-    },
+  },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
