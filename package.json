@@ -38,15 +38,22 @@
     "supertest": "^4.0.2"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!**/node_modules/**",
+      "!**/vendor/**",
+      "!**/__tests__/**"
+    ]
   },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md)\"",
-    "test": "cross-env NODE_ENV=testing jest --detectOpenHandles --forceExit --watch",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "cross-env NODE_ENV=testing jest --detectOpenHandles --forceExit --watch",
+    "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
   },
   "repository": {
     "type": "git",

@@ -5,9 +5,12 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex("orders").insert([
-        { customer_id: 1, product_id: 1, count: 90, total_price: 7658 },
-        { customer_id: 2, product_id: 2, count: 13, total_price: 235 },
-        { customer_id: 3, product_id: 3, count: 324, total_price: 18 },
+        { customer_id: 1, product_id: 1, total_price: 7658, date_of_order: "1/1/20" },
+        { customer_id: 2, product_id: 2, total_price: 235, date_of_order: "1/1/20" },
+        { customer_id: 3, product_id: 3, total_price: 18, date_of_order: "1/1/20" },
+        { customer_id: 4, product_id: 1, total_price: 7658, date_of_order: "7/1/20" },
+        { customer_id: 4, product_id: 2, total_price: 235, date_of_order: "7/1/20" },
+        { customer_id: 4, product_id: 3, total_price: 18, date_of_order: "7/1/20" },
       ]);
     });
 };

@@ -16,28 +16,58 @@ router.get("/", restrict, (req, res) => {
 });
 
 //find by id
-router.get("/:customerId", restrict, (req, res) => {
-  const id = req.params.customerId;
-  console.log("is this the payload", req.token.subject);
-  Customer.findBy({ id })
-    .first()
+// router.get("/:customerId", restrict, (req, res) => {
+//   const id = req.params.customerId;
+//   console.log("is this the payload", req.token.subject);
+//   Customer.findBy({ id })
+//     .first()
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// });
+
+router.get("/me", restrict, (req, res) => {
+  const id = req.token.subject;
+  console.log(id);
+  Customer.findBy(id)
     .then((data) => {
-      res.json(data);
+      res.status(200).json(data);
     })
     .catch((err) => {
-      res.send(err);
+      res.status(500).send(err);
     });
 });
 
-router.put("/:customerId", restrict, (req, res) => {
-  const id = req.params.customerId;
+router.post("/profile", restrict, (req, res) => {
+  const id = req.token.subject;
+  const newUser = req.body;
+  newUser.users_id = id;
+  console.log("user token", req.token.subject);
+  Customer.add(newUser)
+    .then((data) => {
+      res.status(200).json({ message: "Successful customer upload", data });
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
+router.put("/profile/update", restrict, (req, res) => {
+  const id = req.token.subject;
   const data = req.body;
   Customer.updateCustomer(id, data)
     .then((data) => {
-      res.json(data);
+      res
+        .status(200)
+        .json({ message: "Successfully updated your profile", data });
     })
     .catch((err) => {
-      res.send(err);
+      res
+        .status(500)
+        .send({ message: "There was a problem updating your profile", err });
     });
 });
 

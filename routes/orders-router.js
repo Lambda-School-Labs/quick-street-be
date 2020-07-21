@@ -17,17 +17,32 @@ router.get("/", restrict, (req, res) => {
     });
 });
 
-// get order by ID
+// get orders by ID
 
-router.get("/:id", restrict, (req, res) => {
-  const id = req.params.id;
+// router.get("/:id", restrict, (req, res) => {
+//   const id = req.params.id;
 
-  Orders.getOrderById({ id })
-    .first()
-    .then(order => {
-      res.json(order);
+//   Orders.getOrderById({ id })
+//     .first()
+//     .then(order => {
+//       res.json(order);
+//     })
+//     .catch(err => {
+//       res.send(err);
+//     });
+// });
+
+
+router.get("/me", restrict, (req, res) => {
+  const id = req.token.subject;
+  console.log("is this the orders payload", req.token.subject);
+  Orders.findBy(id)
+    // .first()
+    .then((data) => {
+      console.log("orders data returned", data)
+      res.json(data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.send(err);
     });
 });

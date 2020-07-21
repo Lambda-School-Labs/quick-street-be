@@ -10,9 +10,9 @@ describe("GET /", () => {
     });
   });
 
-  describe("GET /api/orders", () => {
-    it("gets posts", async () => {
-      const res = await Posts.find();
-      expect(res).toHaveLength(2);
-    });
-  });
+  // describe("GET /api/orders", () => {
+  //   it("gets posts", async () => {
+  //     const res = await Posts.find();
+  //     expect(res).toHaveLength(2);
+  //   });
+  // });

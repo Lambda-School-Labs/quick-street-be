@@ -21,7 +21,7 @@ function getProductById(filter) {
 
 function findProductById(id) {
   return db("products")
-  .where({ id})
+  .where({ id })
   .select("name", "description")
   .first();
 }
