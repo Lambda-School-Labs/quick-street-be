@@ -41,6 +41,19 @@ router.get("/me", restrict, (req, res) => {
     });
 });
 
+router.get("/favorites/me", restrict, (req, res) => {
+  const id = req.token.subject;
+  console.log(id);
+  Customer.findFavorites(id)
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
+
 router.post("/profile", restrict, (req, res) => {
   const id = req.token.subject;
   const newUser = req.body;

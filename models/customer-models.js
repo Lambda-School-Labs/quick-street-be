@@ -7,10 +7,37 @@ module.exports = {
   updateCustomer,
   deleteCustomer,
   findCustomerById,
+  findFavorites
 };
 
 function findBy(filter) {
   return db("customers").where({ users_id: filter }).select("*").first();
+}
+// function findBy(filter) {
+//   return db("users as u")
+//     .join("customers as c", "u.id", "c.users_id")
+//     .join("orders as o", "o.customer_id", "c.id")
+//     .select("o.*")
+//     .where({ "u.id": filter });
+// }
+
+// select c.id, v.business_name, v.vendor_category
+// from customer_favorites_map as cfm
+
+// join customers as c on c.id = cfm.customer_id
+// join vendors as v on v.id = cfm.vendor_id
+// where c.id = 1
+
+
+function findFavorites(filter) {
+  return db("users as u")
+  .join("customers as c", "u.id", "c.users_id")
+  .join("customer_favorites_map as m", "c.id", "m.customer_id")
+  .join("vendors as v", "v.id", "m.vendor_id")
+  // .join("vendors as v", "v.users_id", "u.id")
+  .select("v.business_name", "v.vendor_category")
+  // .where({ "c.id":1 })
+  .where({ "u.id": filter });
 }
 
 function findCustomerById(id) {
