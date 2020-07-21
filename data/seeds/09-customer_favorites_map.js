@@ -11,9 +11,9 @@ exports.seed = function (knex) {
         { customer_id: 2, vendor_id: 1},
         { customer_id: 2, vendor_id: 2},
         { customer_id: 2, vendor_id: 3},
-        { customer_id: 3, vendor_id: 1},
-        { customer_id: 3, vendor_id: 2},
-        { customer_id: 3, vendor_id: 3},
+        { customer_id: 4, vendor_id: 1},
+        { customer_id: 4, vendor_id: 2},
+        { customer_id: 4, vendor_id: 3},
       ]);
     });
 };
