@@ -53,6 +53,24 @@ router.get("/favorites/me", restrict, (req, res) => {
     });
 });
 
+router.post("/favorites/add", restrict, async (req, res) => {
+  const user_id = req.token.subject;
+  const vendor_id = req.body;
+  // const customer_id = await Customer.findCustomerId(user_id);
+  console.log("vendor id", vendor_id.vendor_id);
+  // console.log("cust id", customer_id[0].id);
+  // Customer.addFavorite({
+  //   customer_id: customer_id[0].id,
+  //   vendor_id: vendor_id.vendor_id,
+  // })
+  Customer.addFavorite(user_id, vendor_id.vendor_id)
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
 
 router.post("/profile", restrict, (req, res) => {
   const id = req.token.subject;
