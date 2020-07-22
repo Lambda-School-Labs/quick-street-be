@@ -7,7 +7,9 @@ module.exports = {
   updateCustomer,
   deleteCustomer,
   findCustomerById,
-  findFavorites
+  findCustomerId,
+  findFavorites,
+  addFavorite,
 };
 
 function findBy(filter) {
@@ -28,16 +30,36 @@ function findBy(filter) {
 // join vendors as v on v.id = cfm.vendor_id
 // where c.id = 1
 
-
 function findFavorites(filter) {
+  return (
+    db("users as u")
+      .join("customers as c", "u.id", "c.users_id")
+      .join("customer_favorites_map as m", "c.id", "m.customer_id")
+      .join("vendors as v", "v.id", "m.vendor_id")
+      // .join("vendors as v", "v.users_id", "u.id")
+      .select("v.business_name", "v.vendor_category")
+      // .where({ "c.id":1 })
+      .where({ "u.id": filter })
+  );
+}
+function findCustomerId(user_id) {
   return db("users as u")
-  .join("customers as c", "u.id", "c.users_id")
-  .join("customer_favorites_map as m", "c.id", "m.customer_id")
-  .join("vendors as v", "v.id", "m.vendor_id")
-  // .join("vendors as v", "v.users_id", "u.id")
-  .select("v.business_name", "v.vendor_category")
-  // .where({ "c.id":1 })
-  .where({ "u.id": filter });
+    .join("customers as c", "u.id", "c.users_id")
+    .select("c.id")
+    .where({ "u.id": user_id });
+}
+
+// function addFavorite(data) {
+//   return db("customer_favorites_map as m").insert(data);
+// }
+
+function addFavorite(user_id, vendor_id) {
+  let cust = findCustomerId(user_id);
+  return db("customer_favorites_map as m")
+    .join("customers as c", "m.customer_id", "c.id")
+    .join("users as u", "u.id", "c.users_id")
+    .where({ "u.id": user_id })
+    .insert({ customer_id: cust, vendor_id: vendor_id });
 }
 
 function findCustomerById(id) {
