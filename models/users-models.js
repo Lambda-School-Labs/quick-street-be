@@ -6,6 +6,7 @@ module.exports = {
   findBy,
   updateUser,
   deleteUser,
+  findFavorites,
 };
 
 function addUser(newUser) {
@@ -26,4 +27,18 @@ function updateUser(id, data) {
 
 function deleteUser(id) {
   return db("users").where({ id }).del();
+}
+
+
+function findFavorites(filter) {
+  return (
+    db("users as u")
+      .join("customers as c", "u.id", "c.users_id")
+      .join("customer_favorites_map as m", "c.id", "m.customer_id")
+      .join("vendors as v", "v.id", "m.vendor_id")
+      // .join("vendors as v", "v.users_id", "u.id")
+      .select("v.id")
+      // .where({ "c.id":1 })
+      .where({ "u.id": filter })
+  );
 }
