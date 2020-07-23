@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Users = require("../models/users-models.js");
+const restrict = require("../middleware/restrict");
 const router = express.Router();
 
 // NEEDS RESTRICT
@@ -9,6 +10,18 @@ router.get("/", async (req, res) => {
   const users = await Users.find().catch((e) => res.json(e));
   res.status(200).json(users);
 });
+
+  router.get("/favorites", restrict, (req, res) => {
+    const id = req.token.subject;
+    console.log(id);
+    Users.findFavorites(id)
+      .then((data) => {
+        res.status(200).json(data);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  });
 
 // REGISTRATION
 router.post("/registration", async (req, res) => {
