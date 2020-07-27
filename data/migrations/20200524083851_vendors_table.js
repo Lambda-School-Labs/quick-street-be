@@ -105,7 +105,7 @@ exports.up = function (knex) {
 
       // tbl.integer("count");
       tbl.float("total_price");
-      tbl.datetime("date_of_order");
+      tbl.date("date_of_order");
 
     })
 

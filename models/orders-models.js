@@ -12,7 +12,8 @@ function findBy(filter) {
   return db("users as u")
     .join("customers as c", "u.id", "c.users_id")
     .join("orders as o", "o.customer_id", "c.id")
-    .select("o.*")
+    .join("products as p", "p.id", "o.product_id")
+    .select("o.*", "p.*")
     .where({ "u.id": filter });
 }
 
