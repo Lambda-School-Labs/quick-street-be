@@ -46,7 +46,7 @@ exports.up = function (knex) {
       tbl.text("address", 1000).notNullable();
       tbl.integer("zip_code").notNullable();
       tbl.text("public_id");
-      tbl.text("payment_info")
+      tbl.text("payment_info");
     })
 
     .createTable("products", (tbl) => {
@@ -106,67 +106,62 @@ exports.up = function (knex) {
       // tbl.integer("count");
       tbl.float("total_price");
       tbl.date("date_of_order");
-
     })
-
 
     .createTable("posts", (tbl) => {
       tbl.increments();
       tbl
-      .integer("vendors_id")
-      .unsigned()
-      .notNullable()
-      .references("vendors.id")
-      .onUpdate("CASCADE")
-      .onDelete("CASCADE");
+        .integer("vendors_id")
+        .unsigned()
+        .notNullable()
+        .references("vendors.id")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
       tbl.text("title", 255).notNullable();
       tbl.text("description", 1000).notNullable();
       tbl.datetime("date");
     })
 
     .createTable("order_product_map", (tbl) => {
-      // tbl.increments();
+      tbl
+        .integer("order_id")
+        .unsigned()
+        .notNullable()
+        .references("products.id")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
 
       tbl
-      .integer("order_id")
-      .unsigned()
-      .notNullable()
-      .references("products.id")
-      .onUpdate("CASCADE")
-      .onDelete("CASCADE");
+        .integer("product_id")
+        .unsigned()
+        .notNullable()
+        .references("products.id")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
 
-      tbl
-      .integer("product_id")
-      .unsigned()
-      .notNullable()
-      .references("products.id")
-      .onUpdate("CASCADE")
-      .onDelete("CASCADE");
-
-      tbl.integer("product_count")
-      tbl.integer("product_cost")
+      tbl.integer("product_count");
+      tbl.integer("product_cost");
     })
 
     .createTable("customer_favorites_map", (tbl) => {
+      tbl.increments();
+      tbl
+        .integer("customer_id")
+        .unsigned()
+        .notNullable()
+        .references("customers.id")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
 
       tbl
-      .integer("customer_id")
-      .unsigned()
-      .notNullable()
-      .references("customers.id")
-      .onUpdate("CASCADE")
-      .onDelete("CASCADE");
-
-      tbl
-      .integer("vendor_id")
-      .unsigned()
-      .notNullable()
-      .references("vendors.id")
-      .onUpdate("CASCADE")
-      .onDelete("CASCADE");
-    })
-
-  };
+        .integer("vendor_id")
+        .unsigned()
+        .notNullable()
+        .references("vendors.id")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
+    });
+};
 
 exports.down = function (knex) {
   return knex.schema

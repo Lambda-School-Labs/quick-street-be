@@ -72,6 +72,19 @@ router.post("/favorites/add", restrict, async (req, res) => {
     });
 });
 
+router.delete("/favorites/delete/:id", restrict, (req, res) => {
+  const { id } = req.params;
+  Customer.deleteFavorite(id)
+    .then((data) => {
+      res
+        .status(200)
+        .json({ message: "You successfully deleted a favorite vendor.", data });
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
 router.post("/profile", restrict, (req, res) => {
   const id = req.token.subject;
   const newUser = req.body;
