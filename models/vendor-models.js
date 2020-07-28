@@ -34,7 +34,10 @@ function findZip(filter) {
   if (isNaN(input)) {
     let lowerCase = input.toLowerCase();
     console.log("lowercase", lowerCase);
-    return db("vendors as v").select("*").where({ "v.city": lowerCase });
+    return db("vendors as v")
+      .select("*")
+      .where({ "v.city": lowerCase })
+      .orWhere({ "v.business_name": lowerCase });
   } else {
     let num = Number(input);
     console.log("this is num", num);
