@@ -62,11 +62,10 @@ function updateVendor(users_id, data) {
 }
 
 function findVendorProducts(filter) {
-  return db("users as u")
-    .join("vendors as v", "u.id", "v.users_id")
+    return db("vendors as v")
     .join("products as p", "v.id", "p.vendor_id")
     .select("p.*")
-    .where({ "u.id": filter });
+    .where({ "v.id": filter });
 }
 //product update
 function addVendorProduct(data) {
