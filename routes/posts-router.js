@@ -30,7 +30,7 @@ router.get("/:id", restrict, (req, res) => {
       res.send(err);
     });
 });
-
+//work please
 // ADD post
 router.post("/", restrict, (req, res) => {
   const post = req.body;
