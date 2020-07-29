@@ -13,7 +13,8 @@ function findBy(filter) {
     .join("customers as c", "u.id", "c.users_id")
     .join("orders as o", "o.customer_id", "c.id")
     .join("products as p", "p.id", "o.product_id")
-    .select("o.*", "p.*")
+    .join("vendors as v", "v.id", "p.vendor_id")
+    .select("o.*", "p.*", "v.*")
     .where({ "u.id": filter });
 }
 
@@ -29,8 +30,3 @@ function getOrders() {
   return db("orders").select("*");
 }
 
-// function deletePost(id) {
-//   return db("orders")
-//     .where({ id })
-//     .del();
-// }
