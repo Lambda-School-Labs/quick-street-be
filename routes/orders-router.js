@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const Orders = require("../models/orders-models");
+const Customers = require("../models/customer-models");
 
 const restrict = require("../middleware/restrict");
 const router = express.Router();
@@ -35,8 +36,14 @@ router.get("/me", restrict, (req, res) => {
 
 // ADD order
 
-router.post("/", restrict, (req, res) => {
+router.post("/submit", restrict, (req, res) => {
+  
+  // Customers.findCustomerId(req.body.user_id)
+  // .then(customer => {
+    
+  // })
   const order = req.body;
+  console.log(order)
   Orders.addOrder(order)
     .then(order => {
       res.status(201).json(order);
