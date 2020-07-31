@@ -88,24 +88,26 @@ exports.up = function (knex) {
     .createTable("orders", (tbl) => {
       tbl.increments();
       tbl
-        .integer("customer_id")
+        .integer("user_id")
         .unsigned()
         .notNullable()
-        .references("customers.id")
+        .references("users.id")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
 
-      tbl
-        .integer("product_id")
-        .unsigned()
-        .notNullable()
-        .references("products.id")
-        .onUpdate("CASCADE")
-        .onDelete("CASCADE");
+      // tbl
+      //   .integer("product_id")
+      //   .unsigned()
+      //   .notNullable()
+      //   .references("products.id")
+      //   .onUpdate("CASCADE")
+      //   .onDelete("CASCADE");
 
       // tbl.integer("count");
-      tbl.float("total_price");
-      tbl.date("date_of_order");
+      tbl.text("business_name");
+      tbl.float("subtotal");
+      tbl.text("date_of_order");
+
     })
 
     .createTable("posts", (tbl) => {
