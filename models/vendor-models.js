@@ -101,6 +101,12 @@ function addVendorPosts(data) {
 
 function addVendorBanner(vendor_id, image_data) {
   return db("vendors")
-    .where({ id: vendor_id })
-    .update({ public_id: image_data });
+    .where({ "users_id": vendor_id })
+    .update({ "public_id": image_data });
 }
+
+// function addProductImage(product_id, image_data) {
+//   return db("products")
+//   .where({"id" : product_id})
+//   .update({"public_id": image_data})
+// }
