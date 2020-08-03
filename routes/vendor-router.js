@@ -109,6 +109,7 @@ router.get("/me/products", restrict, (req, res) => {
   console.log("token id", id);
   Vendors.findVendorProducts(id)
     .then((data) => {
+      console.log("me products data", data)
       res.json(data);
     })
     .catch((err) => {
