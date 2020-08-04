@@ -109,6 +109,7 @@ router.get("/me/products", restrict, (req, res) => {
   console.log("token id", id);
   Vendors.findVendorProducts(id)
     .then((data) => {
+      console.log("me products data", data)
       res.json(data);
     })
     .catch((err) => {
@@ -232,6 +233,25 @@ router.put("/:id/vendor-banner", restrict, (req, res) => {
     });
 });
 
+
+// router.put("/:id/product-images", restrict, (req, res) => {
+//   const product_id = req.params.id;
+//   const image_data = req.body;
+//   // const vendor_id = 
+//   console.log("req body", req.body)
+//   console.log('id from image uploader:', product_id)
+//   console.log("image data", image_data)
+
+//   Products.addProductImage(product_id, image_data.public_id)
+//   .then(response => {
+//     console.log('response data', response)
+//     res.json(response)
+//   })
+//   .catch(err => {
+//     console.log("catch data", err)
+//     res.json(err)
+//   })
+// })
 // NEEDS ADMIN RIGHTS or we need two options, one for the admin to delete a vendor account,
 
 module.exports = router;
