@@ -22,6 +22,7 @@ router.get("/", restrict, (req, res) => {
 
 router.get("/me", restrict, (req, res) => {
   const id = req.token.subject;
+  console.log("the id", id)
   console.log("is this the orders payload", req.token.subject);
   Orders.findBy(id)
     // .first()
