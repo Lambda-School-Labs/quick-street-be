@@ -23,9 +23,7 @@ function findFavorites(filter) {
       .join("customers as c", "u.id", "c.users_id")
       .join("customer_favorites_map as m", "c.id", "m.customer_id")
       .join("vendors as v", "v.id", "m.vendor_id")
-      // .join("vendors as v", "v.users_id", "u.id")
-      .select("m.id", "v.business_name", "v.vendor_category", "v.id as vid")
-      // .where({ "c.id":1 })
+      .select("m.id", "v.business_name", "v.vendor_category", "v.id as vid", "v.public_id")
       .where({ "u.id": filter })
   );
 }
