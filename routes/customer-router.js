@@ -126,4 +126,27 @@ router.delete("/:customerId", restrict, (req, res) => {
     });
 });
 
+
+// ADD customer picture
+router.put("/:id/profile-picture", restrict, (req, res) => {
+  const id = req.token.subject;
+  // const customer_id = req.params.id;
+  const image_data = req.body;
+  // const vendor_id =
+  console.log("customer req body", req.body);
+  // console.log("id from image uploader:", product_id);
+  console.log("image data", image_data);
+
+  Customer.addCustomerPicture(id, image_data.public_id)
+    .then((response) => {
+      console.log("ID", id)
+      console.log("customer picture response data", image_data.public_id);
+      res.json(response);
+    })
+    .catch((err) => {
+      console.log("catch data", err);
+      res.json(err);
+    });
+});
+
 module.exports = router;

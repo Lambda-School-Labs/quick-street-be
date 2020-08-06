@@ -11,6 +11,7 @@ module.exports = {
   findFavorites,
   addFavorite,
   deleteFavorite,
+  addCustomerPicture
 };
 
 function findBy(filter) {
@@ -72,4 +73,10 @@ function updateCustomer(id, data) {
 
 function deleteCustomer(id) {
   return db("customers").where({ id }).del();
+}
+
+function addCustomerPicture(user_id, image_data) {
+  return db("customers")
+    .where({ "users_id": user_id })
+    .update({ "public_id": image_data })
 }
