@@ -117,6 +117,21 @@ router.get("/me/products", restrict, (req, res) => {
     });
 });
 
+//don't think we need this
+router.get("/:vendorId/products", restrict, (req, res) => {
+  const vendor_id = req.params.vendorId;
+  console.log("PARAMTS", req.params)
+  console.log("ID", vendor_id)
+  console.log("SUBJECT", req.token.subject)
+  Vendors.findVendorProductsForCustomer(vendor_id)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 router.post("/add", restrict, (req, res) => {
   const id = req.token.subject;
   const data = req.body;
@@ -189,17 +204,6 @@ router.get("/:id", restrict, (req, res) => {
     });
 });
 
-//don't think we need this
-router.get("/:vendorId/products", restrict, (req, res) => {
-  const vendor_id = req.params.vendorId;
-  Vendors.findVendorProducts(vendor_id)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
 
 router.get("/:id/posts", restrict, (req, res) => {
   const { id } = req.params;

@@ -15,6 +15,7 @@ module.exports = {
   deleteVendor,
   findZip,
   addVendorBanner,
+  findVendorProductsForCustomer
 };
 
 function findBy(filter) {
@@ -68,8 +69,16 @@ function findVendorProducts(filter) {
     return db("vendors as v")
     .join("products as p", "v.id", "p.vendor_id")
     .select("p.*")
-    .where({ "v.id": filter });
+    .where({ "v.users_id": filter });
 }
+
+function findVendorProductsForCustomer(filter) {
+  return db("vendors as v")
+  .join("products as p", "v.id", "p.vendor_id")
+  .select("p.*")
+  .where({ "v.id": filter });
+}
+
 //product update
 function addVendorProduct(data) {
   return db("products").insert(data).returning("*");
