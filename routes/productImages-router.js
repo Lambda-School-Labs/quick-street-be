@@ -13,11 +13,9 @@ router.get("/", restrict, (req, res) => {
 
 router.get("/:id/product-images", restrict, (req, res) => {
 const id = req.params.id;
-console.log('router id:', id)
 
 Products.getProductImages(id)
 .then(data => {
-  console.log('router data:', data)
   res.json(data)
 })
 .catch(err => {
@@ -26,16 +24,5 @@ Products.getProductImages(id)
 });
 
 
-
-// router.get("/:vendorId/products", restrict, (req, res) => {
-//   const vendor_id = req.params.vendorId;
-//   Vendors.findVendorProducts(vendor_id)
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// });
 module.exports = router;
 

@@ -22,12 +22,8 @@ router.get("/", restrict, (req, res) => {
 
 router.get("/me", restrict, (req, res) => {
   const id = req.token.subject;
-  console.log("the id", id)
-  console.log("is this the orders payload", req.token.subject);
   Orders.findBy(id)
-    // .first()
     .then((data) => {
-      console.log("orders data returned", data)
       res.json(data);
     })
     .catch((err) => {
@@ -39,12 +35,7 @@ router.get("/me", restrict, (req, res) => {
 
 router.post("/submit", restrict, (req, res) => {
   
-  // Customers.findCustomerId(req.body.user_id)
-  // .then(customer => {
-    
-  // })
   const order = req.body;
-  console.log(order)
   Orders.addOrder(order)
     .then(order => {
       res.status(201).json(order);

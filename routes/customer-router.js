@@ -15,23 +15,9 @@ router.get("/", restrict, (req, res) => {
     });
 });
 
-//find by id
-// router.get("/:customerId", restrict, (req, res) => {
-//   const id = req.params.customerId;
-//   console.log("is this the payload", req.token.subject);
-//   Customer.findBy({ id })
-//     .first()
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// });
 
 router.get("/me", restrict, (req, res) => {
   const id = req.token.subject;
-  console.log(id);
   Customer.findBy(id)
     .then((data) => {
       res.status(200).json(data);
@@ -43,7 +29,6 @@ router.get("/me", restrict, (req, res) => {
 
 router.get("/favorites/me", restrict, (req, res) => {
   const id = req.token.subject;
-  console.log(id);
   Customer.findFavorites(id)
     .then((data) => {
       res.status(200).json(data);
@@ -56,13 +41,7 @@ router.get("/favorites/me", restrict, (req, res) => {
 router.post("/favorites/add", restrict, async (req, res) => {
   const user_id = req.token.subject;
   const vendor_id = req.body;
-  // const customer_id = await Customer.findCustomerId(user_id);
-  console.log("vendor id", vendor_id.vendor_id);
-  // console.log("cust id", customer_id[0].id);
-  // Customer.addFavorite({
-  //   customer_id: customer_id[0].id,
-  //   vendor_id: vendor_id.vendor_id,
-  // })
+
   Customer.addFavorite(user_id, vendor_id.vendor_id)
     .then((data) => {
       res.status(200).json(data);
@@ -89,7 +68,7 @@ router.post("/profile", restrict, (req, res) => {
   const id = req.token.subject;
   const newUser = req.body;
   newUser.users_id = id;
-  console.log("user token", req.token.subject);
+
   Customer.add(newUser)
     .then((data) => {
       res.status(200).json({ message: "Successful customer upload", data });
@@ -130,21 +109,14 @@ router.delete("/:customerId", restrict, (req, res) => {
 // ADD customer picture
 router.put("/:id/profile-picture", restrict, (req, res) => {
   const id = req.token.subject;
-  // const customer_id = req.params.id;
   const image_data = req.body;
-  // const vendor_id =
-  console.log("customer req body", req.body);
-  // console.log("id from image uploader:", product_id);
-  console.log("image data", image_data);
+
 
   Customer.addCustomerPicture(id, image_data.public_id)
     .then((response) => {
-      console.log("ID", id)
-      console.log("customer picture response data", image_data.public_id);
       res.json(response);
     })
     .catch((err) => {
-      console.log("catch data", err);
       res.json(err);
     });
 });

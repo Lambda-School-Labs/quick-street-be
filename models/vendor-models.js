@@ -31,17 +31,14 @@ function findByVendorId(filter) {
 
 function findZip(filter) {
   let input = filter.data;
-  console.log("input", input);
   if (isNaN(input)) {
     let lowerCase = input.toLowerCase();
-    console.log("lowercase", lowerCase);
     return db("vendors as v")
       .select("*")
       .where({ "v.city": lowerCase })
       .orWhere({ "v.business_name": lowerCase });
   } else {
     let num = Number(input);
-    console.log("this is num", num);
     return db("vendors as v").select("*").where({ "v.zipcode": input });
   }
 }
@@ -113,9 +110,3 @@ function addVendorBanner(vendor_id, image_data) {
     .where({ "users_id": vendor_id })
     .update({ "public_id": image_data });
 }
-
-// function addProductImage(product_id, image_data) {
-//   return db("products")
-//   .where({"id" : product_id})
-//   .update({"public_id": image_data})
-// }

@@ -41,31 +41,5 @@ router.put("/:id", restrict, (req, res) => {
     });
 });
 
-// //the user signed in gets their data
-// router.get("/me", restrict, (req, res) => {
-//   const id = req.token.subject;
-//   console.log("is this the payload", req.token.subject);
-//   Users.findBy({ id })
-//     .first()
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// });
 
-// //Return user data by id.
-// router.get("/:id", restrict, (req, res) => {
-//   const id = req.params.vendorId;
-//   console.log("is this the payload", req.token.subject);
-//   Users.findBy({ id })
-//     .first()
-//     .then((data) => {
-//       res.json(data);
-//     })
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// });
 module.exports = router;
