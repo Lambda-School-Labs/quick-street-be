@@ -25,7 +25,6 @@ describe("GET /", () => {
 //         })
 //         .then((res) => expect(res.status).toBe(200))
 //         .catch((e) => {
-//           console.log(e);
 //         });
 //     });
 //   });

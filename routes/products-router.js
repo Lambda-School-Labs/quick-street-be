@@ -79,11 +79,9 @@ router.delete("/:id", restrict, (req, res) => {
 // GET product image
 router.get("/:id/product-images", restrict, (req, res) => {
   const id = req.params.id;
-  console.log("router id:", id);
   
   Products.getProductImages(id)
   .then(data => {
-    console.log("router data:", data)
     res.json(data)
   })
   .catch(err => {
@@ -95,18 +93,13 @@ router.get("/:id/product-images", restrict, (req, res) => {
   router.put("/:id/product-images", restrict, (req, res) => {
     const product_id = req.params.id;
     const image_data = req.body;
-    // const vendor_id = 
-    console.log("req body", req.body)
-    console.log('id from image uploader:', product_id)
-    console.log("image data", image_data)
+
 
     Products.addProductImage(product_id, image_data.public_id)
     .then(response => {
-      console.log('response data', response)
       res.json(response)
     })
     .catch(err => {
-      console.log("catch data", err)
       res.json(err)
     })
   })

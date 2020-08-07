@@ -15,6 +15,7 @@ module.exports = {
   deleteVendor,
   findZip,
   addVendorBanner,
+  findVendorProductsForCustomer
 };
 
 function findBy(filter) {
@@ -30,17 +31,14 @@ function findByVendorId(filter) {
 
 function findZip(filter) {
   let input = filter.data;
-  console.log("input", input);
   if (isNaN(input)) {
     let lowerCase = input.toLowerCase();
-    console.log("lowercase", lowerCase);
     return db("vendors as v")
       .select("*")
       .where({ "v.city": lowerCase })
       .orWhere({ "v.business_name": lowerCase });
   } else {
     let num = Number(input);
-    console.log("this is num", num);
     return db("vendors as v").select("*").where({ "v.zipcode": input });
   }
 }
@@ -68,8 +66,16 @@ function findVendorProducts(filter) {
     return db("vendors as v")
     .join("products as p", "v.id", "p.vendor_id")
     .select("p.*")
-    .where({ "v.id": filter });
+    .where({ "v.users_id": filter });
 }
+
+function findVendorProductsForCustomer(filter) {
+  return db("vendors as v")
+  .join("products as p", "v.id", "p.vendor_id")
+  .select("p.*")
+  .where({ "v.id": filter });
+}
+
 //product update
 function addVendorProduct(data) {
   return db("products").insert(data).returning("*");
@@ -104,9 +110,3 @@ function addVendorBanner(vendor_id, image_data) {
     .where({ "users_id": vendor_id })
     .update({ "public_id": image_data });
 }
-
-// function addProductImage(product_id, image_data) {
-//   return db("products")
-//   .where({"id" : product_id})
-//   .update({"public_id": image_data})
-// }

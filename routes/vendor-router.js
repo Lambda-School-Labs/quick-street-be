@@ -6,9 +6,6 @@ const router = express.Router();
 // NEEDS ADMIN RIGHTS RESTRICITON
 //All vendors data
 router.get("/", restrict, (req, res) => {
-  // const admin = req.token.admin;
-  // console.log("admin", req.token);
-  // if (admin) {
   Vendors.find()
     .then((data) => {
       res.json(data);
@@ -16,11 +13,6 @@ router.get("/", restrict, (req, res) => {
     .catch((err) => {
       res.send(err);
     });
-  // } else {
-  //   res
-  //     .status(401)
-  //     .json({ message: "Sorry, you're not allowed to see this info." });
-  // }
 });
 
 router.get("/all", restrict, (req, res) => {
@@ -47,7 +39,6 @@ router.post("/all/places", restrict, (req, res) => {
 //the vendor signed in gets their data
 router.get("/me", restrict, (req, res) => {
   const id = req.token.subject;
-  console.log("is this the payload", req.token.subject);
   Vendors.findBy(id)
     .first()
     .then((data) => {
@@ -61,8 +52,6 @@ router.get("/me", restrict, (req, res) => {
 //return vendor POSTS based on logged in vendor
 router.get("/me/posts", restrict, (req, res) => {
   const user_id = req.token.subject;
-  console.log("is this the payload", req.token.subject);
-  console.log("is admin", req.token.admin);
   Vendors.findVendorPosts(user_id)
     .then((data) => {
       res.json(data);
@@ -75,7 +64,6 @@ router.get("/me/posts", restrict, (req, res) => {
 router.post("/me/posts", restrict, async (req, res) => {
   const id = req.token.subject;
   const data = req.body;
-  console.log("data before id", data);
   const checkVendor = await Vendors.findBy(id);
   if (checkVendor) {
     data.vendors_id = checkVendor[0].id;
@@ -88,7 +76,6 @@ router.post("/me/posts", restrict, async (req, res) => {
       });
   } else {
     res.status(500).json({ message: "No vendor by that id" });
-    console.log("error finding that user");
   }
 });
 
@@ -106,10 +93,20 @@ router.delete("/:vendorId", restrict, (req, res) => {
 
 router.get("/me/products", restrict, (req, res) => {
   const id = req.token.subject;
-  console.log("token id", id);
   Vendors.findVendorProducts(id)
     .then((data) => {
-      console.log("me products data", data)
+      res.json(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+//don't think we need this
+router.get("/:vendorId/products", restrict, (req, res) => {
+  const vendor_id = req.params.vendorId;
+  Vendors.findVendorProductsForCustomer(vendor_id)
+    .then((data) => {
       res.json(data);
     })
     .catch((err) => {
@@ -144,7 +141,6 @@ router.put("/me/update", restrict, (req, res) => {
 router.post("/me/products", restrict, async (req, res) => {
   const id = req.token.subject;
   const data = req.body;
-  console.log("data before id", data);
   const checkVendor = await Vendors.findBy(id);
   if (checkVendor) {
     data.vendor_id = checkVendor[0].id;
@@ -157,7 +153,6 @@ router.post("/me/products", restrict, async (req, res) => {
       });
   } else {
     res.status(500).json({ message: "No vendor by that id" });
-    console.log("error finding that user");
   }
 });
 
@@ -189,17 +184,6 @@ router.get("/:id", restrict, (req, res) => {
     });
 });
 
-//don't think we need this
-router.get("/:vendorId/products", restrict, (req, res) => {
-  const vendor_id = req.params.vendorId;
-  Vendors.findVendorProducts(vendor_id)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
 
 router.get("/:id/posts", restrict, (req, res) => {
   const { id } = req.params;
@@ -217,41 +201,15 @@ router.get("/:id/posts", restrict, (req, res) => {
 router.put("/:id/vendor-banner", restrict, (req, res) => {
   const vendor_id = req.params.id;
   const image_data = req.body;
-  // const vendor_id =
-  console.log("banner req body", req.body);
-  // console.log("id from image uploader:", product_id);
-  console.log("image data", image_data);
 
   Vendors.addVendorBanner(vendor_id, image_data.public_id)
     .then((response) => {
-      console.log("banner response data", response);
       res.json(response);
     })
     .catch((err) => {
-      console.log("catch data", err);
       res.json(err);
     });
 });
 
-
-// router.put("/:id/product-images", restrict, (req, res) => {
-//   const product_id = req.params.id;
-//   const image_data = req.body;
-//   // const vendor_id = 
-//   console.log("req body", req.body)
-//   console.log('id from image uploader:', product_id)
-//   console.log("image data", image_data)
-
-//   Products.addProductImage(product_id, image_data.public_id)
-//   .then(response => {
-//     console.log('response data', response)
-//     res.json(response)
-//   })
-//   .catch(err => {
-//     console.log("catch data", err)
-//     res.json(err)
-//   })
-// })
-// NEEDS ADMIN RIGHTS or we need two options, one for the admin to delete a vendor account,
 
 module.exports = router;

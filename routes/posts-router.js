@@ -20,7 +20,6 @@ router.get("/", restrict, (req, res) => {
 // by post ID
 router.get("/:id", restrict, (req, res) => {
   const id = req.params.id;
-  console.log("is this the payload", req.token.subject);
   Posts.findBy({ id })
     .first()
     .then((post) => {
@@ -47,7 +46,6 @@ router.post("/", restrict, (req, res) => {
 router.post("/:id", restrict, (req, res) => {
   const id = req.params.id;
   const updatedPost = req.body;
-  console.log(id, updatedPost);
   Posts.updatePost(id, updatedPost)
     .then((updatedPost) => {
       res.json(updatedPost);
