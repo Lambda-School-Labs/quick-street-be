@@ -10,10 +10,10 @@ describe("GET /", () => {
   });
 
 
-describe("GET /", () => {
-it("should return 200 OK", () => {
-    request(server)
-    .get("/")
-    .then((res) => expect(res.status).toBe(404));
-    });
-});
+// describe("GET /", () => {
+// it("should return 200 OK", () => {
+//     request(server)
+//     .get("/")
+//     .then((res) => expect(res.status).toBe(404));
+//     });
+// });
