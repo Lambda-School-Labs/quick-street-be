@@ -22,6 +22,6 @@ describe("GET /", () => {
         it("should return 404 restricted address not logged in", () => {
             request(server)
             .get("/products/1")
-            .then((res) => expect(res.status).toBe(200));
+            .then((res) => expect(res.status).toBe(404));
             });
         });
