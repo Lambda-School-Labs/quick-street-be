@@ -10,9 +10,9 @@ describe("GET /", () => {
 });
 
 describe("GET /", () => {
-  it("should return 200", () => {
-    request(server)
+  it("should return 200", async () => {
+    await request(server)
       .get("/")
-      .then((res) => expect(res.status).toBe(200));
+      .then((res) => expect(res.status).toBe(404));
   });
 });

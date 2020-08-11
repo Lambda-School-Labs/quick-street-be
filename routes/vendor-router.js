@@ -87,7 +87,7 @@ router.delete("/:vendorId", restrict, (req, res) => {
       res.json(data);
     })
     .catch((err) => {
-      res.send(err);
+      res.status(404).send(err);
     });
 });
 

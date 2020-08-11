@@ -2,12 +2,72 @@ const request = require("supertest");
 const server = require("../api/server.js");
 const db = require("../data/db-config");
 const Customers = require("./customer-models.js");
+const { expectCt } = require("helmet");
 
-describe("GET /", () => {
-  it("is using right testing environment", () => {
-    expect(process.env.NODE_ENV).toBe("testing");
+
+describe("/customers", () =>{
+
+
+
+  describe("GET /", () => {
+    it("is using right testing environment", () => {
+      expect(process.env.NODE_ENV).toBe("testing");
+    });
   });
-});
+  
+  describe("GET", () => {
+    it("should get the data", async () => {
+    
+        let theCust = await db('customers');
+        let count = theCust.length;
+        console.log("COUNT", count)
+        expect(theCust).toHaveLength(count);
+  
+    })
+  })
+
+  describe("ADD CUSTOMER", () => {
+    it("should add one more customer", async () => {
+      await Customers.add({
+        users_id: 20,
+        customer_name: "Gunner",
+        phone_number: "124-593-9276",
+        address: "hello street",
+        zip_code: 39872
+      })
+      const newCustomers = await db('customers')
+      let count = newCustomers.length;
+      expect(newCustomers).toHaveLength(count)
+    })
+  })
+
+  describe("FIND CUSTOMER BY USER ID", () => {
+    it("should find recently added customers", async () => {
+      let found = await Customers.findBy(20);
+      console.log("FOUND", found)
+      expect(found).toHaveProperty("customer_name", "Gunner")
+    })
+  })
+
+})
+
+
+
+// describe("POST /favorites/add AddFavorite", () => {
+  
+//     // beforeEach(async () => {
+//     //   await db('customer_favorites_map').truncate();
+//     // })
+    
+//     it('should insert favorites data into the db', async () => {
+      
+//       await Customers.addFavorite({user_id: 2, vendor_id: 2})
+      
+//       const newFavorite = await db('customer_favorites_map');
+//       expect(newFavorite).toHaveLength(5)
+//     })
+
+//     })
 
 // describe("GET /api/customers", () => {
 //   it("gets customers", async () => {
@@ -15,15 +75,6 @@ describe("GET /", () => {
 //     expect(res).toHaveLength(2);
 //   });
 // });
-
-
-
-// tbl.text("customer_name", 255).notNullable();
-// tbl.text("phone_number", 255).unique().notNullable();
-// tbl.text("address", 1000).notNullable();
-// tbl.integer("zip_code").notNullable();
-
-
 
 // describe("ADD a customer", () => {
   
