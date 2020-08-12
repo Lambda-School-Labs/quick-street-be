@@ -95,24 +95,24 @@ router.get("/me/products", restrict, (req, res) => {
   const id = req.token.subject;
   Vendors.findVendorProducts(id)
     .then((data) => {
-      res.json(data);
+      res.status(200).json(data);
     })
     .catch((err) => {
-      res.send(err);
+      res.status(500).send(err);
     });
 });
 
 //don't think we need this
-router.get("/:vendorId/products", restrict, (req, res) => {
-  const vendor_id = req.params.vendorId;
-  Vendors.findVendorProductsForCustomer(vendor_id)
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
+// router.get("/:vendorId/products", restrict, (req, res) => {
+//   const vendor_id = req.params.vendorId;
+//   Vendors.findVendorProductsForCustomer(vendor_id)
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// });
 
 router.post("/add", restrict, (req, res) => {
   const id = req.token.subject;
@@ -172,17 +172,17 @@ router.post("/:vendorId/products", restrict, async (req, res) => {
 
 // SAME or SIMILAR TO ABOVE
 //Return vendor data by id.
-router.get("/:id", restrict, (req, res) => {
-  const id = req.params.id;
-  Vendors.findByVendorId(id)
-    .first()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
+// router.get("/:id", restrict, (req, res) => {
+//   const id = req.params.id;
+//   Vendors.findByVendorId(id)
+//     .first()
+//     .then((data) => {
+//       res.json(data);
+//     })
+//     .catch((err) => {
+//       res.send(err);
+//     });
+// });
 
 
 router.get("/:id/posts", restrict, (req, res) => {

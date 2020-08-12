@@ -4,10 +4,24 @@ const db = require("../data/db-config");
 const Customers = require("./customer-models.js");
 const { expectCt } = require("helmet");
 
+let token;
+
+beforeAll((done)=>{
+  request(server)
+  .post("/api/auth/login")
+  .send({
+    email: "test4@test.com",
+    password: "test123"
+  })
+  .end((err, res) => {
+    // console.log("RES", res.body.token)
+    token = res.body.token;
+    done();
+  })
+})
+
 
 describe("/customers", () =>{
-
-
 
   describe("GET /", () => {
     it("is using right testing environment", () => {
@@ -26,28 +40,30 @@ describe("/customers", () =>{
     })
   })
 
-  // describe("ADD CUSTOMER", () => {
-  //   it("should add one more customer", async () => {
-  //     await Customers.add({
-  //       users_id: 20,
-  //       customer_name: "Gunner",
-  //       phone_number: "124-578-9276",
-  //       address: "hello street",
-  //       zip_code: 39872
-  //     })
-  //     const newCustomers = await db('customers')
-  //     let count = newCustomers.length;
-  //     expect(newCustomers).toHaveLength(count)
-  //   })
-  // })
+  describe("ADD CUSTOMER", () => {
+    it("should add one more customer", async () => {
 
-  describe("FIND CUSTOMER BY USER ID", () => {
-    it("should find recently added customers", async () => {
-      let found = await Customers.findBy(20);
-      console.log("FOUND", found)
-      expect(found).toHaveProperty("customer_name", "Gunner")
+      await Customers.add({
+        users_id: 20,
+        customer_name: "Gunner",
+        phone_number: "124-578-9276",
+        address: "hello street",
+        zip_code: 39872
+      })
+      const newCustomers = await db('customers')
+      let count = newCustomers.length;
+      expect(newCustomers).toHaveLength(count)
     })
   })
+
+  // describe("FIND CUSTOMER BY USER ID", () => {
+  //   it("should find recently added customers", async () => {
+  //     return request(server)
+  //     let found = await Customers.findBy(20);
+  //     console.log("FOUND", found)
+  //     expect(found).toHaveProperty("customer_name", "Gunner")
+  //   })
+  // })
 
 })
 
