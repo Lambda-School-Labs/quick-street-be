@@ -42,7 +42,6 @@ describe("get favorites /favorites", () => {
     .get("/api/auth/favorites")
     .set("Authorization", `${token}`)
     .then(res => {
-      console.log("AUTH RES", res)
       expect(res.status).toBe(200)
     })
   })
