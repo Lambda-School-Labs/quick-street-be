@@ -51,10 +51,18 @@ describe("vendor routers", () => {
       .then(res => {
         expect(res.status).toBe(201)
       })
-      
-      // let thisVendor = await db("vendors")
-      // console.log("vendors", allVendors)
-      // expect(allVendors).toHaveLength(3)
+  
+    })
+  })
+
+  describe("/me/products", () => {
+    it("should get all of the products of the vendor", async () => {
+      return request(server)
+      .get("/api/vendors/me/products")
+      .set("Authorization", `${token}`)
+      .then(res => {
+        expect(res.status).toBe(200)
+      })
     })
   })
 })
