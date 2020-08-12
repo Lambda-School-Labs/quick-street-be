@@ -3,7 +3,21 @@ const VendorsRouter = require('./vendor-router');
 const server = require('../api/server.js');
 const request = require('supertest');
 
+let token;
 
+beforeAll((done)=>{
+  request(server)
+  .post("/api/auth/login")
+  .send({
+    email: "test4@test.com",
+    password: "test123"
+  })
+  .end((err, res) => {
+    // console.log("RES", res.body.token)
+    token = res.body.token;
+    done();
+  })
+})
 
 describe("vendor routers", () => {
 
@@ -29,13 +43,30 @@ describe("vendor routers", () => {
       });
     });
 
-  describe(" get all", () => {
-    it("should get all the vendors, hopefully", async () => {
-      let allVendors = await db("vendors")
-      console.log("vendors", allVendors)
-      expect(allVendors).toHaveLength(3)
+  describe(" /me", () => {
+    it("get logged in vendor's info", async () => {
+      return request(server)
+      .get("/api/vendors/me")
+      .set('Authorization', `${token}`)
+      .then(res => {
+        expect(res.status).toBe(201)
+      })
       
+      // let thisVendor = await db("vendors")
+      // console.log("vendors", allVendors)
+      // expect(allVendors).toHaveLength(3)
     })
   })
 })
 
+
+
+// it('should return 200 ok', function () {
+//   return request(server)
+//       .post('/api/snacks')
+//       .send({ name: 'coffee', count: 3 })
+//       .then(response => {
+//           console.log('response', response.status)
+//           expect(response.status).toBe(201)
+//       })
+// })
