@@ -26,20 +26,20 @@ describe("/customers", () =>{
     })
   })
 
-  describe("ADD CUSTOMER", () => {
-    it("should add one more customer", async () => {
-      await Customers.add({
-        users_id: 20,
-        customer_name: "Gunner",
-        phone_number: "124-593-9276",
-        address: "hello street",
-        zip_code: 39872
-      })
-      const newCustomers = await db('customers')
-      let count = newCustomers.length;
-      expect(newCustomers).toHaveLength(count)
-    })
-  })
+  // describe("ADD CUSTOMER", () => {
+  //   it("should add one more customer", async () => {
+  //     await Customers.add({
+  //       users_id: 20,
+  //       customer_name: "Gunner",
+  //       phone_number: "124-578-9276",
+  //       address: "hello street",
+  //       zip_code: 39872
+  //     })
+  //     const newCustomers = await db('customers')
+  //     let count = newCustomers.length;
+  //     expect(newCustomers).toHaveLength(count)
+  //   })
+  // })
 
   describe("FIND CUSTOMER BY USER ID", () => {
     it("should find recently added customers", async () => {

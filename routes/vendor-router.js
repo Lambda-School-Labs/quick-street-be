@@ -42,7 +42,7 @@ router.get("/me", restrict, (req, res) => {
   Vendors.findBy(id)
     .first()
     .then((data) => {
-      res.json(data);
+      res.status(201).json(data);
     })
     .catch((err) => {
       res.send(err);
