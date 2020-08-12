@@ -45,17 +45,20 @@ describe("GET /", () => {
 describe(" get all orders", () => {
   it("should get all the orders in the db for the vendor signed in", async () => {
 
-    let theOrders =  request(server)
+    // let theOrders =  
+    request(server)
     .get("/api/orders")
     .set("Authorization", `${token}`)
     .then(res => {
-      console.log("ORDERS RES", res)
-      expect(res.status).toBe(200)
-      // console.log()
-      // expect(res.)
-      // let theOrders = Orders.getOrders('orders')
+      console.log("ORDERS RES", res.body)
+      let theOrders = res.body;
+      // console.log("THE ORDERS", theOrders)
       // let length = theOrders.length
-      // expect(theOrders).toHaveLength(length)
+      expect(res.status).toBe(200)
+      // console.log("LENGTH", length)
+      expect(theOrders).toHaveLength(6)
+      
+      // let theOrders = Orders.getOrders('orders')
     })
   })
 
