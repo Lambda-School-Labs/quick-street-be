@@ -62,22 +62,4 @@ describe(" get all orders", () => {
     })
   })
 
-
-  // const response = await request(app).get("/");
-  //   expect(response.body).toEqual(["Elie", "Matt", "Joel", "Michael"]);
-  //   expect(response.statusCode).toBe(200);
-
-  // it("should add one more customer", async () => {
-
-  //   await Customers.add({
-  //     users_id: 20,
-  //     customer_name: "Gunner",
-  //     phone_number: "124-578-9276",
-  //     address: "hello street",
-  //     zip_code: 39872
-  //   })
-  //   const newCustomers = await db('customers')
-  //   let count = newCustomers.length;
-  //   expect(newCustomers).toHaveLength(count)
-  // })
 })
