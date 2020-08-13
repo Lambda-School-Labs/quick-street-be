@@ -2,6 +2,7 @@ const db = require('../data/db-config.js');
 const VendorsRouter = require('./vendor-router');
 const server = require('../api/server.js');
 const request = require('supertest');
+const Vendors = require('../models/vendor-models')
 
 let token;
 
@@ -51,9 +52,56 @@ describe("vendor routers", () => {
       .then(res => {
         expect(res.status).toBe(201)
       })
-  
+
     })
   })
+
+  describe(" /me", () => {
+    it("get logged in vendor's info", async () => {
+      return request(server)
+      .get("/api/vendors/me")
+      .set('Authorization', `${token}`)
+      .then(res => {
+        expect(res.statusCode).toBe(201)
+      })
+    })
+  })
+
+  describe(" /me", () => {
+    it("get logged in vendor's info", async () => {
+      return request(server)
+      .get("/api/vendors/me")
+      .set('Authorization', `${token}`)
+      .then(res => {
+        console.log("HERE",res);
+        expect(res.info).toBe(false)
+      })
+    })
+  })
+
+  describe(" /me", () => {
+    it("get logged in vendor's info", async () => {
+      return request(server)
+      .get("/api/vendors/me")
+      .set('Authorization', `${token}`)
+      .then(res => {
+        expect(res.ok).toBe(true)
+      })
+    })
+  })
+
+
+
+  // describe("GET /api/products", () => {
+  //   it("gets user by id", async () => {
+  //     const res = await Products.findProductById(2);
+  //     expect(res.name).toBe("catnip");
+  //     expect(res.description).toBe("time to get high kitty");
+  //   });
+  // });
+
+
+
 
   describe("/me/products", () => {
     it("should get all of the products of the vendor", async () => {

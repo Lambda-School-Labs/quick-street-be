@@ -24,6 +24,7 @@ describe('add(newVendor)', () => {
     });
 });
 
+
 describe("deleteVendor", () => {
 
     it("should remove vendor 7", async () => {
@@ -35,5 +36,3 @@ describe("deleteVendor", () => {
 
 })
 })
-
-

@@ -40,3 +40,11 @@ describe("GET /", () => {
       expect(res.description).toBe("dinner");
     });
   });
+
+  describe("GET /api/products", () => {
+    it("gets user by id", async () => {
+      const res = await Products.findProductById(4);
+      expect(res.name).toBe("test");
+      expect(res.description).toBe("test please");
+    });
+  });
