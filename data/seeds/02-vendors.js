@@ -17,6 +17,7 @@ exports.seed = function (knex) {
           bulletin: "here is dog stuff to know",
           hours: "10am to 11pm",
           email: "dog@123.com",
+          public_id: "ukizgjtalygvgivfznpa",
         },
         {
           users_id: 2,
@@ -30,6 +31,7 @@ exports.seed = function (knex) {
           bulletin: "here is the bulletin about cat stuff",
           hours: "10am to 11pm",
           email: "cat@123.com",
+          public_id: "ukizgjtalygvgivfznpa",
         },
         {
           users_id: 3,
@@ -43,6 +45,7 @@ exports.seed = function (knex) {
           bulletin: "just snake away",
           hours: "10am to 11pm",
           email: "snake@123.com",
+          public_id: "ukizgjtalygvgivfznpa",
         },
       ]);
     });
