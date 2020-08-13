@@ -19,7 +19,7 @@ describe("ADD user", () => {
   it("should add one more user", async () => {
 
     await Users.addUser({
-      email: "hils@snake.com",
+      email: "hilsdfs@snake.com",
       password: "testpass",
       isVendor: 1,
       isAdmin: 0,
@@ -35,6 +35,16 @@ describe("FIND users", () => {
     const allUsers = await Users.find();
       const length = allUsers.length
       expect(allUsers).toHaveLength(length);
+  })
+})
+
+describe("DELETE a user", () => {
+  it('should remove a user from the db', async () => {
+    await Users.deleteUser(6)
+    const newUserList = await Users.find()
+    // console.log('SNACKS', newProductsList)
+    const length = newUserList.length
+    expect(newUserList.length).toBe(length)
   })
 })
 
