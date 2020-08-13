@@ -16,7 +16,7 @@ function findBy(filter) {
 }
 
 function getOrderById(filter) {
-  return db("orders").where(filter);
+  return db("orders").where({"id":filter});
 }
 
 function addOrder(newOrder) {

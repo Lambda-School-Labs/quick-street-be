@@ -3,21 +3,6 @@ const Orders = require('./orders-models.js');
 const server = require('../api/server.js');
 const request = require('supertest');
 
-// let token;
-
-// beforeAll((done)=>{
-//   request(server)
-//   .post("/api/auth/login")
-//   .send({
-//     email: "test4@test.com",
-//     password: "test123"
-//   })
-//   .end((err, res) => {
-//     // console.log("RES", res.body.token)
-//     token = res.body.token;
-//     done();
-//   })
-// })
 
 describe("GET /", () => {
     it("is using right testing environment", () => {
@@ -54,10 +39,27 @@ describe("ADD order", () => {
   })
 })
 
-// describe("find order with findBy", () => {
-//   it('should get an order by a user id', () => {
-//     let anOrder = Orders.findBy(7)
-//     console.log("AN ORDER", anOrder)
-//     expect(anOrder)
-//   })
-// })
+describe("find order with findBy",  () => {
+  it('should get an order by a user id', async () => {
+    let anOrder = await Orders.findBy(8)
+    // console.log("AN ORDER", anOrder)
+    expect(anOrder[0].id).toBe(4)
+  })
+})
+
+describe("find order by its id",  () => {
+  it('should get an order by its id', async () => {
+    let theOrder = await Orders.getOrderById(1)
+    console.log("THE ORDER", theOrder)
+    expect(theOrder[0].id).toBe(1)
+  })
+})
+
+// describe("GET vendor by id", () => {
+//   it("gets vendor by id", async () => {
+//       const aVenById = await Vendors.findByVendorId(2);
+//       console.log("ONE VENDOR", aVenById)
+//       expect(aVenById[0].zipcode).toBe(94107);
+//   //   expect(res.description).toBe("time to get high kitty");
+//   });
+//   });
