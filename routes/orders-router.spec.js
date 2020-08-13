@@ -74,4 +74,26 @@ describe(" GET logged in orders", () => {
 
 })
 
+describe("GET all orders", () => {
+  it("get all orders", async () => {
+    return request(server)
+    .get("/api/orders")
+    .set('Authorization', `${token}`)
+    .then(res => {
+      expect(res.status).toBe(200)
+    })
+  })
+})
+
+describe("GET orders /me", () => {
+  it("get logged my orders", async () => {
+    return request(server)
+    .get("/api/orders/me")
+    .set('Authorization', `${token}`)
+    .then(res => {
+      expect(res.status).toBe(200)
+    })
+  })
+})
+
 })
