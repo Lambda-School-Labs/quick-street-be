@@ -88,4 +88,16 @@ describe("POST a customer", () => {
   })
 })
 
+describe("POST a favorite of a customer", () => {
+  it("should add fav for a customer", async () => {
+    await request(server)
+    .post("/api/customers/favorites/add")
+    .set("Authorization", `${token}`)
+    .send({ customer_id: 5, vendor_id: 5 })
+    let allFavorites = await db('customer_favorites_map');
+    let favCount = allFavorites.length
+    expect(allFavorites.length).toBe(favCount)
+  })
+})
+
 })
