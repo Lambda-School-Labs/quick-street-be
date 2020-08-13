@@ -51,7 +51,7 @@ describe("vendor routers", () => {
       .then(res => {
         expect(res.status).toBe(201)
       })
-  
+
     })
   })
 
@@ -66,6 +66,79 @@ describe("vendor routers", () => {
     })
   })
 })
+
+describe(" /me", () => {
+  it("get logged in vendor's info", async () => {
+    return request(server)
+    .get("/api/vendors/me")
+    .set('Authorization', `${token}`)
+    .then(res => {
+    //  console.log("HERE",res);
+      expect(res.info).toBe(false)
+    })
+  })
+})
+describe(" /me", () => {
+  it("get logged in vendor's info", async () => {
+    return request(server)
+    .get("/api/vendors/me")
+    .set('Authorization', `${token}`)
+    .then(res => {
+      expect(res.ok).toBe(true)
+    })
+  })
+})
+describe(" /me", () => {
+  it("get logged in vendor's info", async () => {
+    return request(server)
+    .get("/api/vendors/me")
+    .set('Authorization', `${token}`)
+    .then(res => {
+      expect(res.type).toBe('application/json')
+    })
+  })
+})
+// describe(" /me", () => {
+//   it("get logged in vendor's info", async () => {
+//     return request(server)
+//     .get("/api/vendors/me")
+//     .set('Authorization', `${token}`)
+//     .then(res => {
+//       //console.log("body", res);
+//       expect(res.body.address).toBe('1234 Stanley Avea')
+//     })
+//   })
+// })
+
+describe(" /me", () => {
+  it("get logged in vendor's info", async () => {
+    return request(server)
+    .get("/api/vendors/me")
+    .set('Authorization', `${token}`)
+    .then(res => {
+      console.log("body", res.body);
+      expect(res.body).toBe('')
+    })
+  })
+})
+
+// describe("GET /api/products", () => {
+//   it("gets user by id", async () => {
+//     const res = await Products.findProductById(2);
+//     expect(res.name).toBe("catnip");
+//     expect(res.description).toBe("time to get high kitty");
+//   });
+// });
+describe("/me/products", () => {
+  it("should get all of the products of the vendor", async () => {
+    return request(server)
+    .get("/api/vendors/me/products")
+    .set("Authorization", `${token}`)
+    .then(res => {
+      // expect(res.status).toBe(200)
+    })
+  })
+});
 
 
 
