@@ -136,6 +136,24 @@ describe("GET /vendors/me", () => {
   })
 })
 
+describe("POST a vendor", () => {
+  it("should add a vendor", async () => {
+    await request(server)
+    .post("/api/vendors/add")
+    .set("Authorization", `${token}`)
+    .send({
+      users_id: 15,
+      business_name: "test vendor",
+      phone: "872-128-1434",
+      zip_code: 92298,
+
+    })
+    let allVendors = await db('vendors');
+    let allCount = allVendors.length
+    expect(allVendors.length).toBe(allCount)
+  })
+})
+
 // describe("GET /api/products", () => {
 //   it("gets user by id", async () => {
 //     const res = await Products.findProductById(2);
