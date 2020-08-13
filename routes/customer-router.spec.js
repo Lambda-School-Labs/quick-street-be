@@ -9,7 +9,7 @@ beforeAll((done)=>{
   request(server)
   .post("/api/auth/login")
   .send({
-    email: "test4@test.com",
+    email: "cust@test.com",
     password: "test123"
   })
   .end((err, res) => {
@@ -108,6 +108,23 @@ describe("POST a favorite of a customer", () => {
     let allFavorites = await db('customer_favorites_map');
     let favCount = allFavorites.length
     expect(allFavorites.length).toBe(favCount)
+  })
+})
+
+
+describe("POST a customer picture", () => {
+  it("should add a picture for a customer", async () => {
+    await request(server)
+    .post("/api/customers/4/profile-picture")
+    .set("Authorization", `${token}`)
+    .send({ id: 8, public_id: "catnip" })
+    .then(res => {
+      expect(res.status).toBe(404)
+    })
+    // let allFavorites = await db('customer_favorites_map');
+    // let favCount = allFavorites.length
+    // expect(allFavorites.length).toBe(favCount)
+    // expect
   })
 })
 

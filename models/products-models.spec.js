@@ -48,7 +48,7 @@ describe("GET /", () => {
   it('should remove a snack from the db', async () => {
     await Products.deleteProduct(4)
     const newProductsList = await Products.getProducts()
-    console.log('SNACKS', newProductsList)
+    // console.log('SNACKS', newProductsList)
     const length = newProductsList.length
     expect(newProductsList.length).toBe(length)
   })

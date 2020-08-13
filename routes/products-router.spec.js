@@ -81,7 +81,7 @@ describe(" GET a product image by id", () => {
     .set("Authorization", `${token}`)
     .then(res => {
       let theProductImage = res.body;
-      console.log("IMAGE", theProductImage)
+      // console.log("IMAGE", theProductImage)
       expect(res.status).toBe(200)
       expect(theProductImage[0].public_id).toBe("j4jtgeyfuaxvsnm1ejwj")
     })
@@ -105,6 +105,27 @@ describe("POST a product", () => {
   })
 })
 
+// describe("DELETE a product", () => {
+//   it("should delete a product", async () => {
+//     await request(server)
+//     .delete("api/products/3")
+//     .set("Authorization", `${token}`)
+//     .then(res => {
+
+//       expect(res.status).toBe(200)
+//     })
+//   })
+// })
+
+// describe("deleteProduct", () => {
+
+//   it("should remove vendor 7", async () => {
+//       await Vendors.deleteVendor(1)
+//       const newVendors = await Vendors.find()
+//       expect(newVendors).toHaveLength(0)
+//   })
+
 
 })
 
+// })

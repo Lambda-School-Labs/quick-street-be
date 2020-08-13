@@ -114,7 +114,7 @@ router.put("/:id/profile-picture", restrict, (req, res) => {
 
   Customer.addCustomerPicture(id, image_data.public_id)
     .then((response) => {
-      res.json(response);
+      res.status(200).json(response);
     })
     .catch((err) => {
       res.json(err);

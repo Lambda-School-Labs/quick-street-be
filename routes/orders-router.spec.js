@@ -67,9 +67,7 @@ describe(" GET logged in orders", () => {
     .set("Authorization", `${token}`)
     .then(res => {
       let myOrders = res.body;
-      // console.log("MY ORDERS", myOrders)
       expect(res.status).toBe(200)
-      // expect(myOrders).toHaveLength()
     })
   })
 
