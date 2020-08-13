@@ -16,7 +16,7 @@ describe("GET /", () => {
     it('should remove a post from the db', async () => {
       await Posts.deletePost(2)
       const newPostsList = await Posts.find()
-      console.log('POSTS', newPostsList)
+      // console.log('POSTS', newPostsList)
       const length = newPostsList.length
       expect(newPostsList.length).toBe(length)
     })

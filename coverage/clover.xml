@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1597287948232" clover="3.2.0">
-  <project timestamp="1597287948232" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1597326283234" clover="3.2.0">
+  <project timestamp="1597326283234" name="All files">
+    <metrics statements="21" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="4" elements="30" coveredelements="19" complexity="0" loc="21" ncloc="21" packages="1" files="1" classes="1"/>
+    <file name="orders-router.js" path="/Users/omidashtari/Documents/LambdaLabs/quick-street-be/routes/orders-router.js">
+      <metrics statements="21" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="4"/>
+      <line num="1" count="15" type="stmt"/>
+      <line num="2" count="15" type="stmt"/>
+      <line num="3" count="15" type="stmt"/>
+      <line num="4" count="15" type="stmt"/>
+      <line num="6" count="15" type="stmt"/>
+      <line num="7" count="15" type="stmt"/>
+      <line num="12" count="15" type="stmt"/>
+      <line num="13" count="2" type="stmt"/>
+      <line num="15" count="2" type="stmt"/>
+      <line num="18" count="0" type="stmt"/>
+      <line num="24" count="15" type="stmt"/>
+      <line num="25" count="2" type="stmt"/>
+      <line num="26" count="2" type="stmt"/>
+      <line num="28" count="2" type="stmt"/>
+      <line num="31" count="0" type="stmt"/>
+      <line num="37" count="15" type="stmt"/>
+      <line num="39" count="0" type="stmt"/>
+      <line num="40" count="0" type="stmt"/>
+      <line num="42" count="0" type="stmt"/>
+      <line num="45" count="0" type="stmt"/>
+      <line num="49" count="15" type="stmt"/>
+    </file>
   </project>
 </coverage>

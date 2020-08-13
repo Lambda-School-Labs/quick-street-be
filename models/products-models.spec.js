@@ -48,11 +48,23 @@ describe("GET /", () => {
   it('should remove a snack from the db', async () => {
     await Products.deleteProduct(4)
     const newProductsList = await Products.getProducts()
-    console.log('SNACKS', newProductsList)
+    // console.log('SNACKS', newProductsList)
     const length = newProductsList.length
     expect(newProductsList.length).toBe(length)
   })
 })
 
+describe("ADD a product", () => {
+  it("should add a product", async () => {
+    await Products.addProduct({
+      vendor_id: 3,
+      name: "TEST",
+      price: 16,
+    })
+    const newProducts = await db('products')
+    let productCount = newProducts.length
+    expect(newProducts.length).toBe(productCount)
+  })
+})
 
 })

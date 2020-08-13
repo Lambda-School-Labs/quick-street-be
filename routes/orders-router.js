@@ -8,6 +8,7 @@ const router = express.Router();
 
 // ALL orders
 
+
 router.get("/", restrict, (req, res) => {
   Orders.getOrders()
     .then(orders => {

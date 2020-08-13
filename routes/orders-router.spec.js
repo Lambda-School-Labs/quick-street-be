@@ -51,8 +51,9 @@ describe(" GET all orders", () => {
     .set("Authorization", `${token}`)
     .then(res => {
       let theOrders = res.body;
+      let ordersLength = theOrders.length
       expect(res.status).toBe(200)
-      expect(theOrders).toHaveLength(6)
+      expect(theOrders).toHaveLength(ordersLength)
     })
   })
 
@@ -67,12 +68,32 @@ describe(" GET logged in orders", () => {
     .set("Authorization", `${token}`)
     .then(res => {
       let myOrders = res.body;
-      // console.log("MY ORDERS", myOrders)
       expect(res.status).toBe(200)
-      // expect(myOrders).toHaveLength()
     })
   })
 
+})
+
+describe("GET all orders", () => {
+  it("get all orders", async () => {
+    return request(server)
+    .get("/api/orders")
+    .set('Authorization', `${token}`)
+    .then(res => {
+      expect(res.status).toBe(200)
+    })
+  })
+})
+
+describe("GET orders /me", () => {
+  it("get logged my orders", async () => {
+    return request(server)
+    .get("/api/orders/me")
+    .set('Authorization', `${token}`)
+    .then(res => {
+      expect(res.status).toBe(200)
+    })
+  })
 })
 
 })

@@ -34,7 +34,7 @@ describe("/customers", () =>{
     
         let theCust = await db('customers');
         let count = theCust.length;
-        console.log("COUNT", count)
+        // console.log("COUNT", count)
         expect(theCust).toHaveLength(count);
   
     })
@@ -61,7 +61,7 @@ describe("/customers", () =>{
     it('should remove a customer from the db', async () => {
       await Customers.deleteCustomer(3)
       const newCustomerList = await Customers.find()
-      console.log('CUSTOMERS', newCustomerList)
+      // console.log('CUSTOMERS', newCustomerList)
       const length = newCustomerList.length
       expect(newCustomerList.length).toBe(length)
     })

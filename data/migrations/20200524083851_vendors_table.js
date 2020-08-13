@@ -3,7 +3,7 @@ exports.up = function (knex) {
 
     .createTable("users", (tbl) => {
       tbl.increments();
-      tbl.text("email", 255).unique().notNullable();
+      tbl.text("email", 255).notNullable();
       tbl.text("password", 255).notNullable();
       tbl.boolean("isVendor");
       tbl.boolean("isAdmin");
@@ -19,7 +19,7 @@ exports.up = function (knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       tbl.text("business_name", 255).notNullable();
-      tbl.text("phone", 255).unique().notNullable();
+      tbl.text("phone", 255).notNullable();
       tbl.text("address", 1000);
       tbl.integer("zipcode").notNullable();
       tbl.text("city", 64);
