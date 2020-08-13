@@ -73,7 +73,7 @@ describe("vendor routers", () => {
       .get("/api/vendors/me")
       .set('Authorization', `${token}`)
       .then(res => {
-        console.log("HERE",res);
+      //  console.log("HERE",res);
         expect(res.info).toBe(false)
       })
     })
@@ -86,6 +86,29 @@ describe("vendor routers", () => {
       .set('Authorization', `${token}`)
       .then(res => {
         expect(res.ok).toBe(true)
+      })
+    })
+  })
+
+  describe(" /me", () => {
+    it("get logged in vendor's info", async () => {
+      return request(server)
+      .get("/api/vendors/me")
+      .set('Authorization', `${token}`)
+      .then(res => {
+        expect(res.type).toBe('application/json')
+      })
+    })
+  })
+
+  describe(" /me", () => {
+    it("get logged in vendor's info", async () => {
+      return request(server)
+      .get("/api/vendors/me")
+      .set('Authorization', `${token}`)
+      .then(res => {
+        console.log("body", res);
+        expect(res.body).toBe('')
       })
     })
   })
