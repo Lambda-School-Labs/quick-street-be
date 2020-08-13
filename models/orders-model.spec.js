@@ -13,7 +13,7 @@ describe("GET /", () => {
 describe("GET orders", () => {
   it("should get orders or", async () => {
     let theOrders = await db('orders');
-    console.log("the orders", theOrders)
+    // console.log("the orders", theOrders)
     expect(theOrders.length).toBe(6)
   })
 })
