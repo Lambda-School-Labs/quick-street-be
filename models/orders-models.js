@@ -10,10 +10,7 @@ module.exports = {
 
 function findBy(filter) {
   return db("users as u")
-    // .join("customers as c", "u.id", "c.users_id")
     .join("orders as o", "o.user_id", "u.id")
-    // .join("products as p", "p.id", "o.product_id")
-    // .join("vendors as v", "v.id", "p.vendor_id")
     .select("o.*")
     .where({ "u.id": filter });
 }
@@ -29,7 +26,3 @@ function addOrder(newOrder) {
 function getOrders() {
   return db("orders").select("*");
 }
-
-
-
-

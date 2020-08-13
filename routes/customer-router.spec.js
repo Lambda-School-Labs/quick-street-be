@@ -121,10 +121,6 @@ describe("POST a customer picture", () => {
     .then(res => {
       expect(res.status).toBe(404)
     })
-    // let allFavorites = await db('customer_favorites_map');
-    // let favCount = allFavorites.length
-    // expect(allFavorites.length).toBe(favCount)
-    // expect
   })
 })
 

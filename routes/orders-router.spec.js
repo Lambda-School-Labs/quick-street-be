@@ -51,8 +51,9 @@ describe(" GET all orders", () => {
     .set("Authorization", `${token}`)
     .then(res => {
       let theOrders = res.body;
+      let ordersLength = theOrders.length
       expect(res.status).toBe(200)
-      expect(theOrders).toHaveLength(6)
+      expect(theOrders).toHaveLength(ordersLength)
     })
   })
 
