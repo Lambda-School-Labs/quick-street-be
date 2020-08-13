@@ -73,6 +73,22 @@ describe(" GET a product by id", () => {
   })
 })
 
+describe(" GET a product image by id", () => {
+  it("should get a product image by id", async () => {
+
+    request(server)
+    .get("/api/products/1/product-images")
+    .set("Authorization", `${token}`)
+    .then(res => {
+      let theProductImage = res.body;
+      console.log("IMAGE", theProductImage)
+      expect(res.status).toBe(200)
+      expect(theProductImage[0].public_id).toBe("j4jtgeyfuaxvsnm1ejwj")
+    })
+  })
+})
+
+
 describe("POST a product", () => {
   it("should post a product", async () => {
     await request(server)
