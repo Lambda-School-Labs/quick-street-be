@@ -59,4 +59,14 @@ describe("POST a product", () => {
     expect(allProducts.length).toBe(allCount)
   })
 })
+
+describe("DELETE a product", () => {
+  it("should hopefully delete a product", async ()  =>{
+    await request(server)
+    .delete("/api/products")
+    .set("Authorization", `${token}`)
+    .delete
   })
+})
+
+})
