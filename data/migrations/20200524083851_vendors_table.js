@@ -42,7 +42,7 @@ exports.up = function (knex) {
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
       tbl.text("customer_name", 255).notNullable();
-      tbl.text("phone_number", 255).unique().notNullable();
+      tbl.text("phone_number", 255).notNullable();
       tbl.text("address", 1000).notNullable();
       tbl.integer("zip_code").notNullable();
       tbl.text("public_id");

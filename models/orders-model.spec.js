@@ -10,6 +10,14 @@ describe("GET /", () => {
     });
   });
 
+describe("GET orders", () => {
+  it("should get orders or", async () => {
+    let theOrders = await db('orders');
+    // console.log("the orders", theOrders)
+    expect(theOrders.length).toBe(6)
+  })
+})
+
   // describe("GET /api/orders", () => {
   //   it("gets order by id", async () => {
   //     const res = await Orders.getOrders();
