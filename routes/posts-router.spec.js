@@ -49,15 +49,10 @@ describe(" get all posts", () => {
     .get("/api/posts")
     .set("Authorization", `${token}`)
     .then(res => {
-      console.log("POSTS RES", res.body)
+      // console.log("POSTS RES", res.body)
       let thePosts = res.body;
-      // console.log("THE ORDERS", theOrders)
-      // let length = theOrders.length
       expect(res.status).toBe(200)
-      // console.log("LENGTH", length)
       expect(thePosts).toHaveLength(2)
-      
-      // let theOrders = Orders.getOrders('orders')
     })
   })
 
