@@ -122,6 +122,20 @@ describe(" /me", () => {
   })
 })
 
+describe("GET /vendors/me", () => {
+  it("should get all of the favorites of the customer", async () => {
+    return request(server)
+    .get("/api/vendors/me")
+    .set("Authorization", `${token}`)
+    .then(res => {
+      let theVendors = res.body;
+      let VendorCount = theVendors.length;
+      expect(res.status).toBe(201)
+      expect(theVendors.length).toBe(VendorCount)
+    })
+  })
+})
+
 // describe("GET /api/products", () => {
 //   it("gets user by id", async () => {
 //     const res = await Products.findProductById(2);
