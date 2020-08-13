@@ -27,7 +27,7 @@ function findProductById(id) {
 }
 
 function addProduct(newProduct) {
-  return db("products".insert(newProduct));
+  return db("products").insert(newProduct);
 }
 
 function updateProduct(id, data) {

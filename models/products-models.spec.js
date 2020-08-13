@@ -54,5 +54,17 @@ describe("GET /", () => {
   })
 })
 
+describe("ADD a product", () => {
+  it("should add a product", async () => {
+    await Products.addProduct({
+      vendor_id: 3,
+      name: "TEST",
+      price: 16,
+    })
+    const newProducts = await db('products')
+    let productCount = newProducts.length
+    expect(newProducts.length).toBe(productCount)
+  })
+})
 
 })

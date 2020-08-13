@@ -38,7 +38,7 @@ describe("GET ORDER by ID", () => {
   it("should get an order by its ID", async () => {
     // let thisOrder = await Orders.getOrderById(1);
     let thisOrder = await db('orders').where({id:1})
-    console.log("THIS ORDER", thisOrder)
+    // console.log("THIS ORDER", thisOrder)
     expect(thisOrder[0].subtotal).toBe(7658)
   })
 })
@@ -54,20 +54,10 @@ describe("ADD order", () => {
   })
 })
 
-
-
-// describe("ADD CUSTOMER", () => {
-//   it("should add one more customer", async () => {
-
-//     await Customers.add({
-//       users_id: 20,
-//       customer_name: "Gunner",
-//       phone_number: "124-578-9276",
-//       address: "hello street",
-//       zip_code: 39872
-//     })
-//     const newCustomers = await db('customers')
-//     let count = newCustomers.length;
-//     expect(newCustomers).toHaveLength(count)
+// describe("find order with findBy", () => {
+//   it('should get an order by a user id', () => {
+//     let anOrder = Orders.findBy(7)
+//     console.log("AN ORDER", anOrder)
+//     expect(anOrder)
 //   })
 // })

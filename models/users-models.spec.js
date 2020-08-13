@@ -15,6 +15,29 @@ describe("GET /", () => {
     });
   });
 
+describe("ADD user", () => {
+  it("should add one more user", async () => {
+
+    await Users.addUser({
+      email: "hils@snake.com",
+      password: "testpass",
+      isVendor: 1,
+      isAdmin: 0,
+    })
+    const newUsers = await db('users')
+    let userCount = newUsers.length;
+    expect(newUsers).toHaveLength(userCount)
+  })
+})
+
+describe("FIND users", () => {
+  it("should find all users", async () => {
+    const allUsers = await Users.find();
+      const length = allUsers.length
+      expect(allUsers).toHaveLength(length);
+  })
+})
+
 //   describe("POST /api/auth/register", () => {
 //     it("allows add a user", () => {
 //       request(server)
