@@ -51,7 +51,7 @@ describe("vendor routers", () => {
       .then(res => {
         expect(res.status).toBe(201)
       })
-  
+
     })
   })
 
@@ -66,6 +66,111 @@ describe("vendor routers", () => {
     })
   })
 })
+
+describe(" /me", () => {
+  it("get logged in vendor's info", async () => {
+    return request(server)
+    .get("/api/vendors/me")
+    .set('Authorization', `${token}`)
+    .then(res => {
+    //  console.log("HERE",res);
+      expect(res.info).toBe(false)
+    })
+  })
+})
+describe(" /me", () => {
+  it("get logged in vendor's info", async () => {
+    return request(server)
+    .get("/api/vendors/me")
+    .set('Authorization', `${token}`)
+    .then(res => {
+      expect(res.ok).toBe(true)
+    })
+  })
+})
+describe(" /me", () => {
+  it("get logged in vendor's info", async () => {
+    return request(server)
+    .get("/api/vendors/me")
+    .set('Authorization', `${token}`)
+    .then(res => {
+      expect(res.type).toBe('application/json')
+    })
+  })
+})
+// describe(" /me", () => {
+//   it("get logged in vendor's info", async () => {
+//     return request(server)
+//     .get("/api/vendors/me")
+//     .set('Authorization', `${token}`)
+//     .then(res => {
+//       //console.log("body", res);
+//       expect(res.body.address).toBe('1234 Stanley Avea')
+//     })
+//   })
+// })
+
+describe(" /me", () => {
+  it("get logged in vendor's info", async () => {
+    return request(server)
+    .get("/api/vendors/me")
+    .set('Authorization', `${token}`)
+    .then(res => {
+      console.log("body", res.body);
+      expect(res.body).toBe('')
+    })
+  })
+})
+
+describe("GET /vendors/me", () => {
+  it("should get all of the favorites of the customer", async () => {
+    return request(server)
+    .get("/api/vendors/me")
+    .set("Authorization", `${token}`)
+    .then(res => {
+      let theVendors = res.body;
+      let VendorCount = theVendors.length;
+      expect(res.status).toBe(201)
+      expect(theVendors.length).toBe(VendorCount)
+    })
+  })
+})
+
+describe("POST a vendor", () => {
+  it("should add a vendor", async () => {
+    await request(server)
+    .post("/api/vendors/add")
+    .set("Authorization", `${token}`)
+    .send({
+      users_id: 15,
+      business_name: "test vendor",
+      phone: "872-128-1434",
+      zip_code: 92298,
+
+    })
+    let allVendors = await db('vendors');
+    let allCount = allVendors.length
+    expect(allVendors.length).toBe(allCount)
+  })
+})
+
+// describe("GET /api/products", () => {
+//   it("gets user by id", async () => {
+//     const res = await Products.findProductById(2);
+//     expect(res.name).toBe("catnip");
+//     expect(res.description).toBe("time to get high kitty");
+//   });
+// });
+describe("/me/products", () => {
+  it("should get all of the products of the vendor", async () => {
+    return request(server)
+    .get("/api/vendors/me/products")
+    .set("Authorization", `${token}`)
+    .then(res => {
+      // expect(res.status).toBe(200)
+    })
+  })
+});
 
 
 
