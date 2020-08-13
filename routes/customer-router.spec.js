@@ -43,6 +43,17 @@ describe("GET /", () => {
     });
   });
 
+describe("GET all", () => {
+  it("get all customers", async () => {
+    return request(server)
+    .get("/api/customers")
+    .set('Authorization', `${token}`)
+    .then(res => {
+      expect(res.status).toBe(200)
+    })
+  })
+})
+
 describe("GET /me", () => {
   it("get logged in customer's info", async () => {
     return request(server)

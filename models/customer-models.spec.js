@@ -56,6 +56,17 @@ describe("/customers", () =>{
     })
   })
 
+
+  describe("DELETE a customer", () => {
+    it('should remove a customer from the db', async () => {
+      await Customers.deleteCustomer(3)
+      const newCustomerList = await Customers.find()
+      console.log('CUSTOMERS', newCustomerList)
+      const length = newCustomerList.length
+      expect(newCustomerList.length).toBe(length)
+    })
+  })
+
   // describe("FIND CUSTOMER BY USER ID", () => {
   //   it("should find recently added customers", async () => {
   //     return request(server)

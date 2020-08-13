@@ -44,6 +44,51 @@ describe("GET /", () => {
         });
     });
 
+describe(" GET all products", () => {
+  it("should get all the products in the db", async () => {
+
+    request(server)
+    .get("/api/products")
+    .set("Authorization", `${token}`)
+    .then(res => {
+      let theProducts = res.body;
+      let length = theProducts.length
+      expect(res.status).toBe(200)
+      expect(theProducts).toHaveLength(length)
+    })
+  })
+})
+
+describe(" GET a product by id", () => {
+  it("should get a product by id in the db", async () => {
+
+    request(server)
+    .get("/api/products/1")
+    .set("Authorization", `${token}`)
+    .then(res => {
+      let theProduct = res.body;
+      expect(res.status).toBe(200)
+      expect(theProduct.id).toBe(1)
+    })
+  })
+})
+
+describe(" GET a product image by id", () => {
+  it("should get a product image by id", async () => {
+
+    request(server)
+    .get("/api/products/1/product-images")
+    .set("Authorization", `${token}`)
+    .then(res => {
+      let theProductImage = res.body;
+      console.log("IMAGE", theProductImage)
+      expect(res.status).toBe(200)
+      expect(theProductImage[0].public_id).toBe("j4jtgeyfuaxvsnm1ejwj")
+    })
+  })
+})
+
+
 describe("POST a product", () => {
   it("should post a product", async () => {
     await request(server)
@@ -59,4 +104,7 @@ describe("POST a product", () => {
     expect(allProducts.length).toBe(allCount)
   })
 })
-  })
+
+
+})
+

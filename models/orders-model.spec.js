@@ -17,10 +17,3 @@ describe("GET orders", () => {
     expect(theOrders.length).toBe(6)
   })
 })
-
-  // describe("GET /api/orders", () => {
-  //   it("gets order by id", async () => {
-  //     const res = await Orders.getOrders();
-  //     expect(res).toHaveLength(3);
-  //   });
-  // });
