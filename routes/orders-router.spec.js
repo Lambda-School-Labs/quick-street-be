@@ -18,6 +18,8 @@ beforeAll((done)=>{
   })
 })
 
+describe("get routers", () =>{
+
 describe("GET /", () => {
     it("is using right testing environment", () => {
       expect(process.env.NODE_ENV).toBe("testing");
@@ -41,24 +43,36 @@ describe("GET /", () => {
         });
     });
 
-describe(" get all orders", () => {
-  it("should get all the orders in the db for the vendor signed in", async () => {
+describe(" GET all orders", () => {
+  it("should get all the orders in the db", async () => {
 
-    // let theOrders =  
     request(server)
     .get("/api/orders")
     .set("Authorization", `${token}`)
     .then(res => {
-      // console.log("ORDERS RES", res.body)
       let theOrders = res.body;
-      // console.log("THE ORDERS", theOrders)
-      // let length = theOrders.length
       expect(res.status).toBe(200)
-      // console.log("LENGTH", length)
       expect(theOrders).toHaveLength(6)
-      
-      // let theOrders = Orders.getOrders('orders')
     })
   })
+
+})
+
+
+describe(" GET logged in orders", () => {
+  it("should get all the orders in the db for the vendor signed in", async () => {
+
+    request(server)
+    .get("/api/orders/me")
+    .set("Authorization", `${token}`)
+    .then(res => {
+      let myOrders = res.body;
+      // console.log("MY ORDERS", myOrders)
+      expect(res.status).toBe(200)
+      // expect(myOrders).toHaveLength()
+    })
+  })
+
+})
 
 })

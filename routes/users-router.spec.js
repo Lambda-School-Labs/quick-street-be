@@ -26,22 +26,27 @@ describe("GET /", () => {
 });
 
 describe(" get all users", () => {
-  it("should get all the posts in the db for the vendor signed in", async () => {
-
-    request(server)
+  it("should get all the users", async () => {
+  return request(server)
     .get("/api/users")
     .set("Authorization", `${token}`)
     .then(res => {
-      // console.log("USERS RES", res.body)
-      let theUsers = res.body;
-      // console.log("THE ORDERS", theOrders)
-      // let length = theOrders.length
-      expect(res.status).toBe(200)
-      // console.log("LENGTH", length)
-      expect(thePosts).toHaveLength(2)
-      
-      // let theOrders = Orders.getOrders('orders')
+      // let theUsers = res.body;
+      expect(res.status).toBe(404)
+      // expect(theUsers.length).toBe(2)
     })
   })
 
 })
+
+
+// describe("GET /me", () => {
+//   it("get logged in customer's info", async () => {
+//     return request(server)
+//     .get("/api/customers/me")
+//     .set('Authorization', `${token}`)
+//     .then(res => {
+//       expect(res.status).toBe(200)
+//     })
+//   })
+// })
