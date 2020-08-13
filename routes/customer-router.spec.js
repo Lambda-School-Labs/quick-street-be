@@ -60,8 +60,31 @@ describe("GET /favorites/me", () => {
     .get("/api/customers/favorites/me")
     .set("Authorization", `${token}`)
     .then(res => {
+      let theCustomers = res.body;
+      let customerCount = theCustomers.length;
       expect(res.status).toBe(200)
+      expect(theCustomers.length).toBe(customerCount)
     })
+  })
+})
+
+
+describe("POST a customer", () => {
+  it("should add a customer", async () => {
+    await request(server)
+    .post("/api/customers/profile")
+    .set("Authorization", `${token}`)
+    .send({
+      users_id: 10,
+      customer_name: "test customers",
+      phone_number: "555-528-1434",
+      address: "1234 Stanley Ave, Glendale, CA",
+      zip_code: 91208,
+      public_id: "j4jtgeyfuaxvsnm1ejwj"
+    })
+    let allCustomers = await db('customers');
+    let allCount = allCustomers.length
+    expect(allCustomers.length).toBe(allCount)
   })
 })
 

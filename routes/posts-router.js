@@ -43,7 +43,7 @@ router.post("/", restrict, (req, res) => {
 });
 
 // UPDATE post
-router.post("/:id", restrict, (req, res) => {
+router.put("/:id", restrict, (req, res) => {
   const id = req.params.id;
   const updatedPost = req.body;
   Posts.updatePost(id, updatedPost)
