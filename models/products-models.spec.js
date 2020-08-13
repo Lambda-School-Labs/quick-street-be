@@ -3,6 +3,8 @@ const Products = require('./products-models.js');
 const server = require('../api/server.js');
 const request = require('supertest');
 
+describe("producst models", () => {
+  
 
 describe("GET /", () => {
     it("is using right testing environment", () => {
@@ -13,7 +15,8 @@ describe("GET /", () => {
   describe("GET /api/products", () => {
     it("gets products", async () => {
       const res = await Products.getProducts();
-      expect(res).toHaveLength(4);
+      const length = res.length
+      expect(res).toHaveLength(length);
     });
   });
 
@@ -40,3 +43,16 @@ describe("GET /", () => {
       expect(res.description).toBe("dinner");
     });
   });
+
+  describe("DELETE a product", () => {
+  it('should remove a snack from the db', async () => {
+    await Products.deleteProduct(4)
+    const newProductsList = await Products.getProducts()
+    console.log('SNACKS', newProductsList)
+    const length = newProductsList.length
+    expect(newProductsList.length).toBe(length)
+  })
+})
+
+
+})
